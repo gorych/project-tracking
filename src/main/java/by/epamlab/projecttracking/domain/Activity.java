@@ -21,12 +21,12 @@ public class Activity {
     @Column(name = "comment")
     private String comment;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany
-    @JoinColumn(name = "assignment_id")
+    @ManyToOne
+    @JoinColumn(name = "assigment_id")
     private Assignment assignment;
 
     public int getId() {
@@ -75,5 +75,17 @@ public class Activity {
 
     public void setAssignment(Assignment assignment) {
         this.assignment = assignment;
+    }
+
+    @Override
+    public String toString() {
+        return "Activity{" +
+                "id=" + id +
+                ", date=" + date +
+                ", duration=" + duration +
+                ", comment='" + comment + '\'' +
+                ", member=" + member +
+                ", assignment=" + assignment +
+                '}';
     }
 }

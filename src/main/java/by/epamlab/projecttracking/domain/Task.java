@@ -12,11 +12,11 @@ public class Task {
     @GeneratedValue
     private int id;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "status_id")
     private Status status;
 
@@ -97,5 +97,19 @@ public class Task {
 
     public void setAdd(Date add) {
         this.add = add;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", project=" + project +
+                ", status=" + status +
+                ", description='" + description + '\'' +
+                ", psd=" + psd +
+                ", pdd=" + pdd +
+                ", asd=" + asd +
+                ", add=" + add +
+                '}';
     }
 }

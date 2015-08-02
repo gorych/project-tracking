@@ -23,7 +23,7 @@ public class Employee {
     @Column(name = "password")
     private String password;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "position_id")
     private Position position;
 
@@ -49,5 +49,17 @@ public class Employee {
 
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", position=" + position +
+                '}';
     }
 }

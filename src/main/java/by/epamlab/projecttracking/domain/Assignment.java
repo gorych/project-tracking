@@ -3,7 +3,7 @@ package by.epamlab.projecttracking.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "assigment")
+@Table(name = "assignment")
 public class Assignment {
 
     @Id
@@ -14,11 +14,11 @@ public class Assignment {
     @Column(name = "description")
     private String description;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "mamber_id")
     private Member member;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "task_id")
     private Task task;
 
@@ -52,5 +52,15 @@ public class Assignment {
 
     public void setTask(Task task) {
         this.task = task;
+    }
+
+    @Override
+    public String toString() {
+        return "Assignment{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", member=" + member +
+                ", task=" + task +
+                '}';
     }
 }

@@ -20,11 +20,11 @@ public class Attachment {
     @Column(name = "description")
     private String description;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "task_id")
     private Task task;
 
@@ -74,5 +74,17 @@ public class Attachment {
 
     public void setTask(Task task) {
         this.task = task;
+    }
+
+    @Override
+    public String toString() {
+        return "Attachment{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", size='" + size + '\'' +
+                ", description='" + description + '\'' +
+                ", project=" + project +
+                ", task=" + task +
+                '}';
     }
 }

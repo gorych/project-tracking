@@ -11,15 +11,15 @@ public class Member {
     @GeneratedValue
     private int id;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
 
@@ -53,5 +53,15 @@ public class Member {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", project=" + project +
+                ", employee=" + employee +
+                ", role=" + role +
+                '}';
     }
 }
