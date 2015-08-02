@@ -26,8 +26,8 @@ public class Activity {
     private Member member;
 
     @OneToMany
-    @JoinColumn(name = "assigment_id")
-    private Assigment assigment;
+    @JoinColumn(name = "assignment_id")
+    private Assignment assignment;
 
     public int getId() {
         return id;
@@ -69,11 +69,11 @@ public class Activity {
         this.member = member;
     }
 
-    public Assigment getAssigment() {
-        return assigment;
+    public Assignment getAssignment() {
+        return assignment;
     }
 
-    public void setAssigment(Assigment assigment) {
-        this.assigment = assigment;
+    public void setAssignment(Assignment assignment) {
+        this.assignment = assignment;
     }
 }
