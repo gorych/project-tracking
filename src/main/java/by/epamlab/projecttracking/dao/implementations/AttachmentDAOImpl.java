@@ -1,0 +1,28 @@
+package by.epamlab.projecttracking.dao.implementations;
+
+import by.epamlab.projecttracking.domain.Attachment;
+import org.hibernate.SessionFactory;
+import org.hibernate.classic.Session;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public class AttachmentDAOImpl {
+
+    @Autowired
+    private SessionFactory sessionFactory;
+
+    public Attachment get(int id) {
+        Session session = sessionFactory.getCurrentSession();
+        return (Attachment) session.get(Attachment.class, id);
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Attachment> getAll() {
+        return sessionFactory.getCurrentSession().createQuery("from Attachment")
+                .list();
+    }
+
+}
