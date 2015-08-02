@@ -1,5 +1,6 @@
 package by.epamlab.projecttracking.dao.implementations;
 
+import by.epamlab.projecttracking.dao.interfaces.PositionDAO;
 import by.epamlab.projecttracking.domain.Position;
 import by.epamlab.projecttracking.domain.Role;
 import org.hibernate.SessionFactory;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class PositionDAOImpl {
+public class PositionDAOImpl implements PositionDAO{
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -21,7 +22,7 @@ public class PositionDAOImpl {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Role> getAll() {
+    public List<Position> getAll() {
         return sessionFactory.getCurrentSession().createQuery("from Position")
                 .list();
     }

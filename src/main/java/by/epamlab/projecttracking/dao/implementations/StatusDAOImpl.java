@@ -1,5 +1,6 @@
 package by.epamlab.projecttracking.dao.implementations;
 
+import by.epamlab.projecttracking.dao.interfaces.StatusDAO;
 import by.epamlab.projecttracking.domain.Status;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class StatusDAOImpl {
+public class StatusDAOImpl implements StatusDAO{
 
     @Autowired
     private SessionFactory sessionFactory;

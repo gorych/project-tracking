@@ -1,5 +1,6 @@
 package by.epamlab.projecttracking.dao.implementations;
 
+import by.epamlab.projecttracking.dao.interfaces.ProjectDAO;
 import by.epamlab.projecttracking.domain.Project;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class ProjectDAOImpl {
+public class ProjectDAOImpl implements ProjectDAO{
 
     @Autowired
     private SessionFactory sessionFactory;
