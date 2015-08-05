@@ -21,14 +21,13 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         return (Employee) session.get(Employee.class, id);
     }
 
-    public Employee getByUsername(String username) {
+    @SuppressWarnings("unchecked")
+    public Employee getByUsername(String login) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("FROM Employee WHERE login = ?");
-        query.setString(0, username);
-        if (query.list().size() != 0) {
-            return (Employee) query.list();
-        }
-        return null;
+        Query query = session.createQuery("FROM Employee WHERE login = :login");
+        query.setString("login", login);
+        List<Employee> employees = query.list();
+        return employees.size() > 0 ? employees.get(0) : null;
     }
 
     @SuppressWarnings("unchecked")
