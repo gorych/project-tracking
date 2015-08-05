@@ -1,0 +1,238 @@
+html, body {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    min-width: 1000px;
+    min-height: 500px;
+    font-family: sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5 ,h6 {
+    font-weight: normal;
+}
+
+h1 {
+    font-size: 17pt;
+}
+
+h4 {
+    font-size: 12pt;
+}
+
+.main {
+    min-height: 100%;
+    box-sizing: border-box;
+}
+
+.header, .footer {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.header {
+    width: 100%;
+    height: 41px;
+    background: #205081;
+    font-size: 14px;
+}
+
+.header .btn-login {
+    margin-right: 45px;
+    float: right;
+}
+
+.container {
+    height: 100%;
+    margin: 0 auto;
+}
+
+.container .content {
+    padding: 20px 50px;
+}
+
+.main-nav {
+    margin: 0;
+    line-height: 41px;
+    height: 100%;
+    text-transform: capitalize;
+    color: #FFF;
+    background: #205081;
+}
+
+.main-nav ul {
+    list-style-type: none;
+    margin: 0;
+}
+
+.main-nav li {
+    height: 100%;
+    float: left;
+}
+
+.main-nav li:hover, a:hover {
+    background: #3572B0;
+}
+
+.main-nav a {
+    color: #fff;
+    display: block;
+    padding: 0 7px;
+}
+
+.dropdown {
+    padding: 0 10px;
+    position: relative;
+}
+
+.dropdown:after {
+    content: "\25BC";
+    font-size: .7em;
+    display: block;
+    position: absolute;
+    top: 1px;
+    right: 5px;
+}
+
+.drop-nav {
+    background: #FFF;
+    position: absolute;
+    left: 0;
+    display: none;
+    border: 1px solid #CCC;
+}
+
+.dropdown:hover .drop-nav {
+    display: block;
+    left: 0;
+}
+
+.drop-nav li {
+    margin-left: -40px;
+    width: 130px;
+    border-top: 1px solid #FFF;
+}
+
+.drop-nav a {
+    color: #000;
+}
+
+.drop-nav a:hover {
+    color: #FFF;
+}
+
+.main-nav .btn {
+    float: left;
+    margin-top: 5px;
+    margin-left: 15px;
+    border-radius: 6px;
+    background: #3572B0;
+    width: 100px;
+    height: 30px;
+    line-height: 31px;
+    text-align: center;
+}
+
+.btn a {
+    display: block;
+    border-radius: 6px;
+    color: #FFF;
+}
+
+.footer {
+    height: 70px;
+    margin-top: -70px;
+    line-height: 65px;
+    background: #F5F5F5;
+    border-top: 1px solid #DDD;
+    color: #707070;
+}
+
+.footer .text{
+    font-size: 12px;
+    text-align: center;
+}
+
+.login-form {
+    margin: 9% auto 0;
+    width: 330px;
+    min-height: 200px;
+    border-radius: 5px;
+    border: 1px solid #DDD;
+    font-size: 0;
+}
+
+.login-form .header {
+    border-radius: 5px 5px 0 0;
+    background: #3B73AF;
+    height: 30px;
+    color: #FFF;
+    padding-left: 7px;
+    margin-bottom: 7px;
+    font-size: 12pt;
+    line-height: 30px;
+    font-weight: bold;
+}
+
+.column {
+    width: 100%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.row {
+    text-align: right;
+    margin: 20px 10px 20px 0;
+}
+
+.login-form label{
+    box-sizing: border-box;
+    font-size: 11pt;
+    margin: 0 10px;
+    text-align: right;
+}
+
+.login-form input {
+    font-size: 11pt;
+    box-sizing: border-box;
+    border: 1px solid #CCC;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.login-form input[type="text"], input[type="password"]  {
+    width: 232px;
+    padding: 0 10px;
+}
+
+.login-form input[type="submit"] {
+    width: 310px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.login-form input[type="submit"]:hover{
+    background-color: #DDD;
+}
+
+.login-form .footer {
+    margin: 30px auto 0;
+    width: 300px;
+    border-top: 1px solid #CCC;
+    background: #FFF;
+    font-size: 11pt;
+    text-align: center;
+}
+
+.login-form a{
+    color: #3572B0;
+}
+
+.login-form a:hover, .content a:hover{
+    background: transparent;
+    color: #205081;
+}
+
