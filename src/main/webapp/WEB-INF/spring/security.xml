@@ -14,7 +14,7 @@
         <csrf disabled="true"/>
     </http>
 
-    <beans:bean id="userService" class="by.epamlab.projecttracking.service.implementations.EmployeeServiceImpl"/>
+    <beans:bean id="userService" class="by.epamlab.projecttracking.service.implementations.UserServiceImpl"/>
 
     <authentication-manager alias="authenticationManager">
         <authentication-provider user-service-ref="userService"/>
