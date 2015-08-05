@@ -12,11 +12,6 @@ public class IndexController {
         return "login";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String sendLoginForm() {
-        return "dashboard";
-    }
-
     @RequestMapping(value = {"/", "/dashboard"}, method = RequestMethod.GET)
     public String goToDashboard() {
         return "dashboard";

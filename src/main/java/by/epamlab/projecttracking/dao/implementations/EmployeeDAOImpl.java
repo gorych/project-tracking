@@ -25,7 +25,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("FROM Employee WHERE login = ?");
         query.setString(0, username);
-        return (Employee) query.list().get(0);
+        if (query.list().size() != 0) {
+            return (Employee) query.list();
+        }
+        return null;
     }
 
     @SuppressWarnings("unchecked")
