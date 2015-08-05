@@ -20,14 +20,20 @@
                         <li><a href="#">Issue 2</a></li>
                     </ul>
                 </li>
-                <li class="btn-login">
-                    <sec:authorize access="!isAuthenticated()">
+                <sec:authorize access="!isAuthenticated()">
+                    <li class="btn-login">
                         <a href="<c:url value="/login"/>">Log In</a>
-                    </sec:authorize>
-                    <sec:authorize access="isAuthenticated()">
-                        <sec:authentication property="${principal.username}"/>
-                    </sec:authorize>
-                </li>
+                    </li>
+                </sec:authorize>
+                <sec:authorize access="isAuthenticated()">
+                    <li class="btn-login dropdown">
+                        <a href="#"> <sec:authentication property="principal.username"/></a>
+                        <ul class="drop-nav">
+                            <li><a href="<c:url value="/j_spring_security_logout"/>">Log out</a></li>
+                        </ul>
+                    </li>
+                </sec:authorize>
+
             </ul>
             <div class="btn">
                 <a href="">Create Issue</a>
