@@ -13,7 +13,7 @@
             <form class="login-form" action="${login_url}" method="POST">
                 <div class="header">
                     Login
-                </div>qee
+                </div>
                 <div class="column">
                     <div class="row">
                         <label for="username">Username</label>
@@ -23,9 +23,13 @@
                         <label for="password">Password</label>
                         <input id="password" name="j_password" type="password">
                     </div>
+                    <c:if test="${not empty auth_error}">
+                        <div class="row error">
+                            <span>${auth_error}</span>
+                        </div>
+                    </c:if>
+                    <input type="submit" value="Log In">
                 </div>
-                <input type="submit" value="Log In">
-
                 <div class="footer">
                     Need an account?
                     <a href="#">Sign up.</a>
