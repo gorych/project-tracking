@@ -11,7 +11,7 @@ a {
     text-decoration: none;
 }
 
-h1, h2, h3, h4, h5 ,h6 {
+h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
 }
 
@@ -151,15 +151,14 @@ h4 {
     color: #707070;
 }
 
-.footer .text{
+.footer .text {
     font-size: 12px;
     text-align: center;
 }
 
 .login-form {
-    margin: 9% auto 0;
+    margin: 9% auto 100px;
     width: 330px;
-    min-height: 200px;
     border-radius: 5px;
     border: 1px solid #DDD;
     font-size: 0;
@@ -177,6 +176,13 @@ h4 {
     font-weight: bold;
 }
 
+.login-form .error {
+    margin: 0 10px 20px;
+    color: crimson;
+    font-size: 11pt;
+    text-align: left;
+}
+
 .column {
     width: 100%;
     display: inline-block;
@@ -188,7 +194,7 @@ h4 {
     margin: 20px 10px 20px 0;
 }
 
-.login-form label{
+.login-form label {
     box-sizing: border-box;
     font-size: 11pt;
     margin: 0 10px;
@@ -203,7 +209,7 @@ h4 {
     border-radius: 5px;
 }
 
-.login-form input[type="text"], input[type="password"]  {
+.login-form input[type="text"], input[type="password"] {
     width: 232px;
     padding: 0 10px;
 }
@@ -214,7 +220,7 @@ h4 {
     cursor: pointer;
 }
 
-.login-form input[type="submit"]:hover{
+.login-form input[type="submit"]:hover {
     background-color: #DDD;
 }
 
@@ -227,11 +233,11 @@ h4 {
     text-align: center;
 }
 
-.login-form a{
+.login-form a {
     color: #3572B0;
 }
 
-.login-form a:hover, .content a:hover{
+.login-form a:hover, .content a:hover {
     background: transparent;
     color: #205081;
 }
