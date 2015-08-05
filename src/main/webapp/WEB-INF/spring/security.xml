@@ -1,0 +1,23 @@
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://www.springframework.org/schema/security"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+
+    <http auto-config="true" use-expressions="false">
+        <form-login login-processing-url="/j_spring_security_check"
+                    login-page="/login"
+                    authentication-failure-url="/login?error = true"/>
+        <logout logout-url="/j_spring_security_logout"/>
+        <csrf disabled="true"/>
+    </http>
+
+    <beans:bean id="userService" class="by.epamlab.projecttracking.service.implementations.EmployeeServiceImpl"/>
+
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider user-service-ref="userService"/>
+    </authentication-manager>
+
+</beans:beans>

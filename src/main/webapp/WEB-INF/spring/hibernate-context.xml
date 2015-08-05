@@ -23,7 +23,7 @@
           p:configLocation="/WEB-INF/spring/hibernate.cfg.xml">
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.dialect">${jdbc.dialect}</prop>
             </props>
         </property>
 
@@ -33,7 +33,7 @@
           p:driverClassName="com.mysql.jdbc.Driver"
           p:url="jdbc:mysql://localhost/epam_db"
           p:username="tracker"
-          p:password="$tracker"
+          p:password="tracker"
           p:initialSize="5"
           p:maxActive="20"/>
 
