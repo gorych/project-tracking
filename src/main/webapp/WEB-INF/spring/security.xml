@@ -9,7 +9,7 @@
     <http auto-config="true" use-expressions="false">
         <form-login login-processing-url="/j_spring_security_check"
                     login-page="/login"
-                    authentication-failure-url="/login?error = true"
+                    authentication-failure-url="/login?auth_error"
                     username-parameter="j_username"
                     password-parameter="j_password"/>
         <logout logout-success-url="/login"
