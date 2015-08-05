@@ -9,11 +9,11 @@
 <div class="main">
     <div class="container">
         <div class="content">
-            <c:url value="/j_spring_security_check" var="login_url" />
-            <form class="login-form" action="${loginUrl}" method="POST">
+            <c:url value="/j_spring_security_check" var="login_url"/>
+            <form class="login-form" action="${login_url}" method="POST">
                 <div class="header">
                     Login
-                </div>
+                </div>qee
                 <div class="column">
                     <div class="row">
                         <label for="username">Username</label>
