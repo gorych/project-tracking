@@ -2,6 +2,7 @@ package by.epamlab.projecttracking.dao.implementations;
 
 import by.epamlab.projecttracking.dao.interfaces.EmployeeDAO;
 import by.epamlab.projecttracking.domain.Employee;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,16 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public Employee get(int id) {
+    public Employee getById(int id) {
         Session session = sessionFactory.getCurrentSession();
         return (Employee) session.get(Employee.class, id);
+    }
+
+    public Employee getByUsername(String username) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("FROM Employee WHERE login = ?");
+        query.setString(0, username);
+        return (Employee) query.list().get(0);
     }
 
     @SuppressWarnings("unchecked")
