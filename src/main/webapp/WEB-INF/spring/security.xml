@@ -9,8 +9,12 @@
     <http auto-config="true" use-expressions="false">
         <form-login login-processing-url="/j_spring_security_check"
                     login-page="/login"
-                    authentication-failure-url="/login?error = true"/>
-        <logout logout-url="/j_spring_security_logout"/>
+                    authentication-failure-url="/login?error = true"
+                    username-parameter="j_username"
+                    password-parameter="j_password"/>
+        <logout logout-success-url="/login"
+                logout-url="/j_spring_security_logout"
+                invalidate-session="true"/>
         <csrf disabled="true"/>
     </http>
 
@@ -19,5 +23,4 @@
     <authentication-manager alias="authenticationManager">
         <authentication-provider user-service-ref="userService"/>
     </authentication-manager>
-
 </beans:beans>
