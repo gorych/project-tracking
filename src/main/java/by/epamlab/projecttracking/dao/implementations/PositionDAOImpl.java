@@ -2,16 +2,15 @@ package by.epamlab.projecttracking.dao.implementations;
 
 import by.epamlab.projecttracking.dao.interfaces.PositionDAO;
 import by.epamlab.projecttracking.domain.Position;
-import by.epamlab.projecttracking.domain.Role;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.classic.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public class PositionDAOImpl implements PositionDAO{
+public class PositionDAOImpl implements PositionDAO {
 
     @Autowired
     private SessionFactory sessionFactory;

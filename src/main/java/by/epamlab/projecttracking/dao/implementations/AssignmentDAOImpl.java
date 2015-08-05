@@ -2,8 +2,8 @@ package by.epamlab.projecttracking.dao.implementations;
 
 import by.epamlab.projecttracking.dao.interfaces.AssignmentDAO;
 import by.epamlab.projecttracking.domain.Assignment;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.classic.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
