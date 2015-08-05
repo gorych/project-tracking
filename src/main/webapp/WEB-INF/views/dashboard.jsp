@@ -1,16 +1,19 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Egor
-  Date: 04.08.2015
-  Time: 15:25
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>Dashboard</title>
+    <%@include file="fragments/imports.html" %>
 </head>
 <body>
-
+<div class="main">
+    <%@include file="fragments/header.jsp" %>
+    <div class="container">
+        <div class="content">
+            <h1>System Dashboard</h1>
+            <h4>Please <a href="/login">log in.</a></h4>
+        </div>
+    </div>
+</div>
+<%@include file="fragments/footer.html" %>
 </body>
 </html>
