@@ -12,9 +12,11 @@
 
     <context:annotation-config />
 
+    <mvc:annotation-driven />
+
     <context:component-scan base-package="by.epamlab.projecttracking"/>
 
-    <mvc:annotation-driven />
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
 
     <import resource="hibernate-context.xml" />
 
