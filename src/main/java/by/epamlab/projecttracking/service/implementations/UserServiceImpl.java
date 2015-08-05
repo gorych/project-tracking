@@ -20,22 +20,24 @@ public class UserServiceImpl implements UserDetailsService {
     @Autowired
     EmployeeService employeeService;
 
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Employee employee = employeeService.getByUsername(username);
+    public UserDetails loadUserByUsername(String j_username) throws UsernameNotFoundException {
+        Employee employee = employeeService.getByUsername(j_username);
         Set<SimpleGrantedAuthority> roles = new HashSet<SimpleGrantedAuthority>();
 
-        System.out.println(employee);
-
+        String anonymous = UserRole.ANONYMOUS.name();
+        String admin = UserRole.ADMIN.name();
+        String user = UserRole.USER.name();
+        
         if (employee == null) {
-            roles.add(new SimpleGrantedAuthority(UserRole.ANONYMOUS.name()));
-            return new User("anonymous", "anonymous", roles);
+            roles.add(new SimpleGrantedAuthority(anonymous));
+            return new User(anonymous, anonymous, roles);
         }
 
-        if (UserRole.ADMIN.name().equals(employee.getPosition().getName())) {
-            roles.add(new SimpleGrantedAuthority(UserRole.ADMIN.name()));
+        if (admin.equals(employee.getPosition().getName())) {
+            roles.add(new SimpleGrantedAuthority(admin));
         } else {
-            roles.add(new SimpleGrantedAuthority(UserRole.USER.name()));
+            roles.add(new SimpleGrantedAuthority(user));
         }
-        return new User(username, employee.getPassword(), roles);
+        return new User(j_username, employee.getPassword(), roles);
     }
 }
