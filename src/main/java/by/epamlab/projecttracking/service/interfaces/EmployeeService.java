@@ -6,9 +6,10 @@ import java.util.List;
 
 public interface EmployeeService {
 
-    Employee get(int id);
+    Employee getById(int id);
+
+    Employee getByUsername(String username);
 
     List<Employee> getAll();
-
 
 }
