@@ -2,7 +2,7 @@ html, body {
     margin: 0;
     height: 100%;
     width: 100%;
-    min-width: 1000px;
+    min-width: 1300px;
     min-height: 500px;
     font-family: sans-serif;
 }
@@ -41,31 +41,36 @@ h4 {
 }
 
 .header .btn-login {
-    margin-right: 45px;
+    margin-right: 3px;
     float: right;
 }
 
 .container {
+    width: 1300px;
     height: 100%;
     margin: 0 auto;
 }
 
-.container .content {
-    padding: 20px 50px;
+.content {
+    height: 100%;
+    margin-bottom: 100px;
+    padding: 20px 10px;
+    font-size: 0;
 }
 
 .main-nav {
-    margin: 0;
-    line-height: 41px;
     height: 100%;
-    text-transform: capitalize;
-    color: #FFF;
+    margin: 0;
+    padding: 0 10px;
     background: #205081;
+    color: #FFF;
+    line-height: 41px;
+    text-transform: capitalize;
 }
 
 .main-nav ul {
+    margin: 0 0 0 -45px;
     list-style-type: none;
-    margin: 0;
 }
 
 .main-nav li {
@@ -78,9 +83,27 @@ h4 {
 }
 
 .main-nav a {
-    color: #fff;
-    display: block;
     padding: 0 7px;
+    display: block;
+    color: #fff;
+}
+
+.main-nav .btn {
+    width: 100px;
+    height: 30px;
+    margin-top: 5px;
+    margin-left: 15px;
+    float: left;
+    background: #3572B0;
+    border-radius: 6px;
+    line-height: 31px;
+    text-align: center;
+}
+
+.btn a {
+    display: block;
+    color: #FFF;
+    border-radius: 6px;
 }
 
 .dropdown {
@@ -90,18 +113,18 @@ h4 {
 
 .dropdown:after {
     content: "\25BC";
-    font-size: .7em;
     display: block;
     position: absolute;
     top: 1px;
     right: 5px;
+    font-size: .7em;
 }
 
 .drop-nav {
-    background: #FFF;
+    display: none;
     position: absolute;
     left: 0;
-    display: none;
+    background: #FFF;
     border: 1px solid #CCC;
 }
 
@@ -111,8 +134,8 @@ h4 {
 }
 
 .drop-nav li {
-    margin-left: -40px;
     width: 130px;
+    margin-left: -40px;
     border-top: 1px solid #FFF;
 }
 
@@ -124,31 +147,13 @@ h4 {
     color: #FFF;
 }
 
-.main-nav .btn {
-    float: left;
-    margin-top: 5px;
-    margin-left: 15px;
-    border-radius: 6px;
-    background: #3572B0;
-    width: 100px;
-    height: 30px;
-    line-height: 31px;
-    text-align: center;
-}
-
-.btn a {
-    display: block;
-    border-radius: 6px;
-    color: #FFF;
-}
-
 .footer {
     height: 70px;
     margin-top: -70px;
-    line-height: 65px;
+    line-height: 70px;
     background: #F5F5F5;
-    border-top: 1px solid #DDD;
     color: #707070;
+    border-top: 1px solid #DDD;
 }
 
 .footer .text {
@@ -156,24 +161,79 @@ h4 {
     text-align: center;
 }
 
-.login-form {
-    margin: 9% auto 100px;
-    width: 330px;
+.modal, .login-form {
+    height: 100%;
+    min-height: 200px;
+    width: 99%;
+    margin-bottom: 30px;
     border-radius: 5px;
     border: 1px solid #DDD;
     font-size: 0;
+    text-align: center;
+
 }
 
-.login-form .header {
+.modal .header, .login-form .header {
+    height: 25px;
+    margin-bottom: 7px;
+    padding-left: 7px;
     border-radius: 5px 5px 0 0;
     background: #3B73AF;
-    height: 30px;
     color: #FFF;
-    padding-left: 7px;
-    margin-bottom: 7px;
-    font-size: 12pt;
-    line-height: 30px;
     font-weight: bold;
+    font-size: 11pt;
+    line-height: 25px;
+    text-align: left;
+}
+
+.modal .activity {
+    padding: 0 7px;
+    font-size: 10pt;
+}
+
+.modal .activity .row {
+    width: 100%;
+    margin: 0;
+    padding: 7px 0;
+    border-bottom: 1px solid #DDD;
+    text-align: justify;
+}
+
+.modal .activity .row:nth-of-type(1) {
+    border-top: 1px solid #DDD;
+}
+
+.modal .activity .row:last-of-type {
+    margin-bottom: 10px;
+}
+
+.activity .employee {
+    padding-right: 3px;
+    float: left;
+    color: #3B73AF;
+    text-transform: capitalize;
+    font-weight: bold;
+}
+
+.modal .activity .date-and-time {
+    width: 135px;
+    margin-bottom: 5px;
+    padding: 0 2px;
+    border-radius: 2px;
+    background: #DDD;
+    text-align: center;
+    font-size: 9pt;
+}
+
+.modal .btn {
+    width: 98%;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.login-form {
+    width: 330px;
+    margin: 9% auto 100px;
 }
 
 .login-form .error {
@@ -183,30 +243,22 @@ h4 {
     text-align: left;
 }
 
-.column {
-    width: 100%;
-    display: inline-block;
-    vertical-align: top;
-}
-
-.row {
-    text-align: right;
-    margin: 20px 10px 20px 0;
-}
-
 .login-form label {
+    margin: 0 10px;
     box-sizing: border-box;
     font-size: 11pt;
-    margin: 0 10px;
     text-align: right;
+}
+
+.login-form input, .modal .btn {
+    height: 30px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    border: 1px solid #CCC;
 }
 
 .login-form input {
     font-size: 11pt;
-    box-sizing: border-box;
-    border: 1px solid #CCC;
-    height: 30px;
-    border-radius: 5px;
 }
 
 .login-form input[type="text"], input[type="password"] {
@@ -215,18 +267,21 @@ h4 {
 }
 
 .login-form input[type="submit"] {
-    width: 310px;
     margin: 0 10px;
     cursor: pointer;
 }
 
-.login-form input[type="submit"]:hover {
+.login-form input[type="submit"] {
+    width: 310px;
+}
+
+.login-form input[type="submit"]:hover, .modal .btn:hover {
     background-color: #DDD;
 }
 
 .login-form .footer {
-    margin: 30px auto 0;
     width: 300px;
+    margin: 30px auto 0;
     border-top: 1px solid #CCC;
     background: #FFF;
     font-size: 11pt;
@@ -242,3 +297,25 @@ h4 {
     color: #205081;
 }
 
+.column, .container .grid-col {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.column {
+    width: 100%;
+}
+
+.row {
+    margin: 20px 10px 20px 0;
+    text-align: right;
+}
+
+.container .grid-col {
+    width: 49.5%;
+    font-size: 11pt;
+}
+
+.container .grid-col:last-of-type {
+    margin-left: 1%;
+}
