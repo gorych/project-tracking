@@ -72,8 +72,83 @@
                     <div class="half-column">
                         <div class="modal">
                             <div class="header">Assigned to Me</div>
-                            <div class="activity">
-                            </div>
+                            <table>
+                                <tr>
+                                    <th>Column1</th>
+                                    <th>Column2</th>
+                                    <th>Column3</th>
+                                <tr>
+                                    <td>This</td>
+                                    <td>I will have a text in this column</td>
+                                    <td>Small text</td>
+                                </tr>
+                                <tr>
+                                    <td>This</td>
+                                    <td>I will have a text in this column</td>
+                                    <td>Small text</td>
+                                </tr>
+                                <tr>
+                                    <td>This</td>
+                                    <td>I will have a text in this column</td>
+                                    <td>Small text</td>
+                                </tr>
+                                <tr>
+                                    <td>This</td>
+                                    <td>I will have a text in this column</td>
+                                    <td>Small text</td>
+                                </tr>
+                                <tr>
+                                    <td>This</td>
+                                    <td>I will have a text in this column</td>
+                                    <td>Small text</td>
+                                </tr>
+                                <tr>
+                                    <td>This</td>
+                                    <td>I will have a text in this column</td>
+                                    <td>Small text</td>
+                                </tr>
+                                <tr>
+                                    <td>This</td>
+                                    <td>I will have a text in this column</td>
+                                    <td>Small text</td>
+                                </tr>
+                                <tr>
+                                    <td>This</td>
+                                    <td>I will have a text in this column</td>
+                                    <td>Small text</td>
+                                </tr>
+                                <tr>
+                                    <td>This</td>
+                                    <td>I will have a text in this column</td>
+                                    <td>Small text</td>
+                                </tr>
+                                <tr>
+                                    <td>This</td>
+                                    <td>I will have a text in this column</td>
+                                    <td>Small text</td>
+                                </tr>
+                                <tr>
+                                    <td>This</td>
+                                    <td>I will have a text in this column</td>
+                                    <td>Small text</td>
+                                </tr>
+                                <tr>
+                                    <td>This</td>
+                                    <td>I will have a text in this column</td>
+                                    <td>Small text</td>
+                                </tr>
+                                <tr>
+                                    <td>This</td>
+                                    <td>I will have a text in this column</td>
+                                    <td>Small text</td>
+                                </tr>
+                                <tr>
+                                    <td>This</td>
+                                    <td>I will have a text in this column</td>
+                                    <td>Small text</td>
+                                </tr>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
