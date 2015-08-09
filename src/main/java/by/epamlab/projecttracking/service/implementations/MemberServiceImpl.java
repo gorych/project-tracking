@@ -4,7 +4,6 @@ import by.epamlab.projecttracking.dao.interfaces.MemberDAO;
 import by.epamlab.projecttracking.domain.Member;
 import by.epamlab.projecttracking.service.interfaces.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
