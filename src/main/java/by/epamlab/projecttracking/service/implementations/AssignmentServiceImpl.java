@@ -18,7 +18,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     @Transactional
     public Assignment get(int id) {
-        return assignmentDAO.get(id);
+        return assignmentDAO.getById(id);
     }
 
     @Transactional
