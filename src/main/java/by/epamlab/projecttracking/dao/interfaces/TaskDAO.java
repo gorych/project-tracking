@@ -1,13 +1,13 @@
 package by.epamlab.projecttracking.dao.interfaces;
 
+import by.epamlab.projecttracking.domain.Assignment;
 import by.epamlab.projecttracking.domain.Task;
 
 import java.util.List;
 
 public interface TaskDAO {
 
-    public Task get(int id);
+    Task getById(int id);
 
-    public List<Task> getAll();
-
+    List<Task> getAll();
 }

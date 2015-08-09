@@ -4,7 +4,6 @@ import by.epamlab.projecttracking.dao.interfaces.TaskDAO;
 import by.epamlab.projecttracking.domain.Task;
 import by.epamlab.projecttracking.service.interfaces.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +17,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Transactional
     public Task get(int id) {
-        return taskDAO.get(id);
+        return taskDAO.getById(id);
     }
 
     @Transactional

@@ -1,7 +1,9 @@
 package by.epamlab.projecttracking.dao.implementations;
 
 import by.epamlab.projecttracking.dao.interfaces.TaskDAO;
+import by.epamlab.projecttracking.domain.Assignment;
 import by.epamlab.projecttracking.domain.Task;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ public class TaskDAOImpl implements TaskDAO{
     @Autowired
     private SessionFactory sessionFactory;
 
-    public Task get(int id) {
+    public Task getById(int id) {
         Session session = sessionFactory.getCurrentSession();
         return (Task) session.get(Task.class, id);
     }
