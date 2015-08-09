@@ -10,19 +10,19 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class ActivityDAOImpl implements ActivityDAO{
+public class ActivityDAOImpl implements ActivityDAO {
 
     @Autowired
     private SessionFactory sessionFactory;
 
-    public Activity get(int id) {
+    public Activity getById(int id) {
         Session session = sessionFactory.getCurrentSession();
         return (Activity) session.get(Activity.class, id);
     }
 
     @SuppressWarnings("unchecked")
     public List<Activity> getAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Activity")
+        return sessionFactory.getCurrentSession().createQuery("from Activity ORDER BY date DESC")
                 .list();
     }
 

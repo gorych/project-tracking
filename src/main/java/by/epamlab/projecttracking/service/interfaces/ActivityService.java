@@ -6,8 +6,12 @@ import java.util.List;
 
 public interface ActivityService {
 
-    Activity get(int id);
+    Activity getById(int id);
 
     List<Activity> getAll();
+
+    List<Activity> getFiveElementsFromIndex(int fromIndex);
+
+    String getJsonString(List<Activity> activities);
 
 }
