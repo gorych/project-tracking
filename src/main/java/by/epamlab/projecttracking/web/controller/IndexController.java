@@ -19,4 +19,9 @@ public class IndexController {
         return model;
     }
 
+    @RequestMapping(value = {"/"}, method = RequestMethod.GET)
+    public String goToDashboard() {
+        return "dashboard";
+    }
+
 }
