@@ -21,10 +21,10 @@
                             <c:forEach var="activity" items="${activities}">
                                 <div class="row">
                                     <div class="date-and-time">
-                                        ${activity.date}
+                                            ${activity.date}
                                     </div>
                                     <span class="employee">
-                                        ${activity.member.employee.firstname}&nbsp;
+                                        ${activity.member.employee.firstname}
                                         ${activity.member.employee.lastname}
                                     </span>
                                     <c:out value="${activity.comment}"/>
@@ -40,79 +40,15 @@
                             <div class="header">Assigned to Me</div>
                             <table>
                                 <tr>
-                                    <th>Column1</th>
-                                    <th>Column2</th>
-                                    <th>Column3</th>
-                                <tr>
-                                    <td>This</td>
-                                    <td>I will have a text in this column</td>
-                                    <td>Small text</td>
+                                    <th>Key</th>
+                                    <th>Summary</th>
                                 </tr>
-                                <tr>
-                                    <td>This</td>
-                                    <td>I will have a text in this column</td>
-                                    <td>Small text</td>
-                                </tr>
-                                <tr>
-                                    <td>This</td>
-                                    <td>I will have a text in this column</td>
-                                    <td>Small text</td>
-                                </tr>
-                                <tr>
-                                    <td>This</td>
-                                    <td>I will have a text in this column</td>
-                                    <td>Small text</td>
-                                </tr>
-                                <tr>
-                                    <td>This</td>
-                                    <td>I will have a text in this column</td>
-                                    <td>Small text</td>
-                                </tr>
-                                <tr>
-                                    <td>This</td>
-                                    <td>I will have a text in this column</td>
-                                    <td>Small text</td>
-                                </tr>
-                                <tr>
-                                    <td>This</td>
-                                    <td>I will have a text in this column</td>
-                                    <td>Small text</td>
-                                </tr>
-                                <tr>
-                                    <td>This</td>
-                                    <td>I will have a text in this column</td>
-                                    <td>Small text</td>
-                                </tr>
-                                <tr>
-                                    <td>This</td>
-                                    <td>I will have a text in this column</td>
-                                    <td>Small text</td>
-                                </tr>
-                                <tr>
-                                    <td>This</td>
-                                    <td>I will have a text in this column</td>
-                                    <td>Small text</td>
-                                </tr>
-                                <tr>
-                                    <td>This</td>
-                                    <td>I will have a text in this column</td>
-                                    <td>Small text</td>
-                                </tr>
-                                <tr>
-                                    <td>This</td>
-                                    <td>I will have a text in this column</td>
-                                    <td>Small text</td>
-                                </tr>
-                                <tr>
-                                    <td>This</td>
-                                    <td>I will have a text in this column</td>
-                                    <td>Small text</td>
-                                </tr>
-                                <tr>
-                                    <td>This</td>
-                                    <td>I will have a text in this column</td>
-                                    <td>Small text</td>
-                                </tr>
+                                <c:forEach var="task" items="${tasks}">
+                                    <tr>
+                                        <td>${task.project.name}</td>
+                                        <td>${task.description}</td>
+                                    </tr>
+                                </c:forEach>
                             </table>
                         </div>
                     </div>
