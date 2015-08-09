@@ -1,5 +1,10 @@
 package by.epamlab.projecttracking.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -13,21 +18,29 @@ public class Activity {
     private int id;
 
     @Column(name = "date")
+    @JsonProperty("date")
     private Date date;
 
     @Column(name = "duration")
+    @JsonProperty("duration")
     private int duration;
 
     @Column(name = "comment")
+    @JsonProperty("comment")
     private String comment;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
+    @JsonProperty("member")
     private Member member;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "assigment_id")
+    @JsonProperty("assignment")
     private Assignment assignment;
+
+    public Activity() {
+    }
 
     public int getId() {
         return id;
