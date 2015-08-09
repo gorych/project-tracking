@@ -10,4 +10,5 @@ public interface ActivityDAO {
 
     List<Activity> getAll();
 
+    List<Activity> getFromIndexToIndex(int fromIndex, int toIndex);
 }

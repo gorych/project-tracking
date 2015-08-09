@@ -10,7 +10,7 @@ public interface ActivityService {
 
     List<Activity> getAll();
 
-    List<Activity> getFiveElementsFromIndex(int fromIndex);
+    List<Activity> getFromIndexToIndex(int fromIndex, int toIndex);
 
     String getJsonString(List<Activity> activities);
 

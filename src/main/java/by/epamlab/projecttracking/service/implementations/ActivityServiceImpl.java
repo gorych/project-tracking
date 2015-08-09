@@ -31,16 +31,8 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Transactional
-    public List<Activity> getFiveElementsFromIndex(int fromIndex) {
-        final int INDEX_TO = fromIndex + 5;
-        List<Activity> activities = getAll();
-        System.out.println(activities);
-        if (fromIndex < activities.size()) {
-            return INDEX_TO < activities.size() ?
-                    activities.subList(fromIndex, INDEX_TO) :
-                    activities.subList(fromIndex, activities.size());
-        }
-        return new ArrayList<Activity>();
+    public List<Activity> getFromIndexToIndex(int fromIndex, int toIndex) {
+        return activityDAO.getFromIndexToIndex(fromIndex, toIndex);
     }
 
     public String getJsonString(List<Activity> activities) {
