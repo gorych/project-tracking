@@ -19,9 +19,4 @@ public class IndexController {
         return model;
     }
 
-    @RequestMapping(value = {"/", "/dashboard"}, method = RequestMethod.GET)
-    public String goToDashboard() {
-        return "dashboard";
-    }
-
 }
