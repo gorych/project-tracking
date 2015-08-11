@@ -1,9 +1,10 @@
-package by.epamlab.projecttracking.web.controller;
+package by.epamlab.projecttracking.web.controllers;
 
 import by.epamlab.projecttracking.domain.Employee;
 import by.epamlab.projecttracking.domain.Position;
 import by.epamlab.projecttracking.service.interfaces.EmployeeService;
 import by.epamlab.projecttracking.service.interfaces.PositionService;
+import by.epamlab.projecttracking.web.AttributeConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,15 +27,15 @@ public class AdminController {
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String createEmployee(Model model) {
         List<Position> positions = positionService.getAll();
-        model.addAttribute("employee", new Employee());
-        model.addAttribute("positions", positions);
+        model.addAttribute(AttributeConstants.EMPLOYEE, new Employee());
+        model.addAttribute(AttributeConstants.POSITIONS, positions);
         return "register";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String addNewEmployee(@Valid Employee employee, BindingResult bindingResult, Model model) {
         List<Position> positions = positionService.getAll();
-        model.addAttribute("positions", positions);
+        model.addAttribute(AttributeConstants.POSITIONS, positions);
 
         if (bindingResult.hasErrors()) {
             return "register";
@@ -42,7 +43,7 @@ public class AdminController {
 
         Employee user = employeeService.getByUsername(employee.getLogin());
         if (user != null) {
-            model.addAttribute("user_exist_error", "This username already exists.");
+            model.addAttribute(AttributeConstants.USER_EXIST_ERROR, "This username already exists.");
             return "register";
         }
         Position position = positionService.get(employee.getPosition().getId());
