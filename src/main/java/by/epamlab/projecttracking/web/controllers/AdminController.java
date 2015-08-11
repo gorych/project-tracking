@@ -52,7 +52,7 @@ public class AdminController {
                 model.addAttribute(AttributeConstants.USER_EXIST_ERROR, "This username already exists.");
                 return "register";
             }
-            Position position = positionService.get(employee.getPosition().getId());
+            Position position = positionService.getById(employee.getPosition().getId());
             employee.setPosition(position);
             employeeService.add(employee);
         }

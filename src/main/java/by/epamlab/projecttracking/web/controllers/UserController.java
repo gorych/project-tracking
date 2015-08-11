@@ -5,10 +5,12 @@ import by.epamlab.projecttracking.domain.Member;
 import by.epamlab.projecttracking.domain.Task;
 import by.epamlab.projecttracking.security.UserRoleConstants;
 import by.epamlab.projecttracking.service.interfaces.ActivityService;
-import by.epamlab.projecttracking.service.interfaces.UserService;
+import by.epamlab.projecttracking.service.interfaces.AssignmentService;
+import by.epamlab.projecttracking.service.interfaces.MemberService;
 import by.epamlab.projecttracking.web.AttributeConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,10 +24,13 @@ import java.util.List;
 public class UserController {
 
     @Autowired
+    AssignmentService assignmentService;
+
+    @Autowired
     ActivityService activityService;
 
     @Autowired
-    UserService userService;
+    MemberService memberService;
 
     @Secured(value = {UserRoleConstants.USER, UserRoleConstants.ADMIN})
     @RequestMapping(value = {"/dashboard"}, method = RequestMethod.GET)
@@ -34,8 +39,9 @@ public class UserController {
         final int TO_INDEX = 5;
 
         List<Activity> activities = activityService.getFromIndexToIndex(FROM_INDEX, TO_INDEX);
-        List<Task> tasks = userService.getUserTasks();
-        List<Member> members = userService.getMembers();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        List<Task> tasks = assignmentService.getAssigneeTasks(username);
+        List<Member> members = memberService.getByUsername(username);
 
         ModelAndView model = new ModelAndView();
         model.addObject(AttributeConstants.ACTIVITIES, activities);
