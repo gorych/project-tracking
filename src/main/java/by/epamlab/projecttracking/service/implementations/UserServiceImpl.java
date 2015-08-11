@@ -5,7 +5,7 @@ import by.epamlab.projecttracking.dao.interfaces.EmployeeDAO;
 import by.epamlab.projecttracking.dao.interfaces.MemberDAO;
 import by.epamlab.projecttracking.dao.interfaces.TaskDAO;
 import by.epamlab.projecttracking.domain.*;
-import by.epamlab.projecttracking.domain.enums.UserRole;
+import by.epamlab.projecttracking.security.UserRole;
 import by.epamlab.projecttracking.service.interfaces.EmployeeService;
 import by.epamlab.projecttracking.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
