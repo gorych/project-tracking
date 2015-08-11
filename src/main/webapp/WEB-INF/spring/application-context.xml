@@ -18,9 +18,6 @@
 
     <mvc:resources mapping="/resources/**" location="classpath:"/>
 
-    <bean id="webexpressionHandler"
-          class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
-
     <import resource="hibernate-context.xml"/>
 
 </beans>
