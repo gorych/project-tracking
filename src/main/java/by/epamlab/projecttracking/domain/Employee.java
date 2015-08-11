@@ -1,6 +1,8 @@
 package by.epamlab.projecttracking.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "employee")
@@ -11,19 +13,36 @@ public class Employee {
     @GeneratedValue
     private int id;
 
+    private String m(){
+        return "";
+    }
+
+    @Size(min = 2, max = 15,
+            message = "Firstname must be between 2 and 15 characters long.")
+    @NotNull
     @Column(name = "firstname")
     private String firstname;
 
+    @Size(min = 4, max = 20,
+            message = "Lastname must be between 4 and 20 characters long.")
+    @NotNull
     @Column(name = "lastname")
     private String lastname;
 
+    @Size(min = 4, max = 15,
+            message = "Login must be between 4 and 15 characters long.")
+    @NotNull
     @Column(name = "login")
     private String login;
 
+    @Size(min = 4, max = 15,
+            message = "Password must be between 4 and 15 characters long.")
+    @NotNull
     @Column(name = "password")
     private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @NotNull
     @JoinColumn(name = "position_id")
     private Position position;
 
