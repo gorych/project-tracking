@@ -1,15 +1,14 @@
 package by.epamlab.projecttracking.web.controllers;
 
 
+import by.epamlab.projecttracking.security.UserRoleConstants;
 import by.epamlab.projecttracking.web.AttributeConstants;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.security.Principal;
 
 @Controller
 public class IndexController {
@@ -29,23 +28,20 @@ public class IndexController {
         return "dashboard";
     }
 
+    @Secured(UserRoleConstants.ADMIN)
     @RequestMapping(value = {"/admin"}, method = RequestMethod.GET)
     public String goToAdminPage() {
         return "admin-page";
     }
 
     @RequestMapping(value = "/403", method = RequestMethod.GET)
-    public String accessDenied(Principal user, Model model) {
-        if (user != null) {
-            model.addAttribute(AttributeConstants.ACCESS_DENIED_ERROR, "Hi " + user.getName()
-                    + ", you do not have permission to access this page!");
-        } else {
-            model.addAttribute(AttributeConstants.ACCESS_DENIED_ERROR,
-                    "You do not have permission to access this page!");
-        }
+    public String accessDenied() {
         return "403";
-
     }
 
+    @RequestMapping(value = "/404", method = RequestMethod.GET)
+    public String resourceNotFound() {
+        return "404";
+    }
 
 }
