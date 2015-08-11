@@ -1,4 +1,4 @@
-package by.epamlab.projecttracking.domain.enums;
+package by.epamlab.projecttracking.security;
 
 public enum UserRole {
     ADMIN, USER, ANONYMOUS;
