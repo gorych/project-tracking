@@ -54,13 +54,11 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     public UserDetails loadUserByUsername(String j_username) throws UsernameNotFoundException {
         Employee employee = employeeService.getByUsername(j_username);
-        Set<SimpleGrantedAuthority> roles = new HashSet<SimpleGrantedAuthority>();
-
         if (employee == null) {
-            roles.add(new SimpleGrantedAuthority(UserRoleConstants.ANONYMOUS));
-            return new User(UserRoleConstants.ANONYMOUS, UserRoleConstants.ANONYMOUS, roles);
+            throw new UsernameNotFoundException("User with the login " + j_username + " not found!");
         }
 
+        Set<SimpleGrantedAuthority> roles = new HashSet<>();
         if (UserRoleConstants.ADMIN_ROLE_NAME.equals(employee.getPosition().getName())) {
             roles.add(new SimpleGrantedAuthority(UserRoleConstants.ADMIN));
         } else {
@@ -74,12 +72,12 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         Employee employee = employeeDAO.getByUsername(getUsername());
         List<Member> members = memberDAO.getByEmployee(employee);
 
-        List<Assignment> assignments = new ArrayList<Assignment>();
+        List<Assignment> assignments = new ArrayList<>();
         for (Member member : members) {
             assignments.addAll(assignmentDAO.getByMember(member));
         }
 
-        List<Task> tasks = new ArrayList<Task>();
+        List<Task> tasks = new ArrayList<>();
         for (Assignment assignment : assignments) {
             int taskId = assignment.getTask().getId();
             tasks.add(taskDAO.getById(taskId));
