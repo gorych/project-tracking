@@ -13,7 +13,7 @@ public class IndexController {
     public ModelAndView goToLogin(@RequestParam(value = "auth_error", required = false) String error) {
         ModelAndView model = new ModelAndView();
         if (error != null) {
-            model.addObject("auth_error", "Wrong login or password.");
+            model.addObject("auth_error", "Wrong username or password.");
         }
         model.setViewName("login");
         return model;
@@ -22,6 +22,11 @@ public class IndexController {
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public String goToDashboard() {
         return "dashboard";
+    }
+
+    @RequestMapping(value = {"/admin"}, method = RequestMethod.GET)
+    public String goToAdminPage() {
+        return "admin-page";
     }
 
 }
