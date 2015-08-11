@@ -6,10 +6,11 @@ import java.util.List;
 
 public interface EmployeeDAO {
 
-    public Employee getById(int id);
+    Employee getById(int id);
 
-    public Employee getByUsername(String login);
+    Employee getByUsername(String login);
 
-    public List<Employee> getAll();
+    List<Employee> getAll();
 
+    void add(Employee employee);
 }

@@ -36,4 +36,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
                 .list();
     }
 
+    public void add(Employee employee) {
+        sessionFactory.getCurrentSession().save(employee);
+    }
+
 }
