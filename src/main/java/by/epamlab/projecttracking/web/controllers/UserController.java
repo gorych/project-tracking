@@ -1,10 +1,11 @@
-package by.epamlab.projecttracking.web.controller;
+package by.epamlab.projecttracking.web.controllers;
 
 import by.epamlab.projecttracking.domain.Activity;
 import by.epamlab.projecttracking.domain.Member;
 import by.epamlab.projecttracking.domain.Task;
 import by.epamlab.projecttracking.service.interfaces.ActivityService;
 import by.epamlab.projecttracking.service.interfaces.UserService;
+import by.epamlab.projecttracking.web.AttributeConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,9 +35,9 @@ public class UserController {
         List<Member> members = userService.getMembers();
 
         ModelAndView model = new ModelAndView();
-        model.addObject("activities", activities);
-        model.addObject("tasks", tasks);
-        model.addObject("members", members);
+        model.addObject(AttributeConstants.ACTIVITIES, activities);
+        model.addObject(AttributeConstants.TASKS, tasks);
+        model.addObject(AttributeConstants.MEMBERS, members);
         model.setViewName("dashboard");
 
         return model;
