@@ -53,7 +53,7 @@
                     </div>
                     <c:if test="${not empty user_exist_error}">
                         <div class="row error">
-                            <c:out value="${user_exist_error}"/>.
+                            <c:out value="${user_exist_error}"/>
                         </div>
                     </c:if>
                 </div>
