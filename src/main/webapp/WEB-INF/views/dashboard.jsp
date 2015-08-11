@@ -17,7 +17,9 @@
                     </sec:authorize>
                 </div>
                 <div class="grid-col">
-                    <div class="admin-btn"><a href="/admin">Admin panel</a></div>
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                        <div class="admin-btn"><a href="<c:url value="/admin"/>">Admin panel</a></div>
+                    </sec:authorize>
                 </div>
             </div>
             <sec:authorize access="isAuthenticated()">
