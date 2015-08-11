@@ -16,10 +16,9 @@
           p:configLocation="/WEB-INF/spring/hibernate.cfg.xml">
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.dialect">${jdbc.dialect}</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
             </props>
         </property>
-
     </bean>
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
