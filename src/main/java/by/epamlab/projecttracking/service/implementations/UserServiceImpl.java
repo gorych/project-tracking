@@ -4,8 +4,11 @@ import by.epamlab.projecttracking.dao.interfaces.AssignmentDAO;
 import by.epamlab.projecttracking.dao.interfaces.EmployeeDAO;
 import by.epamlab.projecttracking.dao.interfaces.MemberDAO;
 import by.epamlab.projecttracking.dao.interfaces.TaskDAO;
-import by.epamlab.projecttracking.domain.*;
-import by.epamlab.projecttracking.security.UserRole;
+import by.epamlab.projecttracking.domain.Assignment;
+import by.epamlab.projecttracking.domain.Employee;
+import by.epamlab.projecttracking.domain.Member;
+import by.epamlab.projecttracking.domain.Task;
+import by.epamlab.projecttracking.security.UserRoleConstants;
 import by.epamlab.projecttracking.service.interfaces.EmployeeService;
 import by.epamlab.projecttracking.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,19 +56,15 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         Employee employee = employeeService.getByUsername(j_username);
         Set<SimpleGrantedAuthority> roles = new HashSet<SimpleGrantedAuthority>();
 
-        String anonymous = UserRole.ANONYMOUS.name();
-        String admin = UserRole.ADMIN.name();
-        String user = UserRole.USER.name();
-
         if (employee == null) {
-            roles.add(new SimpleGrantedAuthority(anonymous));
-            return new User(anonymous, anonymous, roles);
+            roles.add(new SimpleGrantedAuthority(UserRoleConstants.ANONYMOUS));
+            return new User(UserRoleConstants.ANONYMOUS, UserRoleConstants.ANONYMOUS, roles);
         }
 
-        if (admin.equals(employee.getPosition().getName())) {
-            roles.add(new SimpleGrantedAuthority(admin));
+        if (UserRoleConstants.ADMIN_ROLE_NAME.equals(employee.getPosition().getName())) {
+            roles.add(new SimpleGrantedAuthority(UserRoleConstants.ADMIN));
         } else {
-            roles.add(new SimpleGrantedAuthority(user));
+            roles.add(new SimpleGrantedAuthority(UserRoleConstants.USER));
         }
         return new User(j_username, employee.getPassword(), roles);
     }
