@@ -9,10 +9,17 @@
     <%@include file="fragments/header.jsp" %>
     <div class="container">
         <div class="content">
-            <h1>System Dashboard</h1>
-            <sec:authorize access="!isAuthenticated()">
-                <h4>Please <a href="<c:url value="/login"/>">log in.</a></h4>
-            </sec:authorize>
+            <div class="container">
+                <div class="grid-col">
+                    <h1>System Dashboard</h1>
+                    <sec:authorize access="!isAuthenticated()">
+                        <h4>Please <a href="<c:url value="/login"/>">log in.</a></h4>
+                    </sec:authorize>
+                </div>
+                <div class="grid-col">
+                    <div class="admin-btn"><a href="/admin">Admin panel</a></div>
+                </div>
+            </div>
             <sec:authorize access="isAuthenticated()">
                 <div class="grid-col">
                     <div class="modal">

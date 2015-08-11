@@ -10,7 +10,7 @@
     <div class="container">
         <div class="content">
             <c:url value="/j_spring_security_check" var="login_url"/>
-            <form class="login-form" action="${login_url}" method="POST">
+            <form action="${login_url}" method="POST">
                 <div class="header">
                     Login
                 </div>
@@ -29,10 +29,6 @@
                         </div>
                     </c:if>
                     <input type="submit" value="Log In">
-                </div>
-                <div class="footer">
-                    Need an account?
-                    <a href="#">Sign up.</a>
                 </div>
             </form>
         </div>
