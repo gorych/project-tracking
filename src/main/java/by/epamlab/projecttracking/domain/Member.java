@@ -1,7 +1,7 @@
 package by.epamlab.projecttracking.domain;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "member")
@@ -14,15 +14,27 @@ public class Member {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
+    @NotNull
     private Project project;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
+    @NotNull
     private Employee employee;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
+    @NotNull
     private Role role;
+
+    public Member() {
+    }
+
+    public Member(Project project, Employee employee, Role role) {
+        this.project = project;
+        this.employee = employee;
+        this.role = role;
+    }
 
     public int getId() {
         return id;
