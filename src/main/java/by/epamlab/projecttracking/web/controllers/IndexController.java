@@ -23,6 +23,7 @@ public class IndexController {
         return model;
     }
 
+    @Secured(UserRoleConstants.ANONYMOUS)
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public String goToDashboard() {
         return "dashboard";
