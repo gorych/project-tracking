@@ -1,5 +1,7 @@
+<%@ page import="by.epamlab.projecttracking.security.UserRoleConstants" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <div class="header">
     <div class="container">
         <div class="nav">
@@ -22,10 +24,14 @@
                 <sec:authorize access="!isAuthenticated()">
                     <li class="login-logout"><a href="<c:url value="/login"/>">Log In</a></li>
                 </sec:authorize>
+                <sec:authorize
+                        access="hasAnyRole('ROLE_PR_MANAGER','ROLE_TEAM_LEAD')">
+                    <li class="btn"><a href="">Create Issue</a></li>
+                </sec:authorize>
             </ul>
             <ul class="login-logout">
                 <sec:authorize access="isAuthenticated()">
-                    <li>Yahor Semianchenia
+                    <li><security:authentication property="principal.username"/>
                         <ul>
                             <li><a href="<c:url value="/j_spring_security_logout"/>">Log out</a>
                             </li>

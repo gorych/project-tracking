@@ -139,7 +139,7 @@ td, th {
 }
 
 .admin-btn:hover, .admin-panel .btn:hover {
-    border: 1px solid #000;
+    border: 1px solid #999;
 }
 
 .admin-btn a, .admin-panel .btn a:visited {
@@ -319,7 +319,7 @@ form input[type="submit"] {
 }
 
 form input[type="submit"]:hover, .modal .btn:hover {
-    border: 1px solid #000;
+    border: 1px solid #999;
 }
 
 form .footer {
@@ -416,12 +416,12 @@ form .error {
 }
 
 .nav ul li ul {
-    padding: 1px 0;
     position: absolute;
-    top: 41px;
+    top: 40px;
     display: none;
     visibility: hidden;
     opacity: 0;
+    border-top: 1px solid #F5F5F5;
 }
 
 .nav ul li ul li {
@@ -445,20 +445,39 @@ form .error {
 }
 
 .login-logout {
+    padding: 0 5px;
     float: right;
 }
 
-.login-logout {
-    padding: 0 5px;
+.nav .login-logout li {
+    min-width: 60px;
+    text-align: center;
+    text-transform: capitalize;
 }
 
-.login-logout li ul {
-    width: 50px;
-    right: -81px;
-    text-align: center;
+.nav .login-logout li ul {
+    width: 100%;
+    right: 25px;
+    text-transform: none;
 }
 
 .login-logout a {
     display: block;
     color: #FFF;
+    text-align: center;
+}
+
+.nav .btn {
+    height: 30px;
+    padding: 0;
+    margin-bottom: 2px;
+    line-height: 30px;
+    vertical-align: middle;
+    border-radius: 4px;
+    background: #3572B0;
+    text-align: center;
+}
+
+.nav .btn:hover {
+    border: 1px solid #F5F5F5;
 }
