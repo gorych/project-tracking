@@ -21,7 +21,7 @@
             </sf:select>
           </div>
           <div class="row">
-            <sf:label path="">Assignee</sf:label>
+            <sf:label path="s">Assignee</sf:label>
             <sf:select path="">
             </sf:select>
           </div>
