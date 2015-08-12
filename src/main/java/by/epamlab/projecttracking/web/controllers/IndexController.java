@@ -36,13 +36,19 @@ public class IndexController {
     }
 
     @RequestMapping(value = "/403", method = RequestMethod.GET)
-    public String accessDenied() {
+    public String roToAccessDenied() {
         return "403";
     }
 
     @RequestMapping(value = "/404", method = RequestMethod.GET)
-    public String resourceNotFound() {
+    public String goToResourceNotFound() {
         return "404";
+    }
+
+    @Secured(UserRoleConstants.USER)
+    @RequestMapping(value = {"/projects"}, method = RequestMethod.GET)
+    public String goToProjects() {
+        return "projects";
     }
 
 }
