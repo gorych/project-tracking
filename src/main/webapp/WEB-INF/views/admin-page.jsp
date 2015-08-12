@@ -13,7 +13,8 @@
                 <div class="header">Admin Panel</div>
                 <div class="column">
                     <a class="btn" href="<c:url value="/register"/>">Add new user</a>
-                    <a class="btn" href="#">Create new project</a>
+                    <a class="btn" href="<c:url value="/create-project"/>">Create new project</a>
+                    <a class="btn" href="<c:url value="/add-employee-to-project"/>">Add employee to project</a>
                 </div>
             </div>
         </div>
