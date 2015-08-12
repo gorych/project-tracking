@@ -23,6 +23,11 @@ h4 {
     font-size: 12pt;
 }
 
+h5 {
+    font-size: 11pt;
+}
+
+
 table {
     width: 100%;
     text-align: left;
@@ -89,7 +94,7 @@ td, th {
 }
 
 .container {
-    width: 1300px;
+    width: 1250px;
     height: 100%;
     margin: 0 auto;
 }
@@ -301,9 +306,18 @@ form input, form select, .admin-panel .btn {
 }
 
 form input[type="text"], input[type="password"],
-form select {
+form select, form textarea {
     width: 226px;
     padding: 0 10px;
+}
+
+form textarea {
+    height: 35px;
+    max-width: 226px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    border: 1px solid #CCC;
+    vertical-align: top;
 }
 
 .required:after{
@@ -480,4 +494,49 @@ form .error {
 
 .nav .btn:hover {
     border: 1px solid #F5F5F5;
+}
+
+.title {
+    width: 98.5%;
+    height: 50px;
+    padding: 10px 0 5px 20px;
+    background: #F5F5F5;
+    border-bottom: 1px solid #DDD;
+}
+
+.title h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+.title h1 {
+    font-size: 15pt;
+    text-transform: uppercase;
+}
+
+.title h5 {
+    margin: 7px 0;
+}
+
+.title .lead {
+    display: inline-block;
+    color: #3572B0;
+}
+
+.summary {
+    width: 40%;
+    padding: 0 10px 5px 0;
+    margin-bottom: 15px;
+    font-size: 11pt;
+    border-bottom: 1px solid #DDD;
+}
+
+.summary span {
+    font-size: 14pt;
+    padding-bottom: 10px;
+}
+
+.summary .description {
+    padding: 10px 0;
+    font-size: 11pt;
+    text-align: justify;
 }
