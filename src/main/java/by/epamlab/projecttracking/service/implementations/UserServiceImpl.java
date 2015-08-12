@@ -32,7 +32,10 @@ public class UserServiceImpl implements UserDetailsService {
             roles.add(new SimpleGrantedAuthority(UserRoleConstants.ADMIN));
         } else {
             roles.add(new SimpleGrantedAuthority(UserRoleConstants.USER));
+            roles.add(new SimpleGrantedAuthority(UserRoleConstants.PR_MANAGER));
+            roles.add(new SimpleGrantedAuthority(UserRoleConstants.TEAM_LEAD));
         }
+        System.out.println(roles);
         return new User(j_username, employee.getPassword(), roles);
     }
 

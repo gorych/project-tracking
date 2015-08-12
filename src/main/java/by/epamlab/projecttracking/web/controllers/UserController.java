@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,8 +39,8 @@ public class UserController {
         final int FROM_INDEX = 0;
         final int TO_INDEX = 5;
 
-        List<Activity> activities = activityService.getFromIndexToIndex(FROM_INDEX, TO_INDEX);
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        List<Activity> activities = activityService.getFromIndexToIndex(FROM_INDEX, TO_INDEX);
         List<Task> tasks = assignmentService.getAssigneeTasks(username);
         List<Member> members = memberService.getByUsername(username);
 
