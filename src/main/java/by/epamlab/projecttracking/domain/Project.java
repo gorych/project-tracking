@@ -1,6 +1,8 @@
 package by.epamlab.projecttracking.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "project")
@@ -11,6 +13,9 @@ public class Project {
     @GeneratedValue
     private int id;
 
+    @Size(min = 5, max = 100,
+            message = "Project name must be between 5 and 100 characters long.")
+    @NotNull
     @Column(name = "name")
     private String name;
 
