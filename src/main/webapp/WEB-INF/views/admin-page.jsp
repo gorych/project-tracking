@@ -12,7 +12,7 @@
             <div class="modal admin-panel">
                 <div class="header">Admin Panel</div>
                 <div class="column">
-                    <a class="btn" href="/register">Add new user</a>
+                    <a class="btn" href="<c:url value="/register"/>">Add new user</a>
                     <a class="btn" href="#">Create new project</a>
                 </div>
             </div>

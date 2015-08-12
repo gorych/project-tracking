@@ -38,7 +38,6 @@ tr {
 }
 
 tr:last-of-type, tr:first-of-type {
-    width: 30%;
     border: none;
 }
 
@@ -55,7 +54,7 @@ tr:first-of-type {
 }
 
 tr:hover, .activity .row:hover {
-    background: #F0F0F0;
+    background: #F5F5F5;
 }
 
 th {
@@ -104,54 +103,10 @@ td, th {
     padding: 20px 10px 100px;
 }
 
-.main-nav {
-    height: 100%;
-    margin: 0;
-    padding: 0 10px;
-    background: #205081;
-    color: #FFF;
-    line-height: 41px;
-    text-transform: capitalize;
-}
-
-.main-nav ul {
-    margin: 0 0 0 -55px;
-    list-style-type: none;
-}
-
-.main-nav li {
-    height: 100%;
-    float: left;
-}
-
-.main-nav ul li {
-    margin-left: 10px;
-}
-
-.main-nav li:hover, a:hover {
-    background: #3572B0;
-    color: #FFF;
-}
-
-.main-nav li a:hover {
-    color: #FFF;
-}
-
-.drop-nav li:hover {
-    list-style-type: none;
-    color: #FFF;
-}
-
-.main-nav a {
-    padding: 0 7px;
-    display: block;
-    color: #FFF;
-}
-
-.main-nav .btn, .container .admin-btn, .admin-panel .btn {
+.btn, .admin-btn {
     width: 100px;
     height: 30px;
-    border-radius: 6px;
+    border-radius: 3px;
     line-height: 31px;
     text-align: center;
 }
@@ -166,9 +121,10 @@ td, th {
 .container .admin-btn, .admin-panel .btn {
     width: 100px;
     height: 30px;
-    background: #F0F0F0;
+    background: #F5F5F5;
     float: right;
     border: 1px solid #CCC;
+    color: #000;
 }
 
 .container .admin-btn {
@@ -179,67 +135,15 @@ td, th {
 .btn a, .admin-btn a, .admin-panel .btn a {
     display: block;
     color: #FFF;
-    border-radius: 6px;
+    border-radius: 3px;
 }
 
 .admin-btn:hover, .admin-panel .btn:hover {
-    background: #DDD;
+    border: 1px solid #000;
 }
 
-.admin-btn a, .admin-panel .btn a, .admin-panel .btn a:visited {
+.admin-btn a, .admin-panel .btn a:visited {
     color: #000;
-}
-
-.dropdown {
-    padding-right: 10px;
-    position: relative;
-}
-
-.dropdown:after {
-    content: "\25BC";
-    display: block;
-    position: absolute;
-    top: 1px;
-    right: 5px;
-    font-size: .7em;
-}
-
-.drop-nav {
-    display: none;
-    position: absolute;
-    left: 55px; /*!!!!!!!!!!!*/
-    background: #FFF;
-    border: 1px solid #CCC;
-}
-
-.dropdown:hover .drop-nav {
-    display: block;
-}
-
-.drop-nav li {
-    width: 150px;
-    height: 30px;
-    margin: 0 0 2px 0;
-    line-height: 30px;
-    border-top: 1px solid #FFF;
-    box-sizing: border-box;
-}
-
-.btn-login .drop-nav li {
-    width: 30px;
-}
-
-.dropdown li a {
-    display: block;
-}
-
-.drop-nav a {
-    margin-left: -50px;
-    color: #000;
-}
-
-.drop-nav a:hover {
-    color: #FFF;
 }
 
 .footer {
@@ -260,23 +164,33 @@ td, th {
     height: 100%;
     min-height: 200px;
     width: 99%;
-    border-radius: 5px;
+    border-radius: 3px;
     border: 1px solid #DDD;
     font-size: 0;
     text-align: center;
 }
 
 .modal .header, form .header {
-    height: 25px;
+    height: 30px;
     margin-bottom: 2px;
     padding-left: 10px;
-    border-radius: 5px 5px 0 0;
+    border-radius: 3px 3px 0 0;
     background: #3B73AF;
     color: #FFF;
     font-weight: bold;
     font-size: 11pt;
-    line-height: 25px;
+    line-height: 30px;
     text-align: left;
+}
+
+.modal .header {
+    height: 25px;
+    line-height: 25px;
+}
+
+.admin-panel .header {
+    height: 30px;
+    line-height: 30px;
 }
 
 .modal .activity {
@@ -325,27 +239,29 @@ td, th {
     font-size: 10pt;
 }
 
-.admin-panel .btn {
-    margin: 10px;
-    width: 94%;
-}
-
-.admin-panel .btn {
-    font-size: 11pt;
-    color: #000;
+form .header {
+    height: 30px;
+    line-height: 30px;
 }
 
 form, .admin-panel {
     width: 330px;
-    margin: 12% auto;
-}
-
-.admin-panel {
     margin: 11% auto;
 }
 
 .register-form {
-    margin: 6.9% auto;
+    margin: 5% auto;
+}
+
+.admin-panel {
+    text-align: center;
+}
+
+.error {
+    margin: 10px 10px 10px;
+    color: crimson;
+    font-size: 11pt;
+    text-align: left;
 }
 
 label {
@@ -356,30 +272,54 @@ label {
 }
 
 form input, form select, .modal .btn {
-    height: 30px;
+    height: 35px;
     box-sizing: border-box;
     border-radius: 3px;
     border: 1px solid #CCC;
 }
 
-form input, form select {
+.modal .btn {
+    height: 30px;
+    line-height: 11px;
+    background: #F5F5F5;
+}
+
+.admin-panel .btn {
+    width: 94%;
+    height: 35px;
+    margin: 20px 10px 0;
+    line-height: 35px;
+}
+
+form input, form select, .admin-panel .btn {
     font-size: 11pt;
+}
+
+.admin-panel .btn a, .admin-panel .btn a:visited {
+    display: block;
+    color: #FFF;
 }
 
 form input[type="text"], input[type="password"],
 form select {
-    width: 232px;
+    width: 226px;
     padding: 0 10px;
+}
+
+.required:after{
+    content: "*";
+    color: red;
 }
 
 form input[type="submit"] {
     width: 310px;
     margin: 0 10px 15px 10px;
     cursor: pointer;
+    background: #F5F5F5;
 }
 
 form input[type="submit"]:hover, .modal .btn:hover {
-    background-color: #DDD;
+    border: 1px solid #000;
 }
 
 form .footer {
@@ -395,21 +335,9 @@ form a {
     color: #3572B0;
 }
 
-form a:hover,
 .container a:hover {
     background: transparent;
     color: #000;
-}
-
-.error {
-    margin: 10px 10px 10px;
-    color: crimson;
-    font-size: 11pt;
-    text-align: left;
-}
-
-.container .main-nav .btn a:hover {
-    color: #FFF;
 }
 
 .column, .container .grid-col {
@@ -419,7 +347,6 @@ form a:hover,
 
 .column {
     width: 100%;
-    padding-bottom: 0;
 }
 
 .row {
@@ -444,4 +371,94 @@ form .error {
 
 .container .grid-col:last-of-type {
     margin-left: 1%;
+}
+
+.nav {
+    height: 41px;
+    line-height: 11px;
+    background: #205081;
+    color: #FFF;
+}
+
+.nav ul {
+    margin: 0;
+    padding: 0;
+    display: inline;
+    text-align: left;
+    list-style: none;
+}
+
+.nav ul li {
+    height: 100%;
+    padding: 0 15px;
+    display: inline-block;
+    position: relative;
+    line-height: 40px;
+    cursor: pointer;
+}
+
+.nav ul li ul a {
+    width: 100%;
+    display: block;
+}
+
+.nav ul li a:visited {
+    color: #FFF;
+}
+
+.nav ul li:hover {
+    background: #3572B0;
+}
+
+.nav ul li ul {
+    width: 200px;
+    left: 0;
+}
+
+.nav ul li ul {
+    padding: 1px 0;
+    position: absolute;
+    top: 41px;
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.nav ul li ul li {
+    display: block;
+    background: #F5F5F5;
+    color: #000;
+}
+
+.nav ul li ul li a:visited {
+    color: #000;
+}
+
+.nav ul li ul li a:hover {
+    color: #FFF;
+}
+
+.nav ul li:hover ul {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+.login-logout {
+    float: right;
+}
+
+.login-logout {
+    padding: 0 5px;
+}
+
+.login-logout li ul {
+    width: 50px;
+    right: -81px;
+    text-align: center;
+}
+
+.login-logout a {
+    display: block;
+    color: #FFF;
 }

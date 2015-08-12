@@ -16,28 +16,28 @@
                 </div>
                 <div class="column">
                     <div class="row">
-                        <sf:label path="firstname">Firstname</sf:label>
+                        <sf:label cssClass="required" path="firstname">Firstname</sf:label>
                         <sf:input path="firstname" size="20"/>
                         <div class="row error">
                             <sf:errors path="firstname"/>
                         </div>
                     </div>
                     <div class="row">
-                        <sf:label path="lastname">Lastname</sf:label>
+                        <sf:label cssClass="required" path="lastname">Lastname</sf:label>
                         <sf:input path="lastname" size="20"/>
                         <div class="row error">
                             <sf:errors path="lastname"/>
                         </div>
                     </div>
                     <div class="row">
-                        <sf:label path="login">Username</sf:label>
+                        <sf:label cssClass="required" path="login">Username</sf:label>
                         <sf:input path="login" size="15" maxlength="15"/>
                         <div class="row error">
                             <sf:errors path="login"/>
                         </div>
                     </div>
                     <div class="row">
-                        <sf:label path="password">Password</sf:label>
+                        <sf:label cssClass="required" path="password">Password</sf:label>
                         <sf:input path="password" size="15" showPassword="flase"/>
                         <div class="row error">
                             <sf:errors path="password"/>
