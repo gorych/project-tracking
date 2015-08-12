@@ -10,7 +10,7 @@
                 <li>Projects
                     <ul>
                         <c:forEach var="member" items="${members}">
-                            <li><a href="#">${member.project.name}</a></li>
+                            <li><a href="/projects">${member.project.name}</a></li>
                         </c:forEach>
                     </ul>
                 </li>
