@@ -17,17 +17,20 @@ public class MemberDAOImpl implements MemberDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
+    @Override
     public Member get(int id) {
         Session session = sessionFactory.getCurrentSession();
         return (Member) session.get(Member.class, id);
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public List<Member> getAll() {
         return sessionFactory.getCurrentSession().createQuery("from Member")
                 .list();
     }
 
+    @Override
     public List<Member> getByEmployee(Employee employee) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("FROM Member WHERE employee_id = :employee_id");
@@ -35,11 +38,17 @@ public class MemberDAOImpl implements MemberDAO {
         return query.list();
     }
 
+    @Override
     public List<Member> getGroupByProject(Employee employee) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("FROM Member WHERE employee_id = :employee_id GROUP BY project");
         query.setInteger("employee_id", employee.getId());
         return query.list();
+    }
+
+    @Override
+    public void add(Member member) {
+        sessionFactory.getCurrentSession().save(member);
     }
 
 }

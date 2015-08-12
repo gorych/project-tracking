@@ -1,13 +1,15 @@
 package by.epamlab.projecttracking.dao.interfaces;
 
+import by.epamlab.projecttracking.domain.Employee;
 import by.epamlab.projecttracking.domain.Project;
 
 import java.util.List;
 
 public interface ProjectDAO {
 
-    public Project get(int id);
+    Project getById(int id);
 
-    public List<Project> getAll();
+    List<Project> getAll();
 
+    void add(Project project);
 }

@@ -15,7 +15,7 @@ public class RoleDAOImpl implements RoleDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public Role get(int id) {
+    public Role getById(int id) {
         Session session = sessionFactory.getCurrentSession();
         return (Role) session.get(Role.class, id);
     }

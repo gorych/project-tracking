@@ -12,4 +12,6 @@ public interface MemberService {
     List<Member> getAll();
 
     List<Member> getByUsername(String username);
+
+    void add(int employeeId, int projectId, int roleId);
 }

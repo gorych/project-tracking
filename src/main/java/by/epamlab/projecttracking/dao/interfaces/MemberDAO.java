@@ -15,4 +15,6 @@ public interface MemberDAO {
 
     List<Member> getGroupByProject(Employee employee);
 
+    void add(Member member);
+
 }

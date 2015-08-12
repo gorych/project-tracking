@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface RoleDAO {
 
-    public Role get(int id);
+    Role getById(int id);
 
-    public List<Role> getAll();
+    List<Role> getAll();
 
 }
