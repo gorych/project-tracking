@@ -13,10 +13,6 @@ public class Employee {
     @GeneratedValue
     private int id;
 
-    private String m(){
-        return "";
-    }
-
     @Size(min = 2, max = 15,
             message = "Firstname must be between 2 and 15 characters long.")
     @NotNull
