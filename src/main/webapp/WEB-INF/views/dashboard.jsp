@@ -10,17 +10,8 @@
     <div class="container">
         <div class="content">
             <div class="container">
-                <div class="grid-col">
-                    <h1>System Dashboard</h1>
-                    <sec:authorize access="!isAuthenticated()">
-                        <h4>Please <a href="<c:url value="/login"/>">log in.</a></h4>
-                    </sec:authorize>
-                </div>
-                <div class="grid-col">
-                    <sec:authorize access="hasRole('ROLE_ADMIN')">
-                        <div class="admin-btn"><a href="<c:url value="/admin"/>">Admin panel</a></div>
-                    </sec:authorize>
-                </div>
+                <h1>System Dashboard</h1>
+                <h4>Please <a href="<c:url value="/login"/>">log in.</a></h4>
             </div>
             <sec:authorize access="isAuthenticated()">
                 <div class="grid-col">
@@ -44,22 +35,20 @@
                     </div>
                 </div>
                 <div class="grid-col">
-                    <div class="half-column">
-                        <div class="modal">
-                            <div class="header">Assigned to Me</div>
-                            <table>
+                    <div class="modal">
+                        <div class="header">Assigned to Me</div>
+                        <table>
+                            <tr>
+                                <th>Project</th>
+                                <th>Summary</th>
+                            </tr>
+                            <c:forEach var="task" items="${tasks}">
                                 <tr>
-                                    <th>Key</th>
-                                    <th>Summary</th>
+                                    <td>${task.project.name}</td>
+                                    <td><a href="#">${task.description}</a></td>
                                 </tr>
-                                <c:forEach var="task" items="${tasks}">
-                                    <tr>
-                                        <td>${task.project.name}</td>
-                                        <td>${task.description}</td>
-                                    </tr>
-                                </c:forEach>
-                            </table>
-                        </div>
+                            </c:forEach>
+                        </table>
                     </div>
                 </div>
             </sec:authorize>
