@@ -27,6 +27,7 @@ public class ActivityDAOImpl implements ActivityDAO {
                 .list();
     }
 
+    @SuppressWarnings("unchecked")
     public List<Activity> getFromIndexToIndex(int fromIndex, int toIndex) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("FROM Activity ORDER BY date DESC");
