@@ -1,11 +1,10 @@
 package by.epamlab.projecttracking.service.implementations;
 
 import by.epamlab.projecttracking.domain.Employee;
-import by.epamlab.projecttracking.security.UserRoleConstants;
+import by.epamlab.projecttracking.security.UserPosition;
 import by.epamlab.projecttracking.service.interfaces.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -27,16 +26,15 @@ public class UserServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("User with the login " + j_username + " not found!");
         }
 
-        Set<SimpleGrantedAuthority> roles = new HashSet<>();
-        if (UserRoleConstants.ADMIN_ROLE_NAME.equals(employee.getPosition().getName())) {
-            roles.add(new SimpleGrantedAuthority(UserRoleConstants.ADMIN));
-        } else {
-            roles.add(new SimpleGrantedAuthority(UserRoleConstants.USER));
-            roles.add(new SimpleGrantedAuthority(UserRoleConstants.PR_MANAGER));
-            roles.add(new SimpleGrantedAuthority(UserRoleConstants.TEAM_LEAD));
-        }
-        return new User(j_username, employee.getPassword(), roles);
-    }
+        int roleIndex = employee.getPosition().getId() - 1;
+        String[] roles = UserPosition.values()[roleIndex].getRole();
 
+        Set<SimpleGrantedAuthority> userRoles = new HashSet<>();
+        for (String role : roles) {
+            userRoles.add(new SimpleGrantedAuthority(role));
+        }
+
+        return new User(j_username, employee.getPassword(), userRoles);
+    }
 
 }
