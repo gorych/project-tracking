@@ -17,17 +17,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Transactional
     public Employee getById(int id) {
-        return employeeDAO.getById(id);
+        return employeeDAO.getEmployeeById(id);
     }
 
     @Transactional
     public Employee getByUsername(String username) {
-        return employeeDAO.getByUsername(username);
+        return employeeDAO.getEmployeeByUsername(username);
     }
 
     @Transactional
     public List<Employee> getAll() {
-        return employeeDAO.getAll();
+        return employeeDAO.getAllEmployees();
     }
 
     @Transactional
