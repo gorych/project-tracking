@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@Secured(UserRoleConstants.ADMIN)
 public class AdminController {
 
     @Autowired
@@ -33,61 +34,55 @@ public class AdminController {
     @Autowired
     MemberService memberService;
 
-    @Secured(UserRoleConstants.ADMIN)
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String createEmployee(Model model) {
+    public String showRegisterForm(Model model) {
         List<Position> positions = positionService.getAll();
-        model.addAttribute(AttributeConstants.EMPLOYEE, new Employee());
+
         model.addAttribute(AttributeConstants.POSITIONS, positions);
+        model.addAttribute(AttributeConstants.EMPLOYEE, new Employee());
 
         return "register";
     }
 
-    @Secured(UserRoleConstants.ADMIN)
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String addNewEmployee(@Valid Employee employee,
                                  BindingResult bindingResult, Model model) {
-        List<Position> positions = positionService.getAll();
-        model.addAttribute(AttributeConstants.POSITIONS, positions);
-
         if (bindingResult.hasErrors()) {
-            return "register";
+            return showRegisterForm(model);
         }
 
         synchronized (AdminController.class) {
             Employee user = employeeService.getByUsername(employee.getLogin());
             if (user != null) {
-                model.addAttribute(AttributeConstants.USER_EXIST_ERROR, "This username already exists.");
+                model.addAttribute(AttributeConstants.REGISTER_ERROR, "This username already exists.");
                 return "register";
             }
-            Position position = positionService.getById(employee.getPosition().getId());
+            Position position = positionService.getPositionById(employee.getPosition().getId());
             employee.setPosition(position);
             employeeService.add(employee);
         }
         return "redirect:/admin";
     }
 
-    @Secured(value = {UserRoleConstants.ADMIN})
     @RequestMapping(value = {"/create-project"}, method = RequestMethod.GET)
     public String goToCreateProject(Model model) {
         model.addAttribute(AttributeConstants.PROJECT, new Project());
         return "create-project";
     }
 
-    @Secured(value = {UserRoleConstants.ADMIN})
     @RequestMapping(value = {"/create-project"}, method = RequestMethod.POST)
     public String createProject(@Valid Project project,
                                 BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "create-project";
         }
+
         projectService.add(project);
         return "redirect:/admin";
     }
 
-    @Secured(value = {UserRoleConstants.ADMIN})
     @RequestMapping(value = {"/add-employee-to-project"}, method = RequestMethod.GET)
-    public String goToAddEmployeeToProject(Model model) {
+    public String showAddEmployeeToProjectForm(Model model) {
         List<Project> projects = projectService.getAll();
         List<Employee> employees = employeeService.getAll();
         List<Role> roles = roleService.getAll();
@@ -100,21 +95,26 @@ public class AdminController {
         return "add-employee-to-project";
     }
 
-    @Secured(value = {UserRoleConstants.ADMIN})
     @RequestMapping(value = {"/add-employee-to-project"}, method = RequestMethod.POST)
     public String createProject(@Valid Member member,
-                                BindingResult bindingResult) {
+                                BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
             return "add-employee-to-project";
         }
 
-        //TODO на проект не может быть назначен один и тот же человек и админ
         int employeeId = member.getEmployee().getId();
         int projectId = member.getProject().getId();
         int roleId = member.getRole().getId();
-        memberService.add(employeeId, projectId, roleId);
 
+        Member existMember = memberService.getMemberByProjectAndEmployeeId(projectId, employeeId);
+        if (existMember != null) {
+            model.addAttribute(AttributeConstants.ADD_EMPLOYEE_TO_PROJECT_ERROR,
+                    "The member already assigned to this project.");
+            return showAddEmployeeToProjectForm(model);
+        }
+
+        memberService.add(employeeId, projectId, roleId);
         return "redirect:/admin";
     }
 
