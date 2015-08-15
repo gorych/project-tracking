@@ -40,6 +40,11 @@
                             </c:forEach>
                         </sf:select>
                     </div>
+                    <c:if test="${not empty add_employee_to_project_error}">
+                        <div class="row error">
+                            <c:out value="${add_employee_to_project_error}"/>
+                        </div>
+                    </c:if>
                 </div>
                 <input type="submit" value="Add"/>
             </sf:form>

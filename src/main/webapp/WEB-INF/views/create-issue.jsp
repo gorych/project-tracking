@@ -3,41 +3,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Create Issue</title>
-  <%@include file="fragments/imports.html" %>
+    <title>Create Issue</title>
+    <%@include file="fragments/imports.html" %>
 </head>
 <body>
 <div class="main">
-  <div class="container">
-    <div class="content">
-      <sf:form method="POST" modelAttribute="task">
-        <div class="header">
-          Create Issue
+    <div class="container">
+        <div class="content">
+            <sf:form method="POST" modelAttribute="assignment">
+                <div class="header">
+                    Create Issue
+                </div>
+                <div class="column">
+                    <div class="row">
+                        <label for="project">Project</label>
+                        <sf:select path="project" items="${projects}" itemValue="id" itemLabel="name"/>
+                    </div>
+                    <div class="row">
+                        <label for="member.employee.id">Assignee</label>
+                        <sf:select path="member.employee.id">
+                        </sf:select>
+                    </div>
+                    <div class="row">
+                        <label for="description">Description</label>
+                        <sf:textarea path="description"/>
+                    </div>
+                </div>
+                <input type="submit" value="Create"/>
+            </sf:form>
         </div>
-        <div class="column">
-          <div class="row">
-            <sf:label path="">Project</sf:label>
-            <sf:select path="">
-            </sf:select>
-          </div>
-          <div class="row">
-            <sf:label path="s">Assignee</sf:label>
-            <sf:select path="">
-            </sf:select>
-          </div>
-          <div class="row">
-            <sf:label path="lastname">Description</sf:label>
-            <sf:input type="textarea" path="lastname"/>
-          </div>
-
-        </div>
-        <input type="submit" value="Sign Up"/>
-      </sf:form>
     </div>
-  </div>
 </div>
-<div class="footer">
-  <div class="text">Copyright &copy; August, 2015 Yahor Semianchenia</div>
-</div>
+<%@include file="fragments/footer.html" %>
 </body>
 </html>
