@@ -1,6 +1,7 @@
 package by.epamlab.projecttracking.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "position")
@@ -13,6 +14,9 @@ public class Position {
 
     @Column(name = "name")
     private String name;
+
+    @OneToMany(mappedBy = "position", fetch = FetchType.LAZY)
+    private List<Employee> employees;
 
     public int getId() {
         return id;
@@ -28,6 +32,14 @@ public class Position {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Employee> getPositions() {
+        return employees;
+    }
+
+    public void setPositions(List<Employee> positions) {
+        this.employees = positions;
     }
 
     @Override

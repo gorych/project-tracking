@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PositionService {
 
-    Position getById(int id);
+    Position getPositionById(int id);
 
     List<Position> getAll();
 

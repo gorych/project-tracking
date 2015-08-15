@@ -17,7 +17,7 @@ public class PositionServiceImpl implements PositionService {
     private PositionDAO positionDAO;
 
     @Transactional
-    public Position getById(int id) {
+    public Position getPositionById(int id) {
         return positionDAO.get(id);
     }
 
