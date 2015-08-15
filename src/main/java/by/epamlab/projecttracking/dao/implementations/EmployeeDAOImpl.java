@@ -16,22 +16,22 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public Employee getById(int id) {
+    public Employee getEmployeeById(int id) {
         Session session = sessionFactory.getCurrentSession();
         return (Employee) session.get(Employee.class, id);
     }
 
     @SuppressWarnings("unchecked")
-    public Employee getByUsername(String login) {
+    public Employee getEmployeeByUsername(String username) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("FROM Employee WHERE login = :login");
-        query.setString("login", login);
+        query.setString("login", username);
         List<Employee> employees = query.list();
         return employees.size() > 0 ? employees.get(0) : null;
     }
 
     @SuppressWarnings("unchecked")
-    public List<Employee> getAll() {
+    public List<Employee> getAllEmployees() {
         return sessionFactory.getCurrentSession().createQuery("from Employee")
                 .list();
     }
