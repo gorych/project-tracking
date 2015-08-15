@@ -45,7 +45,7 @@ public class UserController {
 
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        List<Activity> activities = activityService.getFromIndexToIndex(FROM_INDEX, TO_INDEX);
+        List<Activity> activities = activityService.getActivitiesFromIndexToIndex(FROM_INDEX, TO_INDEX);
         List<Task> tasks = assignmentService.getAssigneeTasks(username);
         List<Member> members = memberService.getMembersByUsername(username);
 
@@ -61,7 +61,7 @@ public class UserController {
     @ResponseBody
     public String loadActivity(@RequestParam(value = "fromIndex") int fromIndex) {
         final int TO_INDEX = fromIndex + 5;
-        List<Activity> activities = activityService.getFromIndexToIndex(fromIndex, TO_INDEX);
+        List<Activity> activities = activityService.getActivitiesFromIndexToIndex(fromIndex, TO_INDEX);
         return activityService.getJsonString(activities);
     }
 
@@ -76,7 +76,7 @@ public class UserController {
         }
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        Project project = projectService.getById(projectId);
+        Project project = projectService.getProjectById(projectId);
         List<Member> members = memberService.getMembersByUsername(username);
 
         model.addAttribute(AttributeConstants.PROJECT, project);
@@ -88,7 +88,7 @@ public class UserController {
     @Secured({UserRoleConstants.TEAM_LEAD, UserRoleConstants.PR_MANAGER})
     @RequestMapping(value = {"/create-issue"}, method = RequestMethod.GET)
     public String showCreateIssueForm(Model model) {
-        List<Project> projects = projectService.getAll();
+        List<Project> projects = projectService.getAllProjects();
 
         model.addAttribute(AttributeConstants.ASSIGNMENT, new Member());
         model.addAttribute(AttributeConstants.PROJECTS, projects);

@@ -34,11 +34,11 @@ public class ServicesTest {
     @Test
     public void runTest() {
         List<Member> members = memberService.getAllMembers();
-        List<Assignment> assignments = assignmentService.getAll();
-        List<Activity> activities = activityService.getAll();
+        List<Assignment> assignments = assignmentService.getAllAssignments();
+        List<Activity> activities = activityService.getAllActivities();
         List<Position> positions = positionService.getAll();
-        List<Employee> employees = employeeService.getAll();
-        List<Project> projects = projectService.getAll();
+        List<Employee> employees = employeeService.getAllEmployees();
+        List<Project> projects = projectService.getAllProjects();
 
         System.out.println("MEMBER-SERVICE\n" + members);
         System.out.println("ASSIGNMENT-SERVICE\n" + assignments);

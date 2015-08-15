@@ -33,12 +33,12 @@ public class AssignmentServiceImpl implements AssignmentService {
     private TaskDAO taskDAO;
 
     @Transactional
-    public Assignment get(int id) {
+    public Assignment getAssignmentById(int id) {
         return assignmentDAO.getById(id);
     }
 
     @Transactional
-    public List<Assignment> getAll() {
+    public List<Assignment> getAllAssignments() {
         return assignmentDAO.getAll();
     }
 

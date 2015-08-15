@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface AssignmentService {
 
-    Assignment get(int id);
+    Assignment getAssignmentById(int id);
 
-    List<Assignment> getAll();
+    List<Assignment> getAllAssignments();
 
     List<Task> getAssigneeTasks(String username);
 

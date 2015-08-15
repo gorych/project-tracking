@@ -52,7 +52,7 @@ public class AdminController {
         }
 
         synchronized (AdminController.class) {
-            Employee user = employeeService.getByUsername(employee.getLogin());
+            Employee user = employeeService.getEmployeeByUsername(employee.getLogin());
             if (user != null) {
                 model.addAttribute(AttributeConstants.REGISTER_ERROR, "This username already exists.");
                 return "register";
@@ -83,9 +83,9 @@ public class AdminController {
 
     @RequestMapping(value = {"/add-employee-to-project"}, method = RequestMethod.GET)
     public String showAddEmployeeToProjectForm(Model model) {
-        List<Project> projects = projectService.getAll();
-        List<Employee> employees = employeeService.getAll();
-        List<Role> roles = roleService.getAll();
+        List<Project> projects = projectService.getAllProjects();
+        List<Employee> employees = employeeService.getAllEmployees();
+        List<Role> roles = roleService.getAllRoles();
 
         model.addAttribute(AttributeConstants.MEMBER, new Member());
         model.addAttribute(AttributeConstants.PROJECTS, projects);

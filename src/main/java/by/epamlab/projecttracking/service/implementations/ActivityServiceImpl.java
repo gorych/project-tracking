@@ -21,17 +21,17 @@ public class ActivityServiceImpl implements ActivityService {
     private ActivityDAO activityDAO;
 
     @Transactional
-    public Activity getById(int id) {
+    public Activity getActivityById(int id) {
         return activityDAO.getById(id);
     }
 
     @Transactional
-    public List<Activity> getAll() {
+    public List<Activity> getAllActivities() {
         return activityDAO.getAll();
     }
 
     @Transactional
-    public List<Activity> getFromIndexToIndex(int fromIndex, int toIndex) {
+    public List<Activity> getActivitiesFromIndexToIndex(int fromIndex, int toIndex) {
         return activityDAO.getFromIndexToIndex(fromIndex, toIndex);
     }
 

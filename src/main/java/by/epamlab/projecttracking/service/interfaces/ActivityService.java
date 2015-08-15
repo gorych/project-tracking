@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface ActivityService {
 
-    Activity getById(int id);
+    Activity getActivityById(int id);
 
-    List<Activity> getAll();
+    List<Activity> getAllActivities();
 
-    List<Activity> getFromIndexToIndex(int fromIndex, int toIndex);
+    List<Activity> getActivitiesFromIndexToIndex(int fromIndex, int toIndex);
 
     String getJsonString(List<Activity> activities);
 
