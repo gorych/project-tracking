@@ -28,6 +28,7 @@ public class AssignmentDAOImpl implements AssignmentDAO {
                 .list();
     }
 
+    @SuppressWarnings("unchecked")
     public List<Assignment> getByMember(Member member) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("FROM Assignment WHERE mamber_id = :mamber_id");
