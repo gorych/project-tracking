@@ -16,44 +16,40 @@
                 </div>
                 <div class="column">
                     <div class="row">
-                        <sf:label cssClass="required" path="firstname">Firstname</sf:label>
+                        <label class="required" for="firstname">Firstname</label>
                         <sf:input path="firstname" size="20"/>
                         <div class="row error">
                             <sf:errors path="firstname"/>
                         </div>
                     </div>
                     <div class="row">
-                        <sf:label cssClass="required" path="lastname">Lastname</sf:label>
+                        <label class="required" for="lastname">Lastname</label>
                         <sf:input path="lastname" size="20"/>
                         <div class="row error">
                             <sf:errors path="lastname"/>
                         </div>
                     </div>
                     <div class="row">
-                        <sf:label cssClass="required" path="login">Username</sf:label>
+                        <label cssClass="required" for="login">Username</label>
                         <sf:input path="login" size="15" maxlength="15"/>
                         <div class="row error">
                             <sf:errors path="login"/>
                         </div>
                     </div>
                     <div class="row">
-                        <sf:label cssClass="required" path="password">Password</sf:label>
+                        <label class="required" for="password">Password</label>
                         <sf:input path="password" size="15" showPassword="flase"/>
                         <div class="row error">
                             <sf:errors path="password"/>
                         </div>
                     </div>
                     <div class="row">
-                        <sf:label path="position.id">Position</sf:label>
-                        <sf:select path="position.id">
-                            <c:forEach var="pos" items="${positions}">
-                                <sf:option value="${pos.id}">${pos.name}</sf:option>
-                            </c:forEach>
-                        </sf:select>
+                        <label for="position">Position</label>
+                        <sf:select path="position" items="${positions}" itemValue="id" itemLabel="name"/>
                     </div>
-                    <c:if test="${not empty user_exist_error}">
+                    <c:if test="${not empty register_error}">
                         <div class="row error">
-                            <c:out value="${user_exist_error}"/>
+                            <c:out value="${register_error}"/>
                         </div>
                     </c:if>
                 </div>
