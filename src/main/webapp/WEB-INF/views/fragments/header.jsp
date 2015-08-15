@@ -1,7 +1,7 @@
-<%@ page import="by.epamlab.projecttracking.security.UserRoleConstants" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <div class="header">
     <div class="container">
         <div class="nav">
@@ -10,23 +10,19 @@
                 <li>Projects
                     <ul>
                         <c:forEach var="member" items="${members}">
-                            <li><a href="/projects">${member.project.name}</a></li>
+                            <li>
+                                <a href="<c:url value="/projects?id=${member.project.id}"/>">${member.project.name}</a>
+                            </li>
                         </c:forEach>
                     </ul>
                 </li>
-                <li>Issues
-                    <ul>
-                        <c:forEach var="member" items="${members}">
-                            <li><a href="#">${member.project.name}</a></li>
-                        </c:forEach>
-                    </ul>
-                </li>
+                <li><a href="#">Issues</a></li>
                 <sec:authorize access="!isAuthenticated()">
                     <li class="login-logout"><a href="<c:url value="/login"/>">Log In</a></li>
                 </sec:authorize>
                 <sec:authorize
                         access="hasAnyRole('ROLE_PR_MANAGER','ROLE_TEAM_LEAD')">
-                    <li class="btn"><a href="">Create Issue</a></li>
+                    <li class="btn"><a href="<c:url value="/create-issue"/>">Create Issue</a></li>
                 </sec:authorize>
             </ul>
             <ul class="login-logout">
