@@ -18,32 +18,57 @@ public class MemberDAOImpl implements MemberDAO {
     private SessionFactory sessionFactory;
 
     @Override
-    public Member get(int id) {
+    public Member getMemberById(int id) {
         Session session = sessionFactory.getCurrentSession();
         return (Member) session.get(Member.class, id);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Member> getAll() {
+    public List<Member> getAllMembers() {
         return sessionFactory.getCurrentSession().createQuery("from Member")
                 .list();
     }
 
     @Override
-    public List<Member> getByEmployee(Employee employee) {
+    @SuppressWarnings("unchecked")
+    public List<Member> getMembersByEmployee(Employee employee) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("FROM Member WHERE employee_id = :employee_id");
+        Query query = session.createQuery("FROM Member WHERE employee.id = :employee_id");
         query.setInteger("employee_id", employee.getId());
         return query.list();
     }
 
     @Override
-    public List<Member> getGroupByProject(Employee employee) {
+    @SuppressWarnings("unchecked")
+    public List<Member> getMembersGroupByProject(Employee employee) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("FROM Member WHERE employee_id = :employee_id GROUP BY project");
+        Query query = session.createQuery("FROM Member WHERE employee.id = :employee_id GROUP BY project");
         query.setInteger("employee_id", employee.getId());
         return query.list();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Member> getMembersByProjectId(int projectId) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("FROM Member WHERE project.id = ?");
+
+        query.setInteger(0, projectId);
+        return query.list();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public Member getMemberByProjectAndEmployeeId(int projectId, int employeeId) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("FROM Member WHERE project.id = :project_id AND employee.id = :employee_id");
+
+        query.setInteger("project_id", projectId);
+        query.setInteger("employee_id", employeeId);
+
+        List<Member> members = query.list();
+        return (members.size() > 0) ? members.get(0) : null;
     }
 
     @Override

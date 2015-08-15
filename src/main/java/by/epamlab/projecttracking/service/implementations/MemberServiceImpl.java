@@ -32,32 +32,34 @@ public class MemberServiceImpl implements MemberService {
     private ProjectDAO projectDAO;
 
     @Transactional
-    public Member get(int id) {
-        return memberDAO.get(id);
+    public Member getMemberById(int id) {
+        return memberDAO.getMemberById(id);
     }
 
     @Transactional
-    public List<Member> getAll() {
-        return memberDAO.getAll();
+    public List<Member> getAllMembers() {
+        return memberDAO.getAllMembers();
     }
 
     @Transactional
-    public List<Member> getByUsername(String username) {
-        Employee employee = employeeDAO.getByUsername(username);
+    public List<Member> getMembersByUsername(String username) {
+        Employee employee = employeeDAO.getEmployeeByUsername(username);
         if (employee == null) {
             return new ArrayList<>();
         }
-        List<Member> members = memberDAO.getGroupByProject(employee);
-        return members;
+        return memberDAO.getMembersGroupByProject(employee);
     }
 
-    @Override
+    @Transactional
+    public Member getMemberByProjectAndEmployeeId(int projectId, int employeeId) {
+        return memberDAO.getMemberByProjectAndEmployeeId(projectId, employeeId);
+    }
+
     @Transactional
     public void add(int employeeId, int projectId, int roleId) {
-        Employee employee = employeeDAO.getById(employeeId);
+        Employee employee = employeeDAO.getEmployeeById(employeeId);
         Project project = projectDAO.getById(projectId);
         Role role = roleDAO.getById(roleId);
-        System.out.println("MEMBER=" + new Member(project, employee, role));
         memberDAO.add(new Member(project, employee, role));
     }
 

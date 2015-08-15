@@ -7,13 +7,17 @@ import java.util.List;
 
 public interface MemberDAO {
 
-    Member get(int id);
+    Member getMemberById(int id);
 
-    List<Member> getAll();
+    List<Member> getAllMembers();
 
-    List<Member> getByEmployee(Employee employee);
+    List<Member> getMembersByEmployee(Employee employee);
 
-    List<Member> getGroupByProject(Employee employee);
+    List<Member> getMembersGroupByProject(Employee employee);
+
+    List<Member> getMembersByProjectId(int projectId);
+
+    Member getMemberByProjectAndEmployeeId(int projectId, int employeeId);
 
     void add(Member member);
 

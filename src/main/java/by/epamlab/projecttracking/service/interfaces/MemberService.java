@@ -7,11 +7,13 @@ import java.util.List;
 
 public interface MemberService {
 
-    Member get(int id);
+    Member getMemberById(int id);
 
-    List<Member> getAll();
+    List<Member> getAllMembers();
 
-    List<Member> getByUsername(String username);
+    List<Member> getMembersByUsername(String username);
+
+    Member getMemberByProjectAndEmployeeId(int projectId, int employeeId);
 
     void add(int employeeId, int projectId, int roleId);
 }

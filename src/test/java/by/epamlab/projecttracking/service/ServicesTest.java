@@ -33,7 +33,7 @@ public class ServicesTest {
 
     @Test
     public void runTest() {
-        List<Member> members = memberService.getAll();
+        List<Member> members = memberService.getAllMembers();
         List<Assignment> assignments = assignmentService.getAll();
         List<Activity> activities = activityService.getAll();
         List<Position> positions = positionService.getAll();
