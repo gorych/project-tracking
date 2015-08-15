@@ -1,6 +1,5 @@
 $(document).ready(function () {
     var fromIndex = 5;
-
     $('#more').click(function () {
         $.ajax({
             url: 'activity',

@@ -36,6 +36,14 @@ table {
     border: none;
 }
 
+table a{
+    cursor: pointer;
+}
+
+table a:visited {
+    color: #205081;
+}
+
 tr {
     margin-left: 7px;
     border-bottom: 1px solid #DDD;
@@ -260,6 +268,7 @@ form, .admin-panel {
 
 .admin-panel {
     text-align: center;
+    padding-bottom: 15px;
 }
 
 .error {
@@ -314,10 +323,12 @@ form select, form textarea {
 form textarea {
     height: 35px;
     max-width: 226px;
+    padding: 5px;
     box-sizing: border-box;
     border-radius: 3px;
     border: 1px solid #CCC;
     vertical-align: top;
+    font-size: 11pt;
 }
 
 .required:after{
@@ -499,8 +510,9 @@ form .error {
 .title {
     width: 98.5%;
     height: 50px;
-    padding: 10px 0 5px 20px;
-    background: #F5F5F5;
+    padding: 0 20px;
+    line-height: 50px;
+    background: #F5F5F5 none repeat scroll 0 0;
     border-bottom: 1px solid #DDD;
 }
 
@@ -515,6 +527,10 @@ form .error {
 
 .title h5 {
     margin: 7px 0;
+}
+
+.title table {
+    text-transform: capitalize;
 }
 
 .title .lead {
