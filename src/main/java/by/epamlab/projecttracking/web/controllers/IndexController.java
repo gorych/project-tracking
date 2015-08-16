@@ -46,6 +46,7 @@ public class IndexController {
         if (error != null) {
             model.addAttribute(AttributeConstants.AUTHENTICATION_ERROR, "Wrong username or password.");
         }
+
         return "login";
     }
 

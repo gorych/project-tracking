@@ -1,9 +1,6 @@
 package by.epamlab.projecttracking.web.controllers;
 
-import by.epamlab.projecttracking.domain.Activity;
-import by.epamlab.projecttracking.domain.Member;
-import by.epamlab.projecttracking.domain.Project;
-import by.epamlab.projecttracking.domain.Task;
+import by.epamlab.projecttracking.domain.*;
 import by.epamlab.projecttracking.security.UserRoleConstants;
 import by.epamlab.projecttracking.service.interfaces.ActivityService;
 import by.epamlab.projecttracking.service.interfaces.AssignmentService;
@@ -15,11 +12,13 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -56,11 +55,12 @@ public class UserController {
         return "dashboard";
     }
 
-    @Secured(value = {UserRoleConstants.USER, UserRoleConstants.ADMIN})
+    @Secured(value = {UserRoleConstants.USER})
     @RequestMapping(value = {"/activity"}, method = RequestMethod.POST)
     @ResponseBody
     public String loadActivity(@RequestParam(value = "fromIndex") int fromIndex) {
         final int TO_INDEX = fromIndex + 5;
+
         List<Activity> activities = activityService.getActivitiesFromIndexToIndex(fromIndex, TO_INDEX);
         return activityService.getJsonString(activities);
     }
@@ -68,21 +68,20 @@ public class UserController {
     @Secured(UserRoleConstants.USER)
     @RequestMapping(value = {"/projects"}, method = RequestMethod.GET)
     public String showProjects(@RequestParam(value = "id") String id, Model model) {
-        int projectId;
         try {
-            projectId = Integer.parseInt(id);
+            int projectId = Integer.parseInt(id);
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+            Project project = projectService.getProjectById(projectId);
+            List<Member> members = memberService.getMembersByUsername(username);
+
+            model.addAttribute(AttributeConstants.PROJECT, project);
+            model.addAttribute(AttributeConstants.MEMBERS, members);
+
+            return "projects";
         } catch (NumberFormatException e) {
             return "redirect:/dashboard";
         }
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-
-        Project project = projectService.getProjectById(projectId);
-        List<Member> members = memberService.getMembersByUsername(username);
-
-        model.addAttribute(AttributeConstants.PROJECT, project);
-        model.addAttribute(AttributeConstants.MEMBERS, members);
-
-        return "projects";
     }
 
     @Secured({UserRoleConstants.TEAM_LEAD, UserRoleConstants.PR_MANAGER})
@@ -90,9 +89,31 @@ public class UserController {
     public String showCreateIssueForm(Model model) {
         List<Project> projects = projectService.getAllProjects();
 
-        model.addAttribute(AttributeConstants.ASSIGNMENT, new Member());
+        model.addAttribute(AttributeConstants.ASSIGNMENT, new Assignment());
         model.addAttribute(AttributeConstants.PROJECTS, projects);
+        model.addAttribute(AttributeConstants.MEMBERS, projects.get(0).getMembers());
 
         return "create-issue";
+    }
+
+    @Secured({UserRoleConstants.TEAM_LEAD, UserRoleConstants.PR_MANAGER})
+    @RequestMapping(value = {"/create-issue"}, method = RequestMethod.POST)
+    public String createIssue(@Valid Assignment assignment,
+                              BindingResult bindingResult, Model model) {
+        Member member = memberService.getMemberById(assignment.getMember().getId());
+
+        if (bindingResult.hasErrors()) {
+            return "create-issue";
+        }
+
+        return "create-issue";
+    }
+
+    @Secured(value = {UserRoleConstants.USER})
+    @RequestMapping(value = {"/loadProjectTeam"}, method = RequestMethod.GET)
+    @ResponseBody
+    public String loadProjectTeam(@RequestParam(value = "projectId") int projectId) {
+        List<Member> members = memberService.getMembersByProjectId(projectId);
+        return memberService.getJsonString(members);
     }
 }

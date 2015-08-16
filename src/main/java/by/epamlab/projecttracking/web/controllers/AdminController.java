@@ -36,7 +36,7 @@ public class AdminController {
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String showRegisterForm(Model model) {
-        List<Position> positions = positionService.getAll();
+        List<Position> positions = positionService.getAllPositions();
 
         model.addAttribute(AttributeConstants.POSITIONS, positions);
         model.addAttribute(AttributeConstants.EMPLOYEE, new Employee());
@@ -47,8 +47,11 @@ public class AdminController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String addNewEmployee(@Valid Employee employee,
                                  BindingResult bindingResult, Model model) {
+        List<Position> positions = positionService.getAllPositions();
+        model.addAttribute(AttributeConstants.POSITIONS, positions);
+
         if (bindingResult.hasErrors()) {
-            return showRegisterForm(model);
+            return "register";
         }
 
         synchronized (AdminController.class) {
@@ -98,7 +101,6 @@ public class AdminController {
     @RequestMapping(value = {"/add-employee-to-project"}, method = RequestMethod.POST)
     public String createProject(@Valid Member member,
                                 BindingResult bindingResult, Model model) {
-
         if (bindingResult.hasErrors()) {
             return "add-employee-to-project";
         }
