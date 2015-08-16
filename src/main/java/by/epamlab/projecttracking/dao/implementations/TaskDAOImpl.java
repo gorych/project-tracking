@@ -28,4 +28,9 @@ public class TaskDAOImpl implements TaskDAO{
                 .list();
     }
 
+    @Override
+    public void addTask(Task task) {
+        sessionFactory.getCurrentSession().save(task);
+    }
+
 }
