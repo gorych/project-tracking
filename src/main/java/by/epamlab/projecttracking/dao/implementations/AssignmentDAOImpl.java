@@ -36,4 +36,9 @@ public class AssignmentDAOImpl implements AssignmentDAO {
         return query.list();
     }
 
+    @Override
+    public void addAssignment(Assignment assignment) {
+        sessionFactory.getCurrentSession().save(assignment);
+    }
+
 }

@@ -61,4 +61,10 @@ public class AssignmentServiceImpl implements AssignmentService {
         return tasks;
     }
 
+    @Transactional
+    public void insertAssignment(Assignment assignment) {
+        taskDAO.addTask(assignment.getTask());
+   //     assignmentDAO.addAssignment(assignment);
+    }
+
 }

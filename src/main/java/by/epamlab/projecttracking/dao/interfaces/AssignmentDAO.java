@@ -12,4 +12,6 @@ public interface AssignmentDAO {
     List<Assignment> getAllAssignments();
 
     List<Assignment> getAssignmentsByMember(Member member);
+
+    void addAssignment(Assignment assignment);
 }
