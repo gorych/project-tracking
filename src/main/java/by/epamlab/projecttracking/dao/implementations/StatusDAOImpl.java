@@ -15,13 +15,13 @@ public class StatusDAOImpl implements StatusDAO{
     @Autowired
     private SessionFactory sessionFactory;
 
-    public Status get(int id) {
+    public Status getStatusById(int id) {
         Session session = sessionFactory.getCurrentSession();
         return (Status) session.get(Status.class, id);
     }
 
     @SuppressWarnings("unchecked")
-    public List<Status> getAll() {
+    public List<Status> getAllStatuses() {
         return sessionFactory.getCurrentSession().createQuery("from Status")
                 .list();
     }

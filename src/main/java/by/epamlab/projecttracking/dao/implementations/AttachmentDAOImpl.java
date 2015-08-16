@@ -15,13 +15,13 @@ public class AttachmentDAOImpl implements AttachmentDAO{
     @Autowired
     private SessionFactory sessionFactory;
 
-    public Attachment get(int id) {
+    public Attachment getAttachmentById(int id) {
         Session session = sessionFactory.getCurrentSession();
         return (Attachment) session.get(Attachment.class, id);
     }
 
     @SuppressWarnings("unchecked")
-    public List<Attachment> getAll() {
+    public List<Attachment> getAllAttachments() {
         return sessionFactory.getCurrentSession().createQuery("from Attachment")
                 .list();
     }

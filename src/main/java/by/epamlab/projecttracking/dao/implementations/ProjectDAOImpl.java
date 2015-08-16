@@ -16,13 +16,13 @@ public class ProjectDAOImpl implements ProjectDAO{
     @Autowired
     private SessionFactory sessionFactory;
 
-    public Project getById(int id) {
+    public Project getProjectById(int id) {
         Session session = sessionFactory.getCurrentSession();
         return (Project) session.get(Project.class, id);
     }
 
     @SuppressWarnings("unchecked")
-    public List<Project> getAll() {
+    public List<Project> getAllProjects() {
         return sessionFactory.getCurrentSession().createQuery("from Project")
                 .list();
     }

@@ -1,6 +1,5 @@
 package by.epamlab.projecttracking.service.interfaces;
 
-import by.epamlab.projecttracking.domain.Employee;
 import by.epamlab.projecttracking.domain.Member;
 
 import java.util.List;
@@ -13,7 +12,11 @@ public interface MemberService {
 
     List<Member> getMembersByUsername(String username);
 
+    List<Member> getMembersByProjectId(int projectId);
+
     Member getMemberByProjectAndEmployeeId(int projectId, int employeeId);
 
     void add(int employeeId, int projectId, int roleId);
+
+    String getJsonString(List<Member> members);
 }

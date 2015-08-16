@@ -17,19 +17,19 @@ public class AssignmentDAOImpl implements AssignmentDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public Assignment getById(int id) {
+    public Assignment getAssignmentById(int id) {
         Session session = sessionFactory.getCurrentSession();
         return (Assignment) session.get(Assignment.class, id);
     }
 
     @SuppressWarnings("unchecked")
-    public List<Assignment> getAll() {
+    public List<Assignment> getAllAssignments() {
         return sessionFactory.getCurrentSession().createQuery("from Assignment")
                 .list();
     }
 
     @SuppressWarnings("unchecked")
-    public List<Assignment> getByMember(Member member) {
+    public List<Assignment> getAssignmentsByMember(Member member) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("FROM Assignment WHERE mamber_id = :mamber_id");
         query.setInteger("mamber_id", member.getId());

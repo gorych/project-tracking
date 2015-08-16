@@ -22,17 +22,17 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Transactional
     public Activity getActivityById(int id) {
-        return activityDAO.getById(id);
+        return activityDAO.getActivityById(id);
     }
 
     @Transactional
     public List<Activity> getAllActivities() {
-        return activityDAO.getAll();
+        return activityDAO.getAllActivities();
     }
 
     @Transactional
     public List<Activity> getActivitiesFromIndexToIndex(int fromIndex, int toIndex) {
-        return activityDAO.getFromIndexToIndex(fromIndex, toIndex);
+        return activityDAO.getActivitiesFromIndexToIndex(fromIndex, toIndex);
     }
 
     public String getJsonString(List<Activity> activities) {

@@ -17,12 +17,12 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Transactional
     public Project getProjectById(int id) {
-        return projectDAO.getById(id);
+        return projectDAO.getProjectById(id);
     }
 
     @Transactional
     public List<Project> getAllProjects() {
-        return projectDAO.getAll();
+        return projectDAO.getAllProjects();
     }
 
     @Transactional

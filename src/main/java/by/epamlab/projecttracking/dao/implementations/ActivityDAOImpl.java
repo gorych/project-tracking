@@ -16,19 +16,19 @@ public class ActivityDAOImpl implements ActivityDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public Activity getById(int id) {
+    public Activity getActivityById(int id) {
         Session session = sessionFactory.getCurrentSession();
         return (Activity) session.get(Activity.class, id);
     }
 
     @SuppressWarnings("unchecked")
-    public List<Activity> getAll() {
+    public List<Activity> getAllActivities() {
         return sessionFactory.getCurrentSession().createQuery("from Activity")
                 .list();
     }
 
     @SuppressWarnings("unchecked")
-    public List<Activity> getFromIndexToIndex(int fromIndex, int toIndex) {
+    public List<Activity> getActivitiesFromIndexToIndex(int fromIndex, int toIndex) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("FROM Activity ORDER BY date DESC");
         query.setFirstResult(fromIndex);

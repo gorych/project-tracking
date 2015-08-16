@@ -17,13 +17,13 @@ public class TaskDAOImpl implements TaskDAO{
     @Autowired
     private SessionFactory sessionFactory;
 
-    public Task getById(int id) {
+    public Task getTaskById(int id) {
         Session session = sessionFactory.getCurrentSession();
         return (Task) session.get(Task.class, id);
     }
 
     @SuppressWarnings("unchecked")
-    public List<Task> getAll() {
+    public List<Task> getAllTasks() {
         return sessionFactory.getCurrentSession().createQuery("from Task")
                 .list();
     }

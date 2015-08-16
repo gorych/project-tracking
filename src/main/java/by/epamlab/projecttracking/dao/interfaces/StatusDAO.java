@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface StatusDAO {
 
-    public Status get(int id);
+    Status getStatusById(int id);
 
-    public List<Status> getAll();
+    List<Status> getAllStatuses();
 
 }

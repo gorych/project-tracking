@@ -8,6 +8,6 @@ public interface PositionService {
 
     Position getPositionById(int id);
 
-    List<Position> getAll();
+    List<Position> getAllPositions();
 
 }

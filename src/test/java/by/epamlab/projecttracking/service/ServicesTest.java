@@ -36,7 +36,7 @@ public class ServicesTest {
         List<Member> members = memberService.getAllMembers();
         List<Assignment> assignments = assignmentService.getAllAssignments();
         List<Activity> activities = activityService.getAllActivities();
-        List<Position> positions = positionService.getAll();
+        List<Position> positions = positionService.getAllPositions();
         List<Employee> employees = employeeService.getAllEmployees();
         List<Project> projects = projectService.getAllProjects();
 

@@ -52,9 +52,9 @@ public class MemberDAOImpl implements MemberDAO {
     @SuppressWarnings("unchecked")
     public List<Member> getMembersByProjectId(int projectId) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("FROM Member WHERE project.id = ?");
+        Query query = session.createQuery("FROM Member WHERE project.id = :project_id");
 
-        query.setInteger(0, projectId);
+        query.setInteger("project_id", projectId);
         return query.list();
     }
 
@@ -67,8 +67,7 @@ public class MemberDAOImpl implements MemberDAO {
         query.setInteger("project_id", projectId);
         query.setInteger("employee_id", employeeId);
 
-        List<Member> members = query.list();
-        return (members.size() > 0) ? members.get(0) : null;
+        return (Member) query.uniqueResult();
     }
 
     @Override

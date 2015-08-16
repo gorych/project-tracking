@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface AttachmentDAO {
 
-    public Attachment get(int id);
+    Attachment getAttachmentById(int id);
 
-    public List<Attachment> getAll();
+    List<Attachment> getAllAttachments();
 }

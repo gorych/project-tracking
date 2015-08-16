@@ -26,8 +26,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("FROM Employee WHERE login = :login");
         query.setString("login", username);
-        List<Employee> employees = query.list();
-        return employees.size() > 0 ? employees.get(0) : null;
+
+        return (Employee)query.uniqueResult();
     }
 
     @SuppressWarnings("unchecked")

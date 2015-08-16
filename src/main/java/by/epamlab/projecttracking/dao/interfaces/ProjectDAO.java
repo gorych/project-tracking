@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface ProjectDAO {
 
-    Project getById(int id);
+    Project getProjectById(int id);
 
-    List<Project> getAll();
+    List<Project> getAllProjects();
 
     void add(Project project);
 }

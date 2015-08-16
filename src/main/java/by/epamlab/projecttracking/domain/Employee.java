@@ -90,6 +90,10 @@ public class Employee {
         this.position = position;
     }
 
+    public String getFullName() {
+        return firstname + " " + lastname;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +

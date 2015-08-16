@@ -4,7 +4,6 @@ import by.epamlab.projecttracking.dao.interfaces.PositionDAO;
 import by.epamlab.projecttracking.domain.Position;
 import by.epamlab.projecttracking.service.interfaces.PositionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,12 +17,12 @@ public class PositionServiceImpl implements PositionService {
 
     @Transactional
     public Position getPositionById(int id) {
-        return positionDAO.get(id);
+        return positionDAO.getPositionById(id);
     }
 
     @Transactional
-    public List<Position> getAll() {
-        return positionDAO.getAll();
+    public List<Position> getAllPositions() {
+        return positionDAO.getAllPositions();
     }
 
 }

@@ -34,31 +34,28 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     @Transactional
     public Assignment getAssignmentById(int id) {
-        return assignmentDAO.getById(id);
+        return assignmentDAO.getAssignmentById(id);
     }
 
     @Transactional
     public List<Assignment> getAllAssignments() {
-        return assignmentDAO.getAll();
+        return assignmentDAO.getAllAssignments();
     }
 
     @Transactional
     public List<Task> getAssigneeTasks(String username) {
         Employee employee = employeeDAO.getEmployeeByUsername(username);
-        if (employee == null) {
-            return new ArrayList<>();
-        }
-
         List<Member> members = memberDAO.getMembersByEmployee(employee);
+
         List<Assignment> assignments = new ArrayList<>();
         for (Member member : members) {
-            assignments.addAll(assignmentDAO.getByMember(member));
+            assignments.addAll(assignmentDAO.getAssignmentsByMember(member));
         }
 
         List<Task> tasks = new ArrayList<>();
         for (Assignment assignment : assignments) {
             int taskId = assignment.getTask().getId();
-            tasks.add(taskDAO.getById(taskId));
+            tasks.add(taskDAO.getTaskById(taskId));
         }
 
         return tasks;

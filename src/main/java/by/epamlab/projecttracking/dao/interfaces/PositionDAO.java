@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface PositionDAO {
 
-    public Position get(int id);
+    Position getPositionById(int id);
 
-    public List<Position> getAll();
+    List<Position> getAllPositions();
 
 }
