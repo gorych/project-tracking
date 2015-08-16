@@ -19,7 +19,7 @@ $(document).ready(function () {
     });
 });
 
-function test(select) {
+function loadDataForSelect(select) {
     var projectId = select.options[select.selectedIndex].value;
     $.ajax({
         url: 'loadProjectTeam',
@@ -39,4 +39,24 @@ function test(select) {
             });
         }
     });
+}
+
+function datepicker(divId, inputId) {
+    $(function () {
+            $(divId).pickmeup({
+                flat: true
+            });
+            var input = $(inputId);
+            input.pickmeup({
+                position: 'left',
+                format: 'Y-m-d',
+                before_show: function () {
+                    input.pickmeup('set_date', input.val(), true);
+                },
+                change: function (formated) {
+                    input.val(formated);
+                }
+            });
+        }
+    );
 }
