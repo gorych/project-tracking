@@ -1,6 +1,7 @@
 package by.epamlab.projecttracking.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "assignment")
@@ -12,14 +13,17 @@ public class Assignment {
     private int id;
 
     @Column(name = "description")
+    @NotNull
     private String description;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "mamber_id")
+    @NotNull
     private Member member;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id")
+    @NotNull
     private Task task;
 
     public int getId() {

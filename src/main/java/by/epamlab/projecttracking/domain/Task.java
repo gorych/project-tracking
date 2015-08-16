@@ -1,39 +1,42 @@
 package by.epamlab.projecttracking.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
 @Entity
-@Table(name="task")
+@Table(name = "task")
 public class Task {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue
     private int id;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
+    @NotNull
     private Project project;
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "status_id")
-    private Status status;
 
     @Column(name = "description")
     private String description;
 
     @Column(name = "psd")
+    @NotNull(message = "Correct date format must be YYYY-mm-dd.")
     private Date psd;
 
     @Column(name = "pdd")
+    @NotNull(message = "Correct date format must be YYYY-mm-dd.")
     private Date pdd;
 
     @Column(name = "asd")
     private Date asd;
 
-    @Column(name = "add")
-    private Date add;
+    @Column(name = "`add`")
+    private Date aed;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "status_id")
+    private Status status;
 
     public int getId() {
         return id;
@@ -49,14 +52,6 @@ public class Task {
 
     public void setProject(Project project) {
         this.project = project;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
     }
 
     public String getDescription() {
@@ -91,12 +86,20 @@ public class Task {
         this.asd = asd;
     }
 
-    public Date getAdd() {
-        return add;
+    public Date getAed() {
+        return aed;
     }
 
-    public void setAdd(Date add) {
-        this.add = add;
+    public void setAed(Date add) {
+        this.aed = add;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @Override
@@ -109,7 +112,7 @@ public class Task {
                 ", psd=" + psd +
                 ", pdd=" + pdd +
                 ", asd=" + asd +
-                ", add=" + add +
+                ", add=" + aed +
                 '}';
     }
 }
