@@ -10,25 +10,25 @@
 <div class="main">
     <div class="container">
         <div class="content">
-            <sf:form method="POST" modelAttribute="member">
+            <sf:form class="add-employee-to-project" method="POST" modelAttribute="member">
                 <div class="header">
                     Add employee to project
                 </div>
                 <div class="column">
+                    <div class="row">
+                        <sf:label path="project.id">Project</sf:label>
+                        <sf:select path="project.id">
+                            <c:forEach var="project" items="${projects}">
+                                <sf:option value="${project.id}">${project.name}</sf:option>
+                            </c:forEach>
+                        </sf:select>
+                    </div>
                     <div class="row">
                         <sf:label path="employee.id">Employee</sf:label>
                         <sf:select path="employee.id">
                             <c:forEach var="employee" items="${employees}">
                                 <sf:option
                                         value="${employee.id}">${employee.fullName}</sf:option>
-                            </c:forEach>
-                        </sf:select>
-                    </div>
-                    <div class="row">
-                        <sf:label path="project.id">Project</sf:label>
-                        <sf:select path="project.id">
-                            <c:forEach var="project" items="${projects}">
-                                <sf:option value="${project.id}">${project.name}</sf:option>
                             </c:forEach>
                         </sf:select>
                     </div>
@@ -47,12 +47,13 @@
                     </c:if>
                 </div>
                 <input type="submit" value="Add"/>
+                <div class="footer">
+                    <a href="<c:url value="/admin"/>">Go to admin panel.</a>
+                </div>
             </sf:form>
         </div>
     </div>
 </div>
-<div class="footer">
-    <div class="text">Copyright &copy; August, 2015 Yahor Semianchenia</div>
-</div>
+<%@include file="fragments/footer.html" %>
 </body>
 </html>
