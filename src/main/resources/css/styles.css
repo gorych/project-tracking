@@ -27,7 +27,6 @@ h5 {
     font-size: 11pt;
 }
 
-
 table {
     width: 100%;
     text-align: left;
@@ -36,7 +35,7 @@ table {
     border: none;
 }
 
-table a{
+table a {
     cursor: pointer;
 }
 
@@ -266,6 +265,10 @@ form, .admin-panel {
     margin: 5% auto;
 }
 
+.create-issue-form, .add-employee-to-project {
+    margin: 6% auto;
+}
+
 .admin-panel {
     text-align: center;
     padding-bottom: 15px;
@@ -321,17 +324,19 @@ form select, form textarea {
 }
 
 form textarea {
-    height: 35px;
+    min-height: 35px;
     max-width: 226px;
-    padding: 5px;
+    min-width: 226px;
+    padding: 5px 10px;
     box-sizing: border-box;
     border-radius: 3px;
     border: 1px solid #CCC;
     vertical-align: top;
     font-size: 11pt;
+    font-family: sans-serif;
 }
 
-.required:after{
+.required:after {
     content: "*";
     color: red;
 }
@@ -349,7 +354,7 @@ form input[type="submit"]:hover, .modal .btn:hover {
 
 form .footer {
     width: 300px;
-    margin: 30px auto 0;
+    margin: 15px auto 0;
     border-top: 1px solid #CCC;
     background: #FFF;
     font-size: 11pt;
@@ -556,3 +561,25 @@ form .error {
     font-size: 11pt;
     text-align: justify;
 }
+
+/*fixes*/
+
+.pickmeup {
+    background: #205081;
+}
+
+.pickmeup .pmu-instance .pmu-selected {
+    background: #3572B0;
+    color: #FFF;
+}
+
+.pickmeup .pmu-instance .pmu-not-in-month {
+    color: #88c5eb;
+}
+
+.pickmeup .pmu-instance .pmu-day-of-week {
+    cursor: default;
+    color: #00E5EE;
+}
+
+/*end fixes*/
