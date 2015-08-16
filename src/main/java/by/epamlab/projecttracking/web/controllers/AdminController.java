@@ -117,7 +117,7 @@ public class AdminController {
         }
 
         memberService.add(employeeId, projectId, roleId);
-        return "redirect:/admin";
+        return "redirect:/add-employee-to-project";
     }
 
 }

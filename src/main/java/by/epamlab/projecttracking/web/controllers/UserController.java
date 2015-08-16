@@ -1,11 +1,11 @@
 package by.epamlab.projecttracking.web.controllers;
 
-import by.epamlab.projecttracking.domain.*;
+import by.epamlab.projecttracking.domain.Activity;
+import by.epamlab.projecttracking.domain.Member;
+import by.epamlab.projecttracking.domain.Project;
+import by.epamlab.projecttracking.domain.Task;
 import by.epamlab.projecttracking.security.UserRoleConstants;
-import by.epamlab.projecttracking.service.interfaces.ActivityService;
-import by.epamlab.projecttracking.service.interfaces.AssignmentService;
-import by.epamlab.projecttracking.service.interfaces.MemberService;
-import by.epamlab.projecttracking.service.interfaces.ProjectService;
+import by.epamlab.projecttracking.service.interfaces.*;
 import by.epamlab.projecttracking.web.AttributeConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -35,6 +35,9 @@ public class UserController {
 
     @Autowired
     MemberService memberService;
+
+    @Autowired
+    TaskService taskService;
 
     @Secured(value = {UserRoleConstants.USER})
     @RequestMapping(value = {"/dashboard"}, method = RequestMethod.GET)
@@ -89,24 +92,34 @@ public class UserController {
     public String showCreateIssueForm(Model model) {
         List<Project> projects = projectService.getAllProjects();
 
-        model.addAttribute(AttributeConstants.ASSIGNMENT, new Assignment());
+        model.addAttribute(AttributeConstants.TASK, new Task());
         model.addAttribute(AttributeConstants.PROJECTS, projects);
-        model.addAttribute(AttributeConstants.MEMBERS, projects.get(0).getMembers());
 
         return "create-issue";
     }
 
     @Secured({UserRoleConstants.TEAM_LEAD, UserRoleConstants.PR_MANAGER})
     @RequestMapping(value = {"/create-issue"}, method = RequestMethod.POST)
-    public String createIssue(@Valid Assignment assignment,
-                              BindingResult bindingResult, Model model) {
-        Member member = memberService.getMemberById(assignment.getMember().getId());
+    public String createIssue(@Valid Task task, BindingResult bindingResult, Model model) {
+        List<Project> projects = projectService.getAllProjects();
+        Project project = projectService.getProjectById(task.getProject().getId());
+
+        model.addAttribute(AttributeConstants.PROJECTS, projects);
+        task.setProject(project);
 
         if (bindingResult.hasErrors()) {
             return "create-issue";
         }
 
-        return "create-issue";
+        long startDate = task.getPsd().getTime();
+        long endDate = task.getPdd().getTime();
+        if (startDate > endDate) {
+            model.addAttribute(AttributeConstants.INPUT_DATE_ERROR, "End date must be larger than start date.");
+            return "create-issue";
+        }
+
+        taskService.insertTask(task);
+        return "redirect:/dashboard";//TODO redirect on back page
     }
 
     @Secured(value = {UserRoleConstants.USER})
