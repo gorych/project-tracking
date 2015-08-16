@@ -11,7 +11,9 @@
         <div class="content">
             <div class="container">
                 <h1>System Dashboard</h1>
-                <h4>Please <a href="<c:url value="/login"/>">log in.</a></h4>
+                <sec:authorize access="!isAuthenticated()">
+                    <h4>Please <a href="<c:url value="/login"/>">log in.</a></h4>
+                </sec:authorize>
             </div>
             <sec:authorize access="isAuthenticated()">
                 <div class="grid-col">
@@ -24,8 +26,7 @@
                                             ${activity.date}
                                     </div>
                                     <span class="employee">
-                                        ${activity.member.employee.firstname}
-                                        ${activity.member.employee.lastname}
+                                            ${activity.member.employee.fullName}
                                     </span>
                                     <c:out value="${activity.comment}"/>
                                 </div>

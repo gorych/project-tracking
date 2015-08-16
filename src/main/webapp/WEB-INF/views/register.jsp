@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <label cssClass="required" for="login">Username</label>
+                        <label class="required" for="login">Username</label>
                         <sf:input path="login" size="15" maxlength="15"/>
                         <div class="row error">
                             <sf:errors path="login"/>
@@ -44,8 +44,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <label for="position">Position</label>
-                        <sf:select path="position" items="${positions}" itemValue="id" itemLabel="name"/>
+                        <label for="position.id">Position</label>
+                        <sf:select path="position.id" items="${positions}" itemValue="id" itemLabel="name"/>
                     </div>
                     <c:if test="${not empty register_error}">
                         <div class="row error">
