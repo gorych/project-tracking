@@ -20,7 +20,7 @@
                         <sf:select path="employee.id">
                             <c:forEach var="employee" items="${employees}">
                                 <sf:option
-                                        value="${employee.id}">${employee.firstname} ${employee.lastname}</sf:option>
+                                        value="${employee.id}">${employee.fullName}</sf:option>
                             </c:forEach>
                         </sf:select>
                     </div>

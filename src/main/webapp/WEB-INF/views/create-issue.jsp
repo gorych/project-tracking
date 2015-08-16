@@ -16,12 +16,16 @@
                 </div>
                 <div class="column">
                     <div class="row">
-                        <label for="project">Project</label>
-                        <sf:select path="project" items="${projects}" itemValue="id" itemLabel="name"/>
+                        <label for="member.project.id">Project</label>
+                        <sf:select path="member.project.id" items="${projects}" itemValue="id" itemLabel="name"
+                                   onchange="test(this)"/>
                     </div>
                     <div class="row">
                         <label for="member.employee.id">Assignee</label>
-                        <sf:select path="member.employee.id">
+                        <sf:select path="member.employee.id" id="membersSelect">
+                            <c:forEach var="member" items="${members}">
+                                <sf:option value="${member.employee.id}">${member.employee.fullName}</sf:option>
+                            </c:forEach>
                         </sf:select>
                     </div>
                     <div class="row">
