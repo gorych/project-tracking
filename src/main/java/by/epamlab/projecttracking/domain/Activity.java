@@ -1,46 +1,38 @@
 package by.epamlab.projecttracking.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "activity")
 public class Activity {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue
     private int id;
 
     @Column(name = "date")
-    @JsonProperty("date")
     private Date date;
 
+    @Min(value = 10, message = "Duration should be longer than 10 minutes.")
+    @Max(value = 999, message = "Duration should be smaller than 1000 minutes.")
     @Column(name = "duration")
-    @JsonProperty("duration")
     private int duration;
 
+    @Size(min = 10, message = "Comment should be longer than 10 characters.")
     @Column(name = "comment")
-    @JsonProperty("comment")
     private String comment;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    @JsonProperty("member")
-    private Member member;
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "assigment_id")
-    @JsonProperty("assignment")
-    private Assignment assignment;
-
-    public Activity() {
-    }
+    @Column(name = "full_name")
+    private String fullName;
 
     public int getId() {
         return id;
@@ -74,20 +66,12 @@ public class Activity {
         this.comment = comment;
     }
 
-    public Member getMember() {
-        return member;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setMember(Member member) {
-        this.member = member;
-    }
-
-    public Assignment getAssignment() {
-        return assignment;
-    }
-
-    public void setAssignment(Assignment assignment) {
-        this.assignment = assignment;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     @Override
@@ -97,8 +81,7 @@ public class Activity {
                 ", date=" + date +
                 ", duration=" + duration +
                 ", comment='" + comment + '\'' +
-                ", member=" + member +
-                ", assignment=" + assignment +
+                ", employee=" + fullName +
                 '}';
     }
 }
