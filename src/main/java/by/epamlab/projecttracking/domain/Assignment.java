@@ -8,23 +8,27 @@ import javax.validation.constraints.NotNull;
 public class Assignment {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue
     private int id;
 
     @Column(name = "description")
-    @NotNull
     private String description;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "mamber_id")
-    @NotNull
     private Member member;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id")
     @NotNull
     private Task task;
+
+    public Assignment() {
+    }
+
+    public Assignment(Task task) {
+        this.task = task;
+    }
 
     public int getId() {
         return id;
