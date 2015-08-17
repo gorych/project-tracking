@@ -1,7 +1,9 @@
 package by.epamlab.projecttracking.service.implementations;
 
+import by.epamlab.projecttracking.dao.interfaces.AssignmentDAO;
 import by.epamlab.projecttracking.dao.interfaces.StatusDAO;
 import by.epamlab.projecttracking.dao.interfaces.TaskDAO;
+import by.epamlab.projecttracking.domain.Assignment;
 import by.epamlab.projecttracking.domain.Status;
 import by.epamlab.projecttracking.domain.Task;
 import by.epamlab.projecttracking.service.interfaces.TaskService;
@@ -18,10 +20,29 @@ public class TaskServiceImpl implements TaskService {
     @Autowired
     StatusDAO statusDAO;
 
+    @Autowired
+    AssignmentDAO assignmentDAO;
+
+    @Transactional
+    public Task getTaskById(int id) {
+        return taskDAO.getTaskById(id);
+    }
+
     @Transactional
     public void insertTask(Task task) {
-        Status status = statusDAO.getStatusDone();
+        Status status = statusDAO.getDefaultStatus();
         task.setStatus(status);
         taskDAO.addTask(task);
+    }
+
+    @Transactional
+    public void insertTask(Assignment assignment) {
+        Status status = statusDAO.getDefaultStatus();
+
+        Task task = assignment.getTask();
+        task.setStatus(status);
+
+        taskDAO.addTask(task);
+        assignmentDAO.addAssignment(assignment);
     }
 }
