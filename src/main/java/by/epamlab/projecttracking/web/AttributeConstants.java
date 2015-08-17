@@ -7,6 +7,7 @@ public final class AttributeConstants {
     public static final String MEMBER = "member";
     public static final String PROJECT = "project";
     public static final String EMPLOYEE = "employee";
+    public static final String ACTIVITY = "activity";
     public static final String ASSIGNMENT = "assignment";
 
     public static final String TASKS = "tasks";
