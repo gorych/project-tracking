@@ -32,8 +32,6 @@
         </div>
     </div>
 </div>
-<div class="footer">
-    <div class="text">Copyright &copy; August, 2015 Yahor Semianchenia</div>
-</div>
+<%@include file="fragments/footer.html" %>
 </body>
 </html>
