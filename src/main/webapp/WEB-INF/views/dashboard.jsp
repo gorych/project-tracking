@@ -18,20 +18,7 @@
             <sec:authorize access="isAuthenticated()">
                 <div class="grid-col">
                     <div class="modal">
-                        <div class="header">Activity Stream</div>
-                        <div class="activity">
-                            <c:forEach var="activity" items="${activities}">
-                                <div class="row">
-                                    <div class="date-and-time">
-                                            ${activity.date}
-                                    </div>
-                                    <span class="employee">
-                                            ${activity.member.employee.fullName}
-                                    </span>
-                                    <c:out value="${activity.comment}"/>
-                                </div>
-                            </c:forEach>
-                        </div>
+                        <%@include file="fragments/activity.jsp"%>
                         <input id="more" class="btn" type="button" value="Show more..."/>
                     </div>
                 </div>
@@ -46,7 +33,11 @@
                             <c:forEach var="task" items="${tasks}">
                                 <tr>
                                     <td>${task.project.name}</td>
-                                    <td><a href="#">${task.description}</a></td>
+                                    <td>
+                                        <a href="<c:url value="/issues?id=${task.id}"/>">
+                                                ${task.description}
+                                        </a>
+                                    </td>
                                 </tr>
                             </c:forEach>
                         </table>
