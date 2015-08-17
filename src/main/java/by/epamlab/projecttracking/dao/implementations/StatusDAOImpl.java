@@ -29,7 +29,7 @@ public class StatusDAOImpl implements StatusDAO{
     }
 
     @Override
-    public Status getStatusDone() {
+    public Status getDefaultStatus() {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("FROM Status WHERE name = :name");
 

@@ -12,6 +12,6 @@ public interface StatusDAO {
 
     List<Status> getAllStatuses();
 
-    Status getStatusDone();
+    Status getDefaultStatus();
 
 }
