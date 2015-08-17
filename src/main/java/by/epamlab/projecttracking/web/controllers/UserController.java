@@ -1,9 +1,6 @@
 package by.epamlab.projecttracking.web.controllers;
 
-import by.epamlab.projecttracking.domain.Activity;
-import by.epamlab.projecttracking.domain.Member;
-import by.epamlab.projecttracking.domain.Project;
-import by.epamlab.projecttracking.domain.Task;
+import by.epamlab.projecttracking.domain.*;
 import by.epamlab.projecttracking.security.UserRoleConstants;
 import by.epamlab.projecttracking.service.interfaces.*;
 import by.epamlab.projecttracking.web.AttributeConstants;
@@ -19,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 @Controller
@@ -26,6 +25,9 @@ public class UserController {
 
     @Autowired
     AssignmentService assignmentService;
+
+    @Autowired
+    EmployeeService employeeService;
 
     @Autowired
     ActivityService activityService;
@@ -41,7 +43,7 @@ public class UserController {
 
     @Secured(value = {UserRoleConstants.USER})
     @RequestMapping(value = {"/dashboard"}, method = RequestMethod.GET)
-    public String setModelParams(Model model) {
+    public String showDashboard(Model model) {
         final int FROM_INDEX = 0;
         final int TO_INDEX = 5;
 
@@ -73,13 +75,10 @@ public class UserController {
     public String showProjects(@RequestParam(value = "id") String id, Model model) {
         try {
             int projectId = Integer.parseInt(id);
-            String username = SecurityContextHolder.getContext().getAuthentication().getName();
-
             Project project = projectService.getProjectById(projectId);
-            List<Member> members = memberService.getMembersByUsername(username);
 
             model.addAttribute(AttributeConstants.PROJECT, project);
-            model.addAttribute(AttributeConstants.MEMBERS, members);
+            model.addAttribute(AttributeConstants.MEMBERS, project.getMembers());
 
             return "projects";
         } catch (NumberFormatException e) {
@@ -129,4 +128,81 @@ public class UserController {
         List<Member> members = memberService.getMembersByProjectId(projectId);
         return memberService.getJsonString(members);
     }
+
+    @Secured(value = {UserRoleConstants.USER})
+    @RequestMapping(value = {"/issues"}, method = RequestMethod.GET)
+    public String showIssues(@RequestParam(value = "id", required = false) String id, Model model) {
+        try {
+            int taskId = Integer.parseInt(id);
+
+            Task task = taskService.getTaskById(taskId);
+            Assignment assignment = assignmentService.getAssignmentByTaskId(taskId);
+            List<Activity> activities = activityService.getAllActivities();
+
+            model.addAttribute(AttributeConstants.TASK, task);
+            model.addAttribute(AttributeConstants.ACTIVITY, new Activity());
+            model.addAttribute(AttributeConstants.ASSIGNMENT, assignment);
+            model.addAttribute(AttributeConstants.ACTIVITIES, activities);
+
+            return "issues";
+        } catch (NumberFormatException e) {
+            return "redirect:/dashboard";
+        }
+    }
+
+    @Secured(value = {UserRoleConstants.USER})
+    @RequestMapping(value = {"/report"}, method = RequestMethod.POST)
+    public String createReport(@Valid Activity activity, BindingResult bindingResult) {
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Employee employee = employeeService.getEmployeeByUsername(username);
+        Date date = new Date(Calendar.getInstance().getTime().getTime());
+
+        activity.setFullName(employee.getFullName());
+        activity.setDate(date);
+
+        if (bindingResult.hasErrors()) {
+            return "issues";
+        }
+
+        activityService.addActivity(activity);
+        return "redirect:/issues";
+    }
+
+    @Secured(value = {UserRoleConstants.USER})
+    @RequestMapping(value = {"/assign"}, method = RequestMethod.POST)
+    public String showAssignForm(@Valid Assignment assignment) {
+        try {
+            Member member = memberService.getMemberById(assignment.getMember().getId());
+            Task task = taskService.getTaskById(assignment.getTask().getId());
+
+            assignment.setTask(task);
+            assignment.setMember(member);
+
+            System.out.println(assignment);
+
+            assignmentService.updateAssignment(assignment);
+
+            return "assign";
+        } catch (NumberFormatException e) {
+            return "redirect:/issues";
+        }
+    }
+
+    @Secured(value = {UserRoleConstants.USER})
+    @RequestMapping(value = {"/assign"}, method = RequestMethod.GET)
+    public String createAssignment(@RequestParam(value = "id", required = false) String id, Model model) {
+        try {
+            int taskId = Integer.parseInt(id);
+            Task task = taskService.getTaskById(taskId);
+
+            model.addAttribute(AttributeConstants.TASK, task);
+            model.addAttribute(AttributeConstants.ASSIGNMENT, new Assignment());
+
+            return "assign";
+        } catch (NumberFormatException e) {
+            return "redirect:/issues";
+        }
+    }
+
 }
