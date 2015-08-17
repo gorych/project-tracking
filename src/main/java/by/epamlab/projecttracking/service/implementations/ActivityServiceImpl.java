@@ -39,8 +39,7 @@ public class ActivityServiceImpl implements ActivityService {
         List<Map<String, String>> jsonList = new ArrayList<Map<String, String>>();
         for (Activity activity : activities) {
             Map<String, String> jsonObject = new HashMap<String, String>();
-            jsonObject.put("firstname", activity.getMember().getEmployee().getFirstname());
-            jsonObject.put("lastname", activity.getMember().getEmployee().getLastname());
+            jsonObject.put("fullName", activity.getFullName());
             jsonObject.put("date", activity.getDate().toString());
             jsonObject.put("comment", activity.getComment());
             jsonList.add(jsonObject);
@@ -54,5 +53,10 @@ public class ActivityServiceImpl implements ActivityService {
             e.printStackTrace();
         }
         return jsonString;
+    }
+
+    @Transactional
+    public void addActivity(Activity activity) {
+        activityDAO.addActivity(activity);
     }
 }

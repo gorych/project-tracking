@@ -36,4 +36,9 @@ public class ActivityDAOImpl implements ActivityDAO {
         return query.list();
     }
 
+    @Override
+    public void addActivity(Activity activity) {
+        sessionFactory.getCurrentSession().save(activity);
+    }
+
 }

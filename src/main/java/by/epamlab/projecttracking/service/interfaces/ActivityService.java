@@ -14,4 +14,6 @@ public interface ActivityService {
 
     String getJsonString(List<Activity> activities);
 
+    void addActivity(Activity activity);
+
 }

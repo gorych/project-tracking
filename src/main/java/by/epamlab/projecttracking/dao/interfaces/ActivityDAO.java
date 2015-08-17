@@ -1,6 +1,7 @@
 package by.epamlab.projecttracking.dao.interfaces;
 
 import by.epamlab.projecttracking.domain.Activity;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -11,4 +12,6 @@ public interface ActivityDAO {
     List<Activity> getAllActivities();
 
     List<Activity> getActivitiesFromIndexToIndex(int fromIndex, int toIndex);
+
+    void addActivity(Activity activity);
 }
