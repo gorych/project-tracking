@@ -23,7 +23,7 @@
             </div>
             <div class="grid-col">
                 <div class="modal">
-                    <div class="header">Project Team Members</div>
+                    <div class="header">Report</div>
                     <table>
                         <tr>
                             <th>Firstname</th>
@@ -50,7 +50,9 @@
                         </tr>
                         <c:forEach var="task" items="${project.tasks}">
                             <tr>
-                                <td>${task.description}</td>
+                                <td><a href="<c:url value="/issues?id=${task.id}"/>">
+                                        ${task.description}
+                                </a></td>
                                 <td>${task.status.name}</td>
                             </tr>
                         </c:forEach>
