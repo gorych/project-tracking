@@ -10,7 +10,7 @@ $(document).ready(function () {
             if (data.length > 0) {
                 $.each(activities, function (index, element) {
                     $(".activity").append("<div class='row'> <div class='date-and-time'>" + element["date"] +
-                        "</div> <span class='employee'>" + element["firstname"] + " " + element["lastname"] + "</span>"
+                        "</div> <span class='employee'>" + element["fullName"] + "</span>"
                         + element["comment"] + "</div>");
                 });
                 fromIndex += 5;
