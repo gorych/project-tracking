@@ -13,5 +13,9 @@ public interface AssignmentService {
 
     List<Task> getAssigneeTasks(String username);
 
+    Assignment getAssignmentByTaskId(int taskId);
+
     void insertAssignment(Assignment assignment);
+
+    void updateAssignment(Assignment assignment);
 }

@@ -37,6 +37,15 @@ public class AssignmentDAOImpl implements AssignmentDAO {
     }
 
     @Override
+    public Assignment getAssignmentsByTaskId(int taskId) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("FROM Assignment WHERE task.id = :task_id");
+        query.setInteger("task_id", taskId);
+
+        return (Assignment) query.uniqueResult();
+    }
+
+    @Override
     public void addAssignment(Assignment assignment) {
         sessionFactory.getCurrentSession().save(assignment);
     }

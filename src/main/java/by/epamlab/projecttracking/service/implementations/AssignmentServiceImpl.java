@@ -62,9 +62,25 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Transactional
+    public Assignment getAssignmentByTaskId(int taskId) {
+        return assignmentDAO.getAssignmentsByTaskId(taskId);
+    }
+
+    @Transactional
     public void insertAssignment(Assignment assignment) {
         taskDAO.addTask(assignment.getTask());
-   //     assignmentDAO.addAssignment(assignment);
+    }
+
+    @Transactional
+    public void updateAssignment(Assignment newAssignment) {
+        Assignment assignment = assignmentDAO.getAssignmentsByTaskId(newAssignment.getTask().getId());
+        if (assignment == null) {
+            assignmentDAO.addAssignment(newAssignment);
+        } else {
+            assignment.setMember(newAssignment.getMember());
+            assignment.setTask(newAssignment.getTask());
+            assignment.setDescription(newAssignment.getDescription());
+        }
     }
 
 }

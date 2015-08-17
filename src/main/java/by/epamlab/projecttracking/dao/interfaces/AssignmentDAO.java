@@ -13,5 +13,7 @@ public interface AssignmentDAO {
 
     List<Assignment> getAssignmentsByMember(Member member);
 
+    Assignment getAssignmentsByTaskId(int taskId);
+
     void addAssignment(Assignment assignment);
 }
