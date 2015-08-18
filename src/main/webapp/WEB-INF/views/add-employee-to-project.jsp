@@ -10,7 +10,7 @@
 <div class="main">
     <div class="container">
         <div class="content">
-            <sf:form class="add-employee-to-project" method="POST" modelAttribute="member">
+            <sf:form class="add-employee-to-project" method="POST" modelAttribute="newMember">
                 <div class="header">
                     Add employee to project
                 </div>

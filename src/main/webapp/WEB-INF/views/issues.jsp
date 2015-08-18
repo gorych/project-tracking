@@ -15,18 +15,24 @@
     <div class="container">
         <div class="content">
             <div class="container">
-                <div class="issue-btn">
-                    <a href="<c:url value="/assign?id=${task.id}"/>">Assign</a>
-                </div>
-                <div class="issue-btn">
-                    <a href="">Start Progress</a>
-                </div>
-                <div class="issue-btn">
-                    <a href="#">Delivery</a>
-                </div>
-                <div class="issue-btn">
-                    <a href="#">Resolve Issue</a>
-                </div>
+                <sec:authorize access="hasAnyRole('ROLE_PR_MANAGER','ROLE_TEAM_LEAD')">
+                    <div class="issue-btn">
+                        <a href="<c:url value="/assign?id=${task.id}"/>">Assign</a>
+                    </div>
+                </sec:authorize>
+                <c:if test="${username eq assignment.member.employee.login}">
+                    <c:if test="${task.status.name eq default_status}">
+                        <div class="issue-btn">
+                            <a href="">Start Progress</a>
+                        </div>
+                    </c:if>
+                    <div class="issue-btn">
+                        <a href="#">Delivery</a>
+                    </div>
+                    <div class="issue-btn">
+                        <a href="#">Resolve Issue</a>
+                    </div>
+                </c:if>
                 <div class="issue-btn issue-right-btn ">
                     <a href="#">Export to XML</a>
                 </div>
