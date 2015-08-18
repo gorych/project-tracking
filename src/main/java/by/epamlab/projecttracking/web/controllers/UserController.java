@@ -72,7 +72,7 @@ public class UserController {
 
     @Secured(UserRoleConstants.USER)
     @RequestMapping(value = {"/projects"}, method = RequestMethod.GET)
-    public String showProjects(@RequestParam(value = "id") String id, Model model) {
+    public String showProjects(@RequestParam(value = "id", required = false) String id, Model model) {
         try {
             int projectId = Integer.parseInt(id);
             Project project = projectService.getProjectById(projectId);
@@ -88,22 +88,14 @@ public class UserController {
 
     @Secured({UserRoleConstants.TEAM_LEAD, UserRoleConstants.PR_MANAGER})
     @RequestMapping(value = {"/create-issue"}, method = RequestMethod.GET)
-    public String showCreateIssueForm(Model model) {
-        List<Project> projects = projectService.getAllProjects();
-
-        model.addAttribute(AttributeConstants.TASK, new Task());
-        model.addAttribute(AttributeConstants.PROJECTS, projects);
-
+    public String showCreateIssueForm() {
         return "create-issue";
     }
 
     @Secured({UserRoleConstants.TEAM_LEAD, UserRoleConstants.PR_MANAGER})
     @RequestMapping(value = {"/create-issue"}, method = RequestMethod.POST)
     public String createIssue(@Valid Task task, BindingResult bindingResult, Model model) {
-        List<Project> projects = projectService.getAllProjects();
         Project project = projectService.getProjectById(task.getProject().getId());
-
-        model.addAttribute(AttributeConstants.PROJECTS, projects);
         task.setProject(project);
 
         if (bindingResult.hasErrors()) {
@@ -137,12 +129,9 @@ public class UserController {
 
             Task task = taskService.getTaskById(taskId);
             Assignment assignment = assignmentService.getAssignmentByTaskId(taskId);
-            List<Activity> activities = activityService.getAllActivities();
 
             model.addAttribute(AttributeConstants.TASK, task);
-            model.addAttribute(AttributeConstants.ACTIVITY, new Activity());
             model.addAttribute(AttributeConstants.ASSIGNMENT, assignment);
-            model.addAttribute(AttributeConstants.ACTIVITIES, activities);
 
             return "issues";
         } catch (NumberFormatException e) {
@@ -179,8 +168,6 @@ public class UserController {
             assignment.setTask(task);
             assignment.setMember(member);
 
-            System.out.println(assignment);
-
             assignmentService.updateAssignment(assignment);
 
             return "assign";
@@ -195,9 +182,7 @@ public class UserController {
         try {
             int taskId = Integer.parseInt(id);
             Task task = taskService.getTaskById(taskId);
-
             model.addAttribute(AttributeConstants.TASK, task);
-            model.addAttribute(AttributeConstants.ASSIGNMENT, new Assignment());
 
             return "assign";
         } catch (NumberFormatException e) {
