@@ -3,6 +3,7 @@ package by.epamlab.projecttracking.web.controllers;
 
 import by.epamlab.projecttracking.security.UserRoleConstants;
 import by.epamlab.projecttracking.service.interfaces.EmployeeService;
+import by.epamlab.projecttracking.service.interfaces.MemberService;
 import by.epamlab.projecttracking.web.AttributeConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -25,6 +26,9 @@ public class IndexController {
     @Autowired
     EmployeeService employeeService;
 
+    @Autowired
+    MemberService memberService;
+
     @RequestMapping(value = "/switch", method = RequestMethod.GET)
     public String pageSwitcher() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -35,7 +39,7 @@ public class IndexController {
         if (itr.hasNext()) {
             SimpleGrantedAuthority simpleRole = (SimpleGrantedAuthority) itr.next();
             String role = simpleRole.getAuthority();
-            return UserRoleConstants.ADMIN.equals(role) ? "redirect:/admin" : "redirect:/dashboard";
+            return UserRoleConstants.ADMIN.equals(role) ? "redirect:/admin" : "redirect:/user/dashboard";
         }
 
         return "login";
@@ -64,12 +68,12 @@ public class IndexController {
 
     @RequestMapping(value = "/403", method = RequestMethod.GET)
     public String goToAccessDenied() {
-        return "403";
+        return "errors/403";
     }
 
     @RequestMapping(value = "/404", method = RequestMethod.GET)
     public String goToResourceNotFound() {
-        return "404";
+        return "errors/404";
     }
 
 }
