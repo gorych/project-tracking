@@ -2,11 +2,15 @@ package by.epamlab.projecttracking.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
 @Table(name = "task")
-public class Task {
+@XmlRootElement(name = "task")
+public class Task implements Serializable {
 
     @Id
     @GeneratedValue
@@ -26,12 +30,15 @@ public class Task {
 
     @Column(name = "pdd")
     @NotNull(message = "Correct date format must be YYYY-mm-dd.")
+    @XmlTransient
     private Date pdd;
 
     @Column(name = "asd")
+    @XmlTransient
     private Date asd;
 
     @Column(name = "`add`")
+    @XmlTransient
     private Date aed;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
