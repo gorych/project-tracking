@@ -21,7 +21,7 @@
                     </div>
                 </sec:authorize>
                 <c:if test="${username eq assignment.member.employee.login}">
-                    <c:if test="${task.status.name eq default_status}">
+                    <c:if test="${task.status.name eq 'To do'}">
                         <div class="issue-btn">
                             <a href="">Start Progress</a>
                         </div>
@@ -34,7 +34,7 @@
                     </div>
                 </c:if>
                 <div class="issue-btn issue-right-btn ">
-                    <a href="#">Export to XML</a>
+                    <a href="<c:url value="/user/showAsXML?id=${task.id}"/>">Export to XML</a>
                 </div>
             </div>
             <div class="grid-col">

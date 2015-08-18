@@ -1,4 +1,3 @@
-<%@ page session="true"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,7 +34,7 @@
                                 <tr>
                                     <td>${task.project.name}</td>
                                     <td>
-                                        <a href="<c:url value="/issues?id=${task.id}"/>">
+                                        <a href="<c:url value="/user/issues?id=${task.id}"/>">
                                                 ${task.description}
                                         </a>
                                     </td>

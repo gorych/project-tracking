@@ -10,7 +10,7 @@
 <div class="main">
     <div class="container">
         <div class="content">
-            <sf:form class="create-issue-form" method="POST" modelAttribute="newTask">
+            <sf:form class="create-issue-form" method="POST" modelAttribute="new_task">
                 <div class="header">
                     Create Issue
                 </div>

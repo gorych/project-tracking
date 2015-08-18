@@ -6,12 +6,12 @@
     <div class="container">
         <div class="nav">
             <ul>
-                <li><a href="<c:url value="/dashboard"/>">Dashboard</a></li>
+                <li><a href="<c:url value="/user/dashboard"/>">Dashboard</a></li>
                 <li>Projects
                     <ul>
-                        <c:forEach var="member" items="${members}">
+                        <c:forEach var="member" items="${user_members}">
                             <li>
-                                <a href="<c:url value="/projects?id=${member.project.id}"/>">${member.project.name}</a>
+                                <a href="<c:url value="/user/projects?id=${member.project.id}"/>">${member.project.name}</a>
                             </li>
                         </c:forEach>
                     </ul>
@@ -27,7 +27,7 @@
             </ul>
             <ul class="login-logout">
                 <sec:authorize access="isAuthenticated()">
-                    <li><security:authentication property="principal.username"/>
+                    <li>${user_full_name}
                         <ul>
                             <li><a href="<c:url value="/j_spring_security_logout"/>">Log out</a>
                             </li>

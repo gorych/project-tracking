@@ -50,7 +50,7 @@
                         </tr>
                         <c:forEach var="task" items="${project.tasks}">
                             <tr>
-                                <td><a href="<c:url value="/issues?id=${task.id}"/>">
+                                <td><a href="<c:url value="/user/issues?id=${task.id}"/>">
                                         ${task.description}
                                 </a></td>
                                 <td>${task.status.name}</td>

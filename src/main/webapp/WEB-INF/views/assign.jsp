@@ -10,7 +10,7 @@
 <div class="main">
     <div class="container">
         <div class="content">
-            <sf:form method="POST" modelAttribute="newAssignment">
+            <sf:form method="POST" modelAttribute="new_assignment">
                 <div class="header">
                     Assign
                 </div>
@@ -33,7 +33,7 @@
                 </div>
                 <input type="submit" value="Assign"/>
                 <div class="footer">
-                    <a href="<c:url value="/issues"/>">Go to issues.</a>
+                    <a href="<c:url value="/user/issues?id=2"/>">Go to issues.</a>
                 </div>
             </sf:form>
         </div>
