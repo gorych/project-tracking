@@ -28,39 +28,37 @@ public class GlobalControllerAdvice {
     @Autowired
     RoleService roleService;
 
-    @ModelAttribute("newEmployee")
+    @Autowired
+    MemberService memberService;
+
+    @ModelAttribute(AttributeConstants.NEW_EMPLOYEE)
     public Employee newEmployee() {
         return new Employee();
     }
 
-    @ModelAttribute("newTask")
+    @ModelAttribute(AttributeConstants.NEW_TASK)
     public Task newTask() {
         return new Task();
     }
 
-    @ModelAttribute("newActivity")
+    @ModelAttribute(AttributeConstants.NEW_ACTIVITY)
     public Activity newActivity() {
         return new Activity();
     }
 
-    @ModelAttribute("newAssignment")
+    @ModelAttribute(AttributeConstants.NEW_ASSIGNMENT)
     public Assignment newAssignment() {
         return new Assignment();
     }
 
-    @ModelAttribute("newProject")
+    @ModelAttribute(AttributeConstants.NEW_PROJECT)
     public Project newProject() {
         return new Project();
     }
 
-    @ModelAttribute("newMember")
+    @ModelAttribute(AttributeConstants.NEW_MEMBER)
     public Member newMember() {
         return new Member();
-    }
-
-    @ModelAttribute("default_status")
-    public String defaultStatus() {
-        return "To do";
     }
 
     @ModelAttribute(AttributeConstants.USERNAME)
