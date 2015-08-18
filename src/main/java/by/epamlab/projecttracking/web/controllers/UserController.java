@@ -10,10 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.sql.Date;
@@ -21,6 +18,8 @@ import java.util.Calendar;
 import java.util.List;
 
 @Controller
+@Secured(value = {UserRoleConstants.USER})
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -41,26 +40,26 @@ public class UserController {
     @Autowired
     TaskService taskService;
 
-    @Secured(value = {UserRoleConstants.USER})
+    private String getUsername() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
     @RequestMapping(value = {"/dashboard"}, method = RequestMethod.GET)
     public String showDashboard(Model model) {
         final int FROM_INDEX = 0;
         final int TO_INDEX = 5;
 
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-
         List<Activity> activities = activityService.getActivitiesFromIndexToIndex(FROM_INDEX, TO_INDEX);
-        List<Task> tasks = assignmentService.getAssigneeTasks(username);
-        List<Member> members = memberService.getMembersByUsername(username);
+        List<Member> members = memberService.getMembersByUsername(getUsername());
+        List<Task> tasks = assignmentService.getAssigneeTasks(getUsername());
 
         model.addAttribute(AttributeConstants.ACTIVITIES, activities);
+        model.addAttribute(AttributeConstants.USER_MEMBERS, members);
         model.addAttribute(AttributeConstants.TASKS, tasks);
-        model.addAttribute(AttributeConstants.MEMBERS, members);
 
         return "dashboard";
     }
 
-    @Secured(value = {UserRoleConstants.USER})
     @RequestMapping(value = {"/activity"}, method = RequestMethod.POST)
     @ResponseBody
     public String loadActivity(@RequestParam(value = "fromIndex") int fromIndex) {
@@ -70,81 +69,40 @@ public class UserController {
         return activityService.getJsonString(activities);
     }
 
-    @Secured(UserRoleConstants.USER)
     @RequestMapping(value = {"/projects"}, method = RequestMethod.GET)
+    @ExceptionHandler({NumberFormatException.class})
     public String showProjects(@RequestParam(value = "id", required = false) String id, Model model) {
-        try {
-            int projectId = Integer.parseInt(id);
-            Project project = projectService.getProjectById(projectId);
+        int projectId = Integer.parseInt(id);
 
-            model.addAttribute(AttributeConstants.PROJECT, project);
-            model.addAttribute(AttributeConstants.MEMBERS, project.getMembers());
+        Project project = projectService.getProjectById(projectId);
+        List<Member> members = memberService.getMembersByUsername(getUsername());
 
-            return "projects";
-        } catch (NumberFormatException e) {
-            return "redirect:/dashboard";
-        }
+        model.addAttribute(AttributeConstants.PROJECT, project);
+        model.addAttribute(AttributeConstants.USER_MEMBERS, members);
+        model.addAttribute(AttributeConstants.PROJECT_MEMBERS, project.getMembers());
+
+        return "projects";
     }
 
-    @Secured({UserRoleConstants.TEAM_LEAD, UserRoleConstants.PR_MANAGER})
-    @RequestMapping(value = {"/create-issue"}, method = RequestMethod.GET)
-    public String showCreateIssueForm() {
-        return "create-issue";
-    }
-
-    @Secured({UserRoleConstants.TEAM_LEAD, UserRoleConstants.PR_MANAGER})
-    @RequestMapping(value = {"/create-issue"}, method = RequestMethod.POST)
-    public String createIssue(@Valid Task task, BindingResult bindingResult, Model model) {
-        Project project = projectService.getProjectById(task.getProject().getId());
-        task.setProject(project);
-
-        if (bindingResult.hasErrors()) {
-            return "create-issue";
-        }
-
-        long startDate = task.getPsd().getTime();
-        long endDate = task.getPdd().getTime();
-        if (startDate > endDate) {
-            model.addAttribute(AttributeConstants.INPUT_DATE_ERROR, "End date must be larger than start date.");
-            return "create-issue";
-        }
-
-        taskService.insertTask(task);
-        return "redirect:/dashboard";//TODO redirect on back page
-    }
-
-    @Secured(value = {UserRoleConstants.USER})
-    @RequestMapping(value = {"/loadProjectTeam"}, method = RequestMethod.GET)
-    @ResponseBody
-    public String loadProjectTeam(@RequestParam(value = "projectId") int projectId) {
-        List<Member> members = memberService.getMembersByProjectId(projectId);
-        return memberService.getJsonString(members);
-    }
-
-    @Secured(value = {UserRoleConstants.USER})
     @RequestMapping(value = {"/issues"}, method = RequestMethod.GET)
+    @ExceptionHandler({NumberFormatException.class})
     public String showIssues(@RequestParam(value = "id", required = false) String id, Model model) {
-        try {
-            int taskId = Integer.parseInt(id);
+        int taskId = Integer.parseInt(id);
 
-            Task task = taskService.getTaskById(taskId);
-            Assignment assignment = assignmentService.getAssignmentByTaskId(taskId);
+        Task task = taskService.getTaskById(taskId);
+        Assignment assignment = assignmentService.getAssignmentByTaskId(taskId);
+        List<Member> members = memberService.getMembersByUsername(getUsername());
 
-            model.addAttribute(AttributeConstants.TASK, task);
-            model.addAttribute(AttributeConstants.ASSIGNMENT, assignment);
+        model.addAttribute(AttributeConstants.TASK, task);
+        model.addAttribute(AttributeConstants.ASSIGNMENT, assignment);
+        model.addAttribute(AttributeConstants.USER_MEMBERS, members);
 
-            return "issues";
-        } catch (NumberFormatException e) {
-            return "redirect:/dashboard";
-        }
+        return "issues";
     }
 
-    @Secured(value = {UserRoleConstants.USER})
     @RequestMapping(value = {"/report"}, method = RequestMethod.POST)
     public String createReport(@Valid Activity activity, BindingResult bindingResult) {
-
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        Employee employee = employeeService.getEmployeeByUsername(username);
+        Employee employee = employeeService.getEmployeeByUsername(getUsername());
         Date date = new Date(Calendar.getInstance().getTime().getTime());
 
         activity.setFullName(employee.getFullName());
@@ -158,36 +116,12 @@ public class UserController {
         return "redirect:/issues";
     }
 
-    @Secured(value = {UserRoleConstants.USER})
-    @RequestMapping(value = {"/assign"}, method = RequestMethod.POST)
-    public String showAssignForm(@Valid Assignment assignment) {
-        try {
-            Member member = memberService.getMemberById(assignment.getMember().getId());
-            Task task = taskService.getTaskById(assignment.getTask().getId());
-
-            assignment.setTask(task);
-            assignment.setMember(member);
-
-            assignmentService.updateAssignment(assignment);
-
-            return "assign";
-        } catch (NumberFormatException e) {
-            return "redirect:/issues";
-        }
-    }
-
-    @Secured(value = {UserRoleConstants.USER})
-    @RequestMapping(value = {"/assign"}, method = RequestMethod.GET)
-    public String createAssignment(@RequestParam(value = "id", required = false) String id, Model model) {
-        try {
-            int taskId = Integer.parseInt(id);
-            Task task = taskService.getTaskById(taskId);
-            model.addAttribute(AttributeConstants.TASK, task);
-
-            return "assign";
-        } catch (NumberFormatException e) {
-            return "redirect:/issues";
-        }
+    @RequestMapping(value = {"/showAsXML"}, method = RequestMethod.GET)
+    @ExceptionHandler({NumberFormatException.class})
+    @ResponseBody
+    public Task showAsXML(@RequestParam(value = "id", required = false) int id) {
+        System.out.println(taskService.getTaskById(id));
+        return taskService.getTaskById(id);
     }
 
 }
