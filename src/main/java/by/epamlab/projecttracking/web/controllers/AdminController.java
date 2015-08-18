@@ -1,6 +1,9 @@
 package by.epamlab.projecttracking.web.controllers;
 
-import by.epamlab.projecttracking.domain.*;
+import by.epamlab.projecttracking.domain.Employee;
+import by.epamlab.projecttracking.domain.Member;
+import by.epamlab.projecttracking.domain.Position;
+import by.epamlab.projecttracking.domain.Project;
 import by.epamlab.projecttracking.security.UserRoleConstants;
 import by.epamlab.projecttracking.service.interfaces.*;
 import by.epamlab.projecttracking.web.AttributeConstants;
@@ -13,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @Secured(UserRoleConstants.ADMIN)
@@ -35,41 +37,36 @@ public class AdminController {
     MemberService memberService;
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String showRegisterForm(Model model) {
-        List<Position> positions = positionService.getAllPositions();
-
-        model.addAttribute(AttributeConstants.POSITIONS, positions);
-        model.addAttribute(AttributeConstants.EMPLOYEE, new Employee());
-
+    public String showRegisterForm() {
         return "register";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String addNewEmployee(@Valid Employee employee,
                                  BindingResult bindingResult, Model model) {
-        List<Position> positions = positionService.getAllPositions();
-        model.addAttribute(AttributeConstants.POSITIONS, positions);
-
         if (bindingResult.hasErrors()) {
             return "register";
         }
 
         synchronized (AdminController.class) {
-            Employee user = employeeService.getEmployeeByUsername(employee.getLogin());
+            String login = employee.getLogin().toLowerCase();
+            Employee user = employeeService.getEmployeeByUsername(login);
+
             if (user != null) {
                 model.addAttribute(AttributeConstants.REGISTER_ERROR, "This username already exists.");
                 return "register";
             }
+
             Position position = positionService.getPositionById(employee.getPosition().getId());
             employee.setPosition(position);
+            employee.setLogin(login);
             employeeService.add(employee);
         }
         return "redirect:/admin";
     }
 
     @RequestMapping(value = {"/create-project"}, method = RequestMethod.GET)
-    public String goToCreateProject(Model model) {
-        model.addAttribute(AttributeConstants.PROJECT, new Project());
+    public String goToCreateProject() {
         return "create-project";
     }
 
@@ -85,16 +82,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = {"/add-employee-to-project"}, method = RequestMethod.GET)
-    public String showAddEmployeeToProjectForm(Model model) {
-        List<Project> projects = projectService.getAllProjects();
-        List<Employee> employees = employeeService.getAllEmployees();
-        List<Role> roles = roleService.getAllRoles();
-
-        model.addAttribute(AttributeConstants.MEMBER, new Member());
-        model.addAttribute(AttributeConstants.PROJECTS, projects);
-        model.addAttribute(AttributeConstants.EMPLOYEES, employees);
-        model.addAttribute(AttributeConstants.ROLES, roles);
-
+    public String showAddEmployeeToProjectForm() {
         return "add-employee-to-project";
     }
 
@@ -113,7 +101,7 @@ public class AdminController {
         if (existMember != null) {
             model.addAttribute(AttributeConstants.ADD_EMPLOYEE_TO_PROJECT_ERROR,
                     "The member already assigned to this project.");
-            return showAddEmployeeToProjectForm(model);
+            return "add-employee-to-project";
         }
 
         memberService.add(employeeId, projectId, roleId);
