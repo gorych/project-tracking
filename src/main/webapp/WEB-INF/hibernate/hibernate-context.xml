@@ -13,7 +13,7 @@
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
           p:dataSource-ref="dataSource"
           p:packagesToScan="by.epamlab.projecttracking.domain"
-          p:configLocation="/WEB-INF/spring/hibernate.cfg.xml">
+          p:configLocation="/WEB-INF/hibernate/hibernate.cfg.xml">
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>

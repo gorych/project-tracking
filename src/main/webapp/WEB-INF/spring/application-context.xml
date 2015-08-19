@@ -30,6 +30,6 @@
         <property name="maxUploadSize" value="268435456"/> <!-- 256 megs -->
     </bean>
 
-    <import resource="hibernate-context.xml"/>
+    <import resource="../hibernate/hibernate-context.xml"/>
 
 </beans>
