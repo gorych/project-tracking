@@ -5,6 +5,7 @@ import by.epamlab.projecttracking.security.UserRoleConstants;
 import by.epamlab.projecttracking.service.interfaces.EmployeeService;
 import by.epamlab.projecttracking.service.interfaces.MemberService;
 import by.epamlab.projecttracking.web.AttributeConstants;
+import by.epamlab.projecttracking.web.PageConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
@@ -29,7 +30,7 @@ public class IndexController {
     @Autowired
     MemberService memberService;
 
-    @RequestMapping(value = "/switch", method = RequestMethod.GET)
+    @RequestMapping(value = PageConstants.PAGE_SWITCH, method = RequestMethod.GET)
     public String pageSwitcher() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         Authentication authentication = securityContext.getAuthentication();
@@ -39,41 +40,43 @@ public class IndexController {
         if (itr.hasNext()) {
             SimpleGrantedAuthority simpleRole = (SimpleGrantedAuthority) itr.next();
             String role = simpleRole.getAuthority();
-            return UserRoleConstants.ADMIN.equals(role) ? "redirect:/admin" : "redirect:/user/dashboard";
+            return UserRoleConstants.ADMIN.equals(role) ?
+                    "redirect:/" + PageConstants.ADMIN_PANEL :
+                    "redirect:/" + PageConstants.USER_DASHBOARD;
         }
 
-        return "login";
+        return PageConstants.LOGIN;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = PageConstants.LOGIN, method = RequestMethod.GET)
     public String goToLogin(@RequestParam(value = "auth_error", required = false) String error, Model model) {
         if (error != null) {
             model.addAttribute(AttributeConstants.AUTHENTICATION_ERROR, "Wrong username or password.");
         }
 
-        return "login";
+        return PageConstants.LOGIN;
     }
 
     @Secured(UserRoleConstants.ANONYMOUS)
-    @RequestMapping(value = {"/"}, method = RequestMethod.GET)
+    @RequestMapping(value = PageConstants.ROOT, method = RequestMethod.GET)
     public String goToDashboard() {
-        return "dashboard";
+        return PageConstants.DASHBOARD;
     }
 
     @Secured(UserRoleConstants.ADMIN)
-    @RequestMapping(value = {"/admin"}, method = RequestMethod.GET)
+    @RequestMapping(value = {PageConstants.ADMIN_PANEL}, method = RequestMethod.GET)
     public String goToAdminPage() {
-        return "admin-page";
+        return PageConstants.ADMIN_PAGE;
     }
 
-    @RequestMapping(value = "/403", method = RequestMethod.GET)
+    @RequestMapping(value = PageConstants.ACCESS_DENIED, method = RequestMethod.GET)
     public String goToAccessDenied() {
-        return "errors/403";
+        return "errors/" + PageConstants.ACCESS_DENIED;
     }
 
-    @RequestMapping(value = "/404", method = RequestMethod.GET)
+    @RequestMapping(value = PageConstants.RESOURCE_NOT_FOUND, method = RequestMethod.GET)
     public String goToResourceNotFound() {
-        return "errors/404";
+        return "errors/" + PageConstants.RESOURCE_NOT_FOUND;
     }
 
 }
