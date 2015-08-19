@@ -1,30 +1,33 @@
 package by.epamlab.projecttracking.domain;
 
 import javax.persistence.*;
+import java.util.Calendar;
 
 @Entity
 @Table(name = "attachment")
 public class Attachment {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue
     private int id;
 
     @Column(name = "name")
     private String name;
 
+    @Column(name = "serverName")
+    private String serverName;
+
     @Column(name = "size")
-    private String size;
+    private long size;
 
     @Column(name = "description")
     private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
     private Project project;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id")
     private Task task;
 
@@ -44,11 +47,21 @@ public class Attachment {
         this.name = name;
     }
 
-    public String getSize() {
+    public String getServerName() {
+        return serverName;
+    }
+
+    public void setServerName(String realFileName) {
+        long time = Calendar.getInstance().getTime().getTime();
+        String name = time + realFileName.hashCode() + realFileName;
+        this.serverName = name + name.hashCode();
+    }
+
+    public long getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(long size) {
         this.size = size;
     }
 

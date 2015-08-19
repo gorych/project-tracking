@@ -9,4 +9,6 @@ public interface AttachmentDAO {
     Attachment getAttachmentById(int id);
 
     List<Attachment> getAllAttachments();
+
+    void insertAttachment(Attachment attachment);
 }

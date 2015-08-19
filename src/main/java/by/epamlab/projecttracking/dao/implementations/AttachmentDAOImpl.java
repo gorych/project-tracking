@@ -26,4 +26,8 @@ public class AttachmentDAOImpl implements AttachmentDAO{
                 .list();
     }
 
+    public void insertAttachment(Attachment attachment) {
+        sessionFactory.getCurrentSession().save(attachment);
+    }
+
 }
