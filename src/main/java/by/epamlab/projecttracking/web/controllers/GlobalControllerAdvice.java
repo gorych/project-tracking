@@ -31,39 +31,39 @@ public class GlobalControllerAdvice {
     @Autowired
     MemberService memberService;
 
-    @ModelAttribute(AttributeConstants.NEW_EMPLOYEE)
+    @ModelAttribute(AttributeConstants.EMPLOYEE)
     public Employee newEmployee() {
         return new Employee();
     }
 
-    @ModelAttribute(AttributeConstants.NEW_TASK)
+    @ModelAttribute(AttributeConstants.TASK)
     public Task newTask() {
         return new Task();
     }
 
-    @ModelAttribute(AttributeConstants.NEW_ACTIVITY)
+    @ModelAttribute(AttributeConstants.ACTIVITY)
     public Activity newActivity() {
         return new Activity();
     }
 
-    @ModelAttribute(AttributeConstants.NEW_ASSIGNMENT)
+    @ModelAttribute(AttributeConstants.ASSIGNMENT)
     public Assignment newAssignment() {
         return new Assignment();
     }
 
-    @ModelAttribute(AttributeConstants.NEW_PROJECT)
+    @ModelAttribute(AttributeConstants.PROJECT)
     public Project newProject() {
         return new Project();
     }
 
-    @ModelAttribute(AttributeConstants.NEW_MEMBER)
+    @ModelAttribute(AttributeConstants.MEMBER)
     public Member newMember() {
         return new Member();
     }
 
-    @ModelAttribute(AttributeConstants.USERNAME)
-    public String username() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
+    @ModelAttribute(AttributeConstants.ATTACHMENT)
+    public Attachment newAttachment() {
+        return new Attachment();
     }
 
     @ModelAttribute(AttributeConstants.USER_FULL_NAME)
