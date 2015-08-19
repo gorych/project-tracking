@@ -20,21 +20,32 @@
                         <a href="<c:url value="/assign?id=${task.id}"/>">Assign</a>
                     </div>
                 </sec:authorize>
-                <c:if test="${username eq assignment.member.employee.login}">
-                    <c:if test="${task.status.name eq 'To do'}">
-                        <div class="issue-btn">
-                            <a href="">Start Progress</a>
+                <c:choose>
+                    <c:when test="${(task.status.id eq '1') || (task.status.id eq '4')}">
+                        <c:if test="${assignment.member.employee.id eq employee.id}">
+                            <div class="issue-btn ">
+                                <a href="/status-switcher?statusCode=2&assignmentId=${assignment.id}">Start
+                                    Progress</a>
+                            </div>
+                        </c:if>
+                    </c:when>
+                    <c:when test="${task.status.id eq '2'}">
+                        <div class="issue-btn ">
+                            <a href="/status-switcher?statusCode=3&assignmentId=${assignment.id}">Delivery</a>
                         </div>
-                    </c:if>
-                    <div class="issue-btn">
-                        <a href="#">Delivery</a>
-                    </div>
-                    <div class="issue-btn">
-                        <a href="#">Resolve Issue</a>
-                    </div>
-                </c:if>
+                    </c:when>
+                    <c:when test="${task.status.id eq '3'}">
+                        <div class="issue-btn ">
+                            <c:if test="${(employee.position.id eq '2') || (employee.position.id eq '3')}">
+                                <a href="/status-switcher?statusCode=4&assignmentId=${assignment.id}">Resolve
+                                    Issue</a>
+                            </c:if>
+                        </div>
+                    </c:when>
+                </c:choose>
+                <div class="hide-block "></div>
                 <div class="issue-btn issue-right-btn ">
-                    <a href="<c:url value="/user/showAsXML?id=${task.id}"/>">Export to XML</a>
+                    <a href="/export?id=${task.id}">Export to XML</a>
                 </div>
             </div>
             <div class="grid-col">
