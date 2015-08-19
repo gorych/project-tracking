@@ -4,7 +4,6 @@ import by.epamlab.projecttracking.domain.*;
 import by.epamlab.projecttracking.security.UserRoleConstants;
 import by.epamlab.projecttracking.service.interfaces.*;
 import by.epamlab.projecttracking.web.AttributeConstants;
-import by.epamlab.projecttracking.web.Constants;
 import by.epamlab.projecttracking.web.PageConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -20,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.*;
 
 
 @Controller
@@ -110,7 +108,7 @@ public class ProjectLeaderController {
 
         Task task = taskService.getTaskById(attachment.getTask().getId());
         Project project = projectService.getProjectById(attachment.getProject().getId());
-        long sizeKb = file.getSize() % Constants.BUFFER_SIZE;
+        long sizeKb = file.getSize() % 1024;
 
         attachment.setTask(task);
         attachment.setProject(project);
@@ -118,10 +116,8 @@ public class ProjectLeaderController {
         attachment.setName(file.getOriginalFilename());
         attachment.setServerName(file.getOriginalFilename());
 
-        try (BufferedOutputStream stream = new BufferedOutputStream(
-                new FileOutputStream(new File(Constants.ROOT_DIR + attachment.getServerName())))) {
-            byte[] bytes = file.getBytes();
-            stream.write(bytes);
+        try {
+            attachmentService.uploadFileToServer(attachment.getServerName(), file);
             attachmentService.addAttachment(attachment);
         } catch (Exception e) {
             model.addAttribute(AttributeConstants.UPLOAD_FILE_ERROR, "Error loading file.");
@@ -135,26 +131,11 @@ public class ProjectLeaderController {
     @RequestMapping(value = "/" + PageConstants.DOWNLOAD, method = RequestMethod.GET)
     public void download(@RequestParam(value = "id", required = false) int attachmentId,
                          HttpServletResponse response) {
-        final int BUFFER_SIZE = 1024;
-        final int OFFSET = 0;
-
-        Attachment attachment = attachmentService.getAttachmentById(attachmentId);
-        File file = new File(Constants.ROOT_DIR + attachment.getServerName());
-
-        try (InputStream is = new FileInputStream(file);
-             OutputStream os = response.getOutputStream()) {
-
-            response.setContentType(Constants.RESPONSE_CONTENT_TYPE);
-            response.setHeader(Constants.RESPONSE_HEADER_NAME, Constants.RESPONSE_HEADER_SUFFIX +
-                    "\"" + attachment.getName() + "\"");
-            byte[] buffer = new byte[BUFFER_SIZE];
-            int length;
-            while ((length = is.read(buffer)) != -1) {
-                os.write(buffer, OFFSET, length);
-            }
-        } catch (IOException e) {
+        try {
+            Attachment attachment = attachmentService.getAttachmentById(attachmentId);
+            attachmentService.downloadFileFromServer(attachment, response);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 }
