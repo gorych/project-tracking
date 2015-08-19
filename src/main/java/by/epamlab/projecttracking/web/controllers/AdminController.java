@@ -7,6 +7,7 @@ import by.epamlab.projecttracking.domain.Project;
 import by.epamlab.projecttracking.security.UserRoleConstants;
 import by.epamlab.projecttracking.service.interfaces.*;
 import by.epamlab.projecttracking.web.AttributeConstants;
+import by.epamlab.projecttracking.web.PageConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import javax.validation.Valid;
 
 @Controller
 @Secured(UserRoleConstants.ADMIN)
+@RequestMapping(PageConstants.ADMIN)
 public class AdminController {
 
     @Autowired
@@ -36,16 +38,16 @@ public class AdminController {
     @Autowired
     MemberService memberService;
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @RequestMapping(value = "/" + PageConstants.REGISTER, method = RequestMethod.GET)
     public String showRegisterForm() {
-        return "register";
+        return PageConstants.REGISTER;
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/" + PageConstants.REGISTER, method = RequestMethod.POST)
     public String addNewEmployee(@Valid Employee employee,
                                  BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "register";
+            return PageConstants.REGISTER;
         }
 
         synchronized (AdminController.class) {
@@ -54,7 +56,7 @@ public class AdminController {
 
             if (user != null) {
                 model.addAttribute(AttributeConstants.REGISTER_ERROR, "This username already exists.");
-                return "register";
+                return PageConstants.REGISTER;
             }
 
             Position position = positionService.getPositionById(employee.getPosition().getId());
@@ -62,35 +64,34 @@ public class AdminController {
             employee.setLogin(login);
             employeeService.add(employee);
         }
-        return "redirect:/admin";
+        return "redirect:/" + PageConstants.ADMIN_PANEL;
     }
 
-    @RequestMapping(value = {"/create-project"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/" + PageConstants.CREATE_PROJECT}, method = RequestMethod.GET)
     public String goToCreateProject() {
         return "create-project";
     }
 
-    @RequestMapping(value = {"/create-project"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/" + PageConstants.CREATE_PROJECT}, method = RequestMethod.POST)
     public String createProject(@Valid Project project,
                                 BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "create-project";
+            return PageConstants.CREATE_PROJECT;
         }
 
         projectService.add(project);
-        return "redirect:/admin";
+        return "redirect:/" + PageConstants.ADMIN_PANEL;
     }
 
-    @RequestMapping(value = {"/add-employee-to-project"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/" + PageConstants.ADD_EMPLOYEE_TO_PROJECT}, method = RequestMethod.GET)
     public String showAddEmployeeToProjectForm() {
-        return "add-employee-to-project";
+        return PageConstants.ADD_EMPLOYEE_TO_PROJECT;
     }
 
-    @RequestMapping(value = {"/add-employee-to-project"}, method = RequestMethod.POST)
-    public String createProject(@Valid Member member,
-                                BindingResult bindingResult, Model model) {
+    @RequestMapping(value = {"/" + PageConstants.ADD_EMPLOYEE_TO_PROJECT}, method = RequestMethod.POST)
+    public String createProject(@Valid Member member, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "add-employee-to-project";
+            return PageConstants.ADD_EMPLOYEE_TO_PROJECT;
         }
 
         int employeeId = member.getEmployee().getId();
@@ -101,11 +102,11 @@ public class AdminController {
         if (existMember != null) {
             model.addAttribute(AttributeConstants.ADD_EMPLOYEE_TO_PROJECT_ERROR,
                     "The member already assigned to this project.");
-            return "add-employee-to-project";
+            return PageConstants.ADD_EMPLOYEE_TO_PROJECT;
         }
 
         memberService.add(employeeId, projectId, roleId);
-        return "redirect:/add-employee-to-project";
+        return "redirect:/" + PageConstants.ADD_EMPLOYEE_TO_PROJECT;
     }
 
 }
