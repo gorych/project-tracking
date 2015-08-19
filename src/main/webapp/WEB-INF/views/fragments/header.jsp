@@ -16,7 +16,6 @@
                         </c:forEach>
                     </ul>
                 </li>
-                <li><a href="#">Issues</a></li>
                 <sec:authorize access="!isAuthenticated()">
                     <li class="login-logout"><a href="<c:url value="/login"/>">Log In</a></li>
                 </sec:authorize>
