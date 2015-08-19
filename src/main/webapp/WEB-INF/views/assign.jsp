@@ -10,7 +10,7 @@
 <div class="main">
     <div class="container">
         <div class="content">
-            <sf:form method="POST" modelAttribute="new_assignment">
+            <sf:form method="POST" modelAttribute="assignment">
                 <div class="header">
                     Assign
                 </div>
