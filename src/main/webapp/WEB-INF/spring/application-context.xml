@@ -12,6 +12,10 @@
 
     <context:annotation-config/>
 
+    <context:component-scan base-package="by.epamlab.projecttracking"/>
+
+    <mvc:resources mapping="/resources/**" location="classpath:"/>
+
     <mvc:annotation-driven/>
 
     <mvc:interceptors>
@@ -22,9 +26,9 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
-    <context:component-scan base-package="by.epamlab.projecttracking"/>
-
-    <mvc:resources mapping="/resources/**" location="classpath:"/>
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="268435456"/> <!-- 256 megs -->
+    </bean>
 
     <import resource="hibernate-context.xml"/>
 
