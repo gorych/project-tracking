@@ -106,7 +106,7 @@ public class AdminController {
         }
 
         memberService.add(employeeId, projectId, roleId);
-        return "redirect:/" + PageConstants.ADD_EMPLOYEE_TO_PROJECT;
+        return "redirect:/admin/" + PageConstants.ADD_EMPLOYEE_TO_PROJECT;
     }
 
 }
