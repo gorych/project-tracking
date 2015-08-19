@@ -10,7 +10,7 @@
 <div class="main">
     <div class="container">
         <div class="content">
-            <sf:form class="register-form" method="POST" modelAttribute="newEmployee">
+            <sf:form class="register-form" method="POST" modelAttribute="employee">
                 <div class="header">
                     Registration
                 </div>

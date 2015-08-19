@@ -10,7 +10,7 @@
 <div class="main">
     <div class="container">
         <div class="content">
-            <sf:form method="POST" modelAttribute="new_project">
+            <sf:form method="POST" modelAttribute="project">
                 <div class="header">
                     Create Project
                 </div>
