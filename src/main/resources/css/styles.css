@@ -183,8 +183,13 @@ td, th {
 }
 
 .modal .body {
-    max-height: 400px;
+    max-height: 330px;
     overflow: auto;
+}
+
+.modal .body footer {
+    border-top: 1px solid #CCC;
+    background: #F5F5F5;
 }
 
 .modal .header, form .header {
@@ -328,6 +333,15 @@ form select, form textarea {
     padding: 0 10px;
 }
 
+form input[type="file"] {
+    width: 226px;
+}
+
+.placeholder {
+    width: 140px;
+    height: 35px;
+}
+
 form textarea {
     min-height: 35px;
     max-width: 226px;
@@ -353,7 +367,7 @@ form input[type="submit"] {
     background: #F5F5F5;
 }
 
-form input[type="submit"]:hover, .modal .btn:hover {
+form input[type="submit"]:hover, .modal .btn:hover, input[type="button"]:hover {
     border: 1px solid #999;
 }
 
@@ -432,7 +446,7 @@ form .error {
     cursor: pointer;
 }
 
-.nav ul li a{
+.nav ul li a {
     width: 100%;
     height: 100%;
     display: block;
@@ -594,12 +608,18 @@ form .error {
 }
 
 .hide-block {
-    width: 30px;
+    min-width: 100px;
+    width: 100px;
     height: 30px;
-    margin-bottom: 0;
-    margin-right: 0;
+    margin-bottom: 20px;
+    margin-right: 10px;
     display: inline-block;
+    border: 1px solid #FFF;
     background: transparent;
+    color: #FFF;
+    line-height: 31px;
+    text-align: center;
+    font-size: 11pt;
 }
 
 .issue-right-btn {
@@ -617,15 +637,20 @@ form .error {
     border: 1px solid #999;
 }
 
+.hide-block .issue-btn:hover {
+    border: 1px solid #FFF;
+    background: transparent;
+}
+
 .issue-btn a, .issue-btn a:visited {
     color: #000;
 }
 
-.report, .details {
+.report, .details, .attachment {
     width: 100%;
 }
 
-.report form, .assign form {
+.report form, .assign form, .attachment form {
     margin: 0;
     width: 100%;
     height: 100%;
@@ -642,7 +667,7 @@ form .error {
     text-align: center;
 }
 
-.report form .row {
+.report form .row, .attachment form .row {
     margin: 5px 8px 10px;
 }
 
@@ -663,6 +688,32 @@ form .error {
 
 .details {
     height: 50px;
+}
+
+.attachment-btn {
+    width: 96.5%;
+    height: 35px;
+    margin: 10px;
+    font-size: 11pt;
+    line-height: 35px;
+    background: #F5F5F5;
+    border-radius: 3px;
+    border: 1px solid #CCC;
+    color: #000;
+}
+
+.attachment-btn a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.attachment-btn:hover {
+    border: 1px solid #999;
+}
+
+.attachment-btn a, .attachment-btn a:visited {
+    color: #000;
 }
 
 /*fixes*/
