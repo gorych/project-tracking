@@ -22,7 +22,6 @@ public class Activity {
     @Column(name = "date")
     private Date date;
 
-    @Min(value = 10, message = "Duration should be longer than 10 minutes.")
     @Max(value = 999, message = "Duration should be smaller than 1000 minutes.")
     @Column(name = "duration")
     private int duration;
@@ -30,6 +29,10 @@ public class Activity {
     @Size(min = 5, message = "Comment should be longer than 10 characters.")
     @Column(name = "comment")
     private String comment;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "task_id")
+    private Task task;
 
     @Column(name = "full_name")
     private String fullName;
@@ -64,6 +67,14 @@ public class Activity {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
     }
 
     public String getFullName() {

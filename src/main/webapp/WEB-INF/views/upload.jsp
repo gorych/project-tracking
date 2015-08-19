@@ -10,7 +10,7 @@
 <div class="main">
     <div class="container">
         <div class="content">
-            <sf:form method="post" enctype="multipart/form-data" modelAttribute="attachment">
+            <sf:form method="post" enctype="multipart/form-data" modelAttribute="attachment" action="/upload">
                 <div class="header">
                     Attaching file
                 </div>

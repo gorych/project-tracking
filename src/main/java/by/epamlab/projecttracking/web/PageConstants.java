@@ -5,6 +5,7 @@ public final class PageConstants {
     public static final String RESOURCE_NOT_FOUND = "404";
     public static final String ACCESS_DENIED = "403";
     public static final String DOWNLOAD = "download";
+    public static final String UPLOAD = "upload";
     public static final String PAGE_SWITCH = "switch";
     public static final String STATUS_SWITCHER = "status-switcher";
     public static final String ROOT = "/";

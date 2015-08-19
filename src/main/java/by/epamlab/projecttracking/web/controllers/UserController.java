@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.w3c.dom.Attr;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -102,6 +103,7 @@ public class UserController {
 
         model.addAttribute(AttributeConstants.TASK, task);
         model.addAttribute(AttributeConstants.ASSIGNMENT, assignment);
+        model.addAttribute(AttributeConstants.ACTIVITIES, task.getActivities());
         model.addAttribute(AttributeConstants.EMPLOYEE, employee);
         model.addAttribute(AttributeConstants.USER_MEMBERS, members);
 
@@ -112,9 +114,11 @@ public class UserController {
     public String createReport(@Valid Activity activity, BindingResult bindingResult,
                                HttpServletRequest request) {
         Employee employee = employeeService.getEmployeeByUsername(getUsername());
+        Task task = taskService.getTaskById(activity.getTask().getId());
         Date date = new Date(Calendar.getInstance().getTime().getTime());
 
         activity.setFullName(employee.getFullName());
+        activity.setTask(task);
         activity.setDate(date);
 
         if (!bindingResult.hasErrors()) {
@@ -128,31 +132,6 @@ public class UserController {
     @ResponseBody
     public Task exportToXML(@RequestParam(value = "id", required = false) int id) {
         return taskService.getTaskById(id);
-    }
-
-    @RequestMapping(value = "/" + PageConstants.DOWNLOAD, method = RequestMethod.GET)
-    public void download(@RequestParam(value = "id", required = false) int attachmentId,
-                         HttpServletResponse response) {
-        final int BUFFER_SIZE = 1024;
-        final int OFFSET = 0;
-
-        Attachment attachment = attachmentService.getAttachmentById(attachmentId);
-        File file = new File(Constants.ROOT_DIR + attachment.getServerName());
-
-        try (InputStream is = new FileInputStream(file);
-             OutputStream os = response.getOutputStream()) {
-
-            response.setContentType(Constants.RESPONSE_CONTENT_TYPE);
-            response.setHeader(Constants.RESPONSE_HEADER_NAME, Constants.RESPONSE_HEADER_SUFFIX +
-                    "\"" + attachment.getName() + "\"");
-            byte[] buffer = new byte[BUFFER_SIZE];
-            int length;
-            while ((length = is.read(buffer)) != -1) {
-                os.write(buffer, OFFSET, length);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @RequestMapping(value = "/" + PageConstants.STATUS_SWITCHER, method = RequestMethod.GET)
@@ -175,6 +154,7 @@ public class UserController {
         if (newStatusCode == STATUS_DONE_CODE && (employeePosition == prManagerPos
                                     || employeePosition == teamLeadPos)) {
             taskService.updateTaskStatus(assignment.getTask().getId(), STATUS_DONE_CODE);
+            return "redirect:" + request.getSession().getAttribute(AttributeConstants.PREVIOUS_PAGE);
         }
 
         taskService.updateTaskStatus(assignment.getTask().getId(), newStatusCode);

@@ -18,10 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.*;
 
 
 @Controller
@@ -92,35 +91,33 @@ public class ProjectLeaderController {
     }
 
     @Secured(value = {UserRoleConstants.USER})
-    @RequestMapping(value = "/upload", method = RequestMethod.GET)
+    @RequestMapping(value = "/" + PageConstants.UPLOAD, method = RequestMethod.GET)
     public String showUploadForm(@RequestParam(value = "taskId") int taskId,
                                  @RequestParam(value = "projectId") int projectId, Model model) {
-        model.addAttribute(AttributeConstants.TASKS_ID, taskId);
+        model.addAttribute(AttributeConstants.TASK_ID, taskId);
         model.addAttribute(AttributeConstants.PROJECT_ID, projectId);
-        return "upload";
+        return PageConstants.UPLOAD;
     }
 
     @Secured(value = {UserRoleConstants.USER})
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    @RequestMapping(value = "/" + PageConstants.UPLOAD, method = RequestMethod.POST)
     public String fileUpload(@Valid Attachment attachment, HttpServletRequest request,
                              Model model, @RequestParam("file") MultipartFile file) {
-
-
         if (file.isEmpty()) {
             model.addAttribute(AttributeConstants.UPLOAD_FILE_ERROR, "The upload file is empty.");
-            return "upload";
+            return PageConstants.UPLOAD;
         }
 
         Task task = taskService.getTaskById(attachment.getTask().getId());
         Project project = projectService.getProjectById(attachment.getProject().getId());
+        long sizeKb = file.getSize() % Constants.BUFFER_SIZE;
 
         attachment.setTask(task);
         attachment.setProject(project);
-        attachment.setSize(file.getSize());
+        attachment.setSize(sizeKb);
         attachment.setName(file.getOriginalFilename());
         attachment.setServerName(file.getOriginalFilename());
 
-        System.out.println(attachment);
         try (BufferedOutputStream stream = new BufferedOutputStream(
                 new FileOutputStream(new File(Constants.ROOT_DIR + attachment.getServerName())))) {
             byte[] bytes = file.getBytes();
@@ -128,10 +125,36 @@ public class ProjectLeaderController {
             attachmentService.addAttachment(attachment);
         } catch (Exception e) {
             model.addAttribute(AttributeConstants.UPLOAD_FILE_ERROR, "Error loading file.");
-            return "upload";
+            return PageConstants.UPLOAD;
         }
 
         return "redirect:" + request.getSession().getAttribute(AttributeConstants.PREVIOUS_PAGE);
+    }
+
+    @Secured(value = {UserRoleConstants.USER})
+    @RequestMapping(value = "/" + PageConstants.DOWNLOAD, method = RequestMethod.GET)
+    public void download(@RequestParam(value = "id", required = false) int attachmentId,
+                         HttpServletResponse response) {
+        final int BUFFER_SIZE = 1024;
+        final int OFFSET = 0;
+
+        Attachment attachment = attachmentService.getAttachmentById(attachmentId);
+        File file = new File(Constants.ROOT_DIR + attachment.getServerName());
+
+        try (InputStream is = new FileInputStream(file);
+             OutputStream os = response.getOutputStream()) {
+
+            response.setContentType(Constants.RESPONSE_CONTENT_TYPE);
+            response.setHeader(Constants.RESPONSE_HEADER_NAME, Constants.RESPONSE_HEADER_SUFFIX +
+                    "\"" + attachment.getName() + "\"");
+            byte[] buffer = new byte[BUFFER_SIZE];
+            int length;
+            while ((length = is.read(buffer)) != -1) {
+                os.write(buffer, OFFSET, length);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

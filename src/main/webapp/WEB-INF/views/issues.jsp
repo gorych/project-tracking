@@ -36,14 +36,14 @@
                     </c:when>
                     <c:when test="${task.status.id eq '3'}">
                         <div class="issue-btn ">
-                            <c:if test="${(employee.position.id eq '2') || (employee.position.id eq '3')}">
+                            <sec:authorize access="hasAnyRole('ROLE_PR_MANAGER', 'ROLE_TEAM_LEAD')">
                                 <a href="/status-switcher?statusCode=4&assignmentId=${assignment.id}">Resolve
                                     Issue</a>
-                            </c:if>
+                            </sec:authorize>
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <div class="hide-block "></div>
+                        <div class="hide-block"></div>
                     </c:otherwise>
                 </c:choose>
                 <div class="issue-btn issue-right-btn ">

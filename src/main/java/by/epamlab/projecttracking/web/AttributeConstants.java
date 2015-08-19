@@ -15,10 +15,11 @@ public final class AttributeConstants {
     public static final String EMPLOYEE = "employee";
 
     public static final String TASKS = "tasks";
-    public static final String TASKS_ID = "task_id";
+    public static final String TASK_ID = "task_id";
     public static final String PROJECT_ID = "project_id";
     public static final String PROJECT_MEMBERS = "members";
     public static final String USER_MEMBERS = "user_members";
+    public static final String ATTACHMENTS = "attachments";
     public static final String ACTIVITIES = "activities";
     public static final String POSITIONS = "positions";
     public static final String EMPLOYEES = "employees";

@@ -27,13 +27,17 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         Query query = session.createQuery("FROM Employee WHERE login = :login");
         query.setString("login", username);
 
-        return (Employee)query.uniqueResult();
+        return (Employee) query.uniqueResult();
     }
 
     @SuppressWarnings("unchecked")
     public List<Employee> getAllEmployees() {
-        return sessionFactory.getCurrentSession().createQuery("from Employee")
-                .list();
+        final int ADMIN_POSITION_ID = 1;
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("FROM Employee WHERE position.id!=:position");
+        query.setInteger("position", ADMIN_POSITION_ID);
+
+        return query.list();
     }
 
     public void add(Employee employee) {

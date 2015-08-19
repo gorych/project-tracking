@@ -12,6 +12,7 @@
                     <label class="required" for="duration">Duration</label>
                     <sf:input path="duration"/>
                 </div>
+                <sf:input path="task.id" type="hidden" value="${task.id}"/>
                 <div class="row error">
                     <sf:errors path="comment"/>
                     <sf:errors path="duration"/>

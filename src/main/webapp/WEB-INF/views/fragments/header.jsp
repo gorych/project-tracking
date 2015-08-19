@@ -6,16 +6,18 @@
     <div class="container">
         <div class="nav">
             <ul>
-                <li><a href="<c:url value="/user/dashboard"/>">Dashboard</a></li>
-                <li>Projects
-                    <ul>
-                        <c:forEach var="member" items="${user_members}">
-                            <li>
-                                <a href="<c:url value="/user/projects?id=${member.project.id}"/>">${member.project.name}</a>
-                            </li>
-                        </c:forEach>
-                    </ul>
-                </li>
+                <sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ANONYMOUS')">
+                    <li><a href="<c:url value="/user/dashboard"/>">Dashboard</a></li>
+                    <li>Projects
+                        <ul>
+                            <c:forEach var="member" items="${user_members}">
+                                <li>
+                                    <a href="<c:url value="/user/projects?id=${member.project.id}"/>">${member.project.name}</a>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </li>
+                </sec:authorize>
                 <sec:authorize access="!isAuthenticated()">
                     <li class="login-logout"><a href="<c:url value="/login"/>">Log In</a></li>
                 </sec:authorize>

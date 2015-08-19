@@ -5,23 +5,23 @@
             <table>
                 <tr>
                     <th>File Name</th>
-                    <th>Size</th>
+                    <th>Size, Kb</th>
                     <th>Description</th>
                 </tr>
-                <c:forEach var="attachment" items="${task.project.attachments}">
+                <c:forEach var="attachment" items="${task.attachments}">
                     <tr>
-                        <td><a href="/user/download?id=${attachment.id}">${attachment.name}</a></td>
+                        <td><a href="/download?id=${attachment.id}">${attachment.name}</a></td>
                         <td>${attachment.size}</td>
                         <td>${attachment.description}</td>
                     </tr>
                 </c:forEach>
             </table>
-            <c:if test="${(assignment.member.employee.id eq employee.id) ||
-            (employee.position.id eq '2') || (employee.position.id eq '3')}">
+            <sec:authorize access="hasAnyRole('ROLE_PR_MANAGER', 'ROLE_TEAM_LEAD')
+                                                OR ${employee.id eq assignment.member.employee.id}">
                 <div class="attachment-btn">
                     <a href="<c:url value="/upload?taskId=${task.id}&projectId=${task.project.id}"/>">Attach</a>
                 </div>
-            </c:if>
+            </sec:authorize>
         </div>
     </div>
 </div>

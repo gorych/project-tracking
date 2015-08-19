@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "task")
@@ -37,6 +38,12 @@ public class Task implements Serializable {
 
     @Column(name = "`add`")
     private Date aed;
+
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Activity> activities;
+
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Attachment> attachments;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "status_id")
@@ -105,6 +112,24 @@ public class Task implements Serializable {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    @XmlTransient
+    public List<Activity> getActivities() {
+        return activities;
+    }
+
+    @XmlTransient
+    public List<Attachment> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(List<Attachment> attachments) {
+        this.attachments = attachments;
+    }
+
+    public void setActivities(List<Activity> activities) {
+        this.activities = activities;
     }
 
     @Override
