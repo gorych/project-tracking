@@ -3,6 +3,7 @@ package by.epamlab.projecttracking.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.List;
 
 @Entity
@@ -10,7 +11,6 @@ import java.util.List;
 public class Project {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue
     private int id;
 
@@ -29,6 +29,10 @@ public class Project {
     @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Task> tasks;
 
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Attachment> attachments;
+
+    @XmlTransient
     public int getId() {
         return id;
     }
@@ -53,6 +57,7 @@ public class Project {
         this.description = description;
     }
 
+    @XmlTransient
     public List<Member> getMembers() {
         return members;
     }
@@ -61,12 +66,22 @@ public class Project {
         this.members = members;
     }
 
+    @XmlTransient
     public List<Task> getTasks() {
         return tasks;
     }
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    @XmlTransient
+    public List<Attachment> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(List<Attachment> attachments) {
+        this.attachments = attachments;
     }
 
     @Override
