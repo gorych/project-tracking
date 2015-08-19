@@ -30,21 +30,19 @@ public class Task implements Serializable {
 
     @Column(name = "pdd")
     @NotNull(message = "Correct date format must be YYYY-mm-dd.")
-    @XmlTransient
     private Date pdd;
 
     @Column(name = "asd")
-    @XmlTransient
     private Date asd;
 
     @Column(name = "`add`")
-    @XmlTransient
     private Date aed;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "status_id")
     private Status status;
 
+    @XmlTransient
     public int getId() {
         return id;
     }
