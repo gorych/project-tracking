@@ -8,6 +8,7 @@
                     <th>Status</th>
                     <th>Plan Start Date</th>
                     <th>Plan End Date</th>
+                    <th>Comment</th>
                 </tr>
                 <tr>`
                     <c:choose>
@@ -21,6 +22,10 @@
                     <td>${task.status.name}</td>
                     <td>${task.psd}</td>
                     <td>${task.pdd}</td>
+                    <c:if test="${not empty assignment}">
+                        <td>${assignment.description}</td>
+                    </c:if>
+
                 </tr>
             </table>
         </div>

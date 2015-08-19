@@ -42,10 +42,12 @@
                             </c:if>
                         </div>
                     </c:when>
+                    <c:otherwise>
+                        <div class="hide-block "></div>
+                    </c:otherwise>
                 </c:choose>
-                <div class="hide-block "></div>
                 <div class="issue-btn issue-right-btn ">
-                    <a href="/export?id=${task.id}">Export to XML</a>
+                    <a href="/user/export?id=${task.id}">Export to XML</a>
                 </div>
             </div>
             <div class="grid-col">
