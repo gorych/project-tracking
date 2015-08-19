@@ -45,4 +45,11 @@ public class TaskServiceImpl implements TaskService {
         taskDAO.addTask(task);
         assignmentDAO.addAssignment(assignment);
     }
+
+    @Transactional
+    public void updateTaskStatus(int taskId, int statusId) {
+        Task task = taskDAO.getTaskById(taskId);
+        Status status = statusDAO.getStatusById(statusId);
+        task.setStatus(status);
+    }
 }

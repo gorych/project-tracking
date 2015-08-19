@@ -12,4 +12,5 @@ public interface TaskService {
 
     void insertTask(Assignment assignment);
 
+    void updateTaskStatus(int taskId, int statusId);
 }
