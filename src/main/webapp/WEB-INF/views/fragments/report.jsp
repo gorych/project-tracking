@@ -2,7 +2,7 @@
 <div class="modal">
     <div class="header">Report</div>
     <div class="report">
-        <sf:form method="POST" modelAttribute="new_activity" action="/report">
+        <sf:form method="POST" modelAttribute="activity" action="/user/report">
             <div class="column">
                 <div class="row">
                     <label class="required" for="comment">Comment</label>
