@@ -1,16 +1,11 @@
 package by.epamlab.projecttracking.web.controllers;
 
-
-import by.epamlab.projecttracking.domain.Assignment;
-import by.epamlab.projecttracking.domain.Member;
-import by.epamlab.projecttracking.domain.Project;
-import by.epamlab.projecttracking.domain.Task;
+import by.epamlab.projecttracking.domain.*;
 import by.epamlab.projecttracking.security.UserRoleConstants;
-import by.epamlab.projecttracking.service.interfaces.AssignmentService;
-import by.epamlab.projecttracking.service.interfaces.MemberService;
-import by.epamlab.projecttracking.service.interfaces.ProjectService;
-import by.epamlab.projecttracking.service.interfaces.TaskService;
+import by.epamlab.projecttracking.service.interfaces.*;
 import by.epamlab.projecttracking.web.AttributeConstants;
+import by.epamlab.projecttracking.web.Constants;
+import by.epamlab.projecttracking.web.PageConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -20,10 +15,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+
 
 @Controller
 @Secured({UserRoleConstants.TEAM_LEAD, UserRoleConstants.PR_MANAGER})
@@ -31,6 +30,9 @@ public class ProjectLeaderController {
 
     @Autowired
     AssignmentService assignmentService;
+
+    @Autowired
+    AttachmentService attachmentService;
 
     @Autowired
     MemberService memberService;
@@ -41,58 +43,95 @@ public class ProjectLeaderController {
     @Autowired
     TaskService taskService;
 
-    @RequestMapping(value = {"/create-issue"}, method = RequestMethod.GET)
-    public String showCreateIssueForm() {
-        return "create-issue";
+    @RequestMapping(value = {"/" + PageConstants.CREATE_ISSUE}, method = RequestMethod.GET)
+    public String showCreateIssueForm(Model model) {
+        model.addAttribute(new Task());
+        model.addAttribute(AttributeConstants.PROJECTS, projectService.getAllProjects());
+        return PageConstants.CREATE_ISSUE;
     }
 
-    @RequestMapping(value = {"/create-issue"}, method = RequestMethod.POST)
-    public String createIssue(@Valid Task task, BindingResult bindingResult, Model model) {
+    @RequestMapping(value = {"/" + PageConstants.CREATE_ISSUE}, method = RequestMethod.POST)
+    public String createIssue(@Valid Task task, BindingResult bindingResult,
+                              HttpServletRequest request, Model model) {
         Project project = projectService.getProjectById(task.getProject().getId());
         task.setProject(project);
 
         if (bindingResult.hasErrors()) {
-            return "create-issue";
+            return PageConstants.CREATE_ISSUE;
         }
 
         long startDate = task.getPsd().getTime();
         long endDate = task.getPdd().getTime();
         if (startDate > endDate) {
             model.addAttribute(AttributeConstants.INPUT_DATE_ERROR, "End date must be larger than start date.");
-            return "create-issue";
+            return PageConstants.CREATE_ISSUE;
         }
 
         taskService.insertTask(task);
-        return "success";
+        return "redirect:" + request.getSession().getAttribute(AttributeConstants.PREVIOUS_PAGE);
     }
 
-    @RequestMapping(value = {"/assign"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/" + PageConstants.ASSIGN}, method = RequestMethod.GET)
     @ExceptionHandler({NumberFormatException.class})
-    public String createAssignment(@RequestParam(value = "id", required = false) String id, Model model) {
-        int taskId = Integer.parseInt(id);
+    public String createAssignment(@RequestParam(value = "id", required = false) int taskId, Model model) {
         Task task = taskService.getTaskById(taskId);
-
         model.addAttribute(AttributeConstants.TASK, task);
-        return "assign";
+        return PageConstants.ASSIGN;
     }
 
-    @RequestMapping(value = {"/assign"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/" + PageConstants.ASSIGN}, method = RequestMethod.POST)
     public String showAssignForm(@Valid Assignment assignment, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        String previousPage = "redirect:" + session.getAttribute(AttributeConstants.PREVIOUS_PAGE);
-        try {
-            Member member = memberService.getMemberById(assignment.getMember().getId());
-            Task task = taskService.getTaskById(assignment.getTask().getId());
+        Member member = memberService.getMemberById(assignment.getMember().getId());
+        Task task = taskService.getTaskById(assignment.getTask().getId());
 
-            assignment.setTask(task);
-            assignment.setMember(member);
+        assignment.setTask(task);
+        assignment.setMember(member);
+        assignmentService.updateAssignment(assignment);
 
-            assignmentService.updateAssignment(assignment);
+        return "redirect:" + request.getSession().getAttribute(AttributeConstants.PREVIOUS_PAGE);
+    }
 
-            return previousPage;
-        } catch (NumberFormatException e) {
-            return previousPage;
+    @Secured(value = {UserRoleConstants.USER})
+    @RequestMapping(value = "/upload", method = RequestMethod.GET)
+    public String showUploadForm(@RequestParam(value = "taskId") int taskId,
+                                 @RequestParam(value = "projectId") int projectId, Model model) {
+        model.addAttribute(AttributeConstants.TASKS_ID, taskId);
+        model.addAttribute(AttributeConstants.PROJECT_ID, projectId);
+        return "upload";
+    }
+
+    @Secured(value = {UserRoleConstants.USER})
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    public String fileUpload(@Valid Attachment attachment, HttpServletRequest request,
+                             Model model, @RequestParam("file") MultipartFile file) {
+
+
+        if (file.isEmpty()) {
+            model.addAttribute(AttributeConstants.UPLOAD_FILE_ERROR, "The upload file is empty.");
+            return "upload";
         }
+
+        Task task = taskService.getTaskById(attachment.getTask().getId());
+        Project project = projectService.getProjectById(attachment.getProject().getId());
+
+        attachment.setTask(task);
+        attachment.setProject(project);
+        attachment.setSize(file.getSize());
+        attachment.setName(file.getOriginalFilename());
+        attachment.setServerName(file.getOriginalFilename());
+
+        System.out.println(attachment);
+        try (BufferedOutputStream stream = new BufferedOutputStream(
+                new FileOutputStream(new File(Constants.ROOT_DIR + attachment.getServerName())))) {
+            byte[] bytes = file.getBytes();
+            stream.write(bytes);
+            attachmentService.addAttachment(attachment);
+        } catch (Exception e) {
+            model.addAttribute(AttributeConstants.UPLOAD_FILE_ERROR, "Error loading file.");
+            return "upload";
+        }
+
+        return "redirect:" + request.getSession().getAttribute(AttributeConstants.PREVIOUS_PAGE);
     }
 
 }
