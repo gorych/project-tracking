@@ -41,6 +41,7 @@ public class ActivityServiceImpl implements ActivityService {
             Map<String, String> jsonObject = new HashMap<String, String>();
             jsonObject.put("fullName", activity.getFullName());
             jsonObject.put("date", activity.getDate().toString());
+            jsonObject.put("duration", "" + activity.getDuration());
             jsonObject.put("comment", activity.getComment());
             jsonList.add(jsonObject);
         }

@@ -27,7 +27,7 @@ public class Activity {
     @Column(name = "duration")
     private int duration;
 
-    @Size(min = 10, message = "Comment should be longer than 10 characters.")
+    @Size(min = 5, message = "Comment should be longer than 10 characters.")
     @Column(name = "comment")
     private String comment;
 
