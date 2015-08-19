@@ -10,7 +10,7 @@
 <div class="main">
     <div class="container">
         <div class="content">
-            <sf:form class="add-employee-to-project" method="POST" modelAttribute="newMember">
+            <sf:form class="add-employee-to-project" method="POST" modelAttribute="member">
                 <div class="header">
                     Add employee to project
                 </div>
@@ -48,7 +48,7 @@
                 </div>
                 <input type="submit" value="Add"/>
                 <div class="footer">
-                    <a href="<c:url value="/admin"/>">Go to admin panel.</a>
+                    <a href="<c:url value="/admin-panel"/>">Go to admin panel.</a>
                 </div>
             </sf:form>
         </div>
