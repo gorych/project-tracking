@@ -26,7 +26,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Transactional
-    public void addProject(Project project) {
+    public void add(Project project) {
         projectDAO.insertProject(project);
     }
 

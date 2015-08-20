@@ -132,4 +132,19 @@ public class Task implements Serializable {
         this.activities = activities;
     }
 
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", project=" + project +
+                ", description='" + description + '\'' +
+                ", psd=" + psd +
+                ", pdd=" + pdd +
+                ", asd=" + asd +
+                ", aed=" + aed +
+                ", activities=" + activities +
+                ", attachments=" + attachments +
+                ", status=" + status +
+                '}';
+    }
 }

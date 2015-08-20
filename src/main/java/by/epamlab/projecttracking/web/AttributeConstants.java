@@ -26,6 +26,7 @@ public final class AttributeConstants {
 
     public static final String UPLOAD_FILE_ERROR = "upload_error";
     public static final String REGISTER_ERROR = "register_error";
+    public static final String ADD_EMPLOYEE_TO_PROJECT_ERROR = "add_employee_to_project_error";
     public static final String AUTHENTICATION_ERROR = "auth_error";
     public static final String INPUT_DATE_ERROR = "input_date_error";
 

@@ -81,7 +81,7 @@ public class AdminController {
             return PageConstants.CREATE_PROJECT;
         }
 
-        projectService.addProject(project);
+        projectService.add(project);
         return "redirect:/" + PageConstants.ADMIN_PANEL;
     }
 
