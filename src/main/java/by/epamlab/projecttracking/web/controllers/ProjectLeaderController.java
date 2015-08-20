@@ -6,6 +6,7 @@ import by.epamlab.projecttracking.service.interfaces.*;
 import by.epamlab.projecttracking.web.AttributeConstants;
 import by.epamlab.projecttracking.web.PageConstants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.spel.ast.Assign;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -73,6 +74,7 @@ public class ProjectLeaderController {
     public String createAssignment(@RequestParam(value = "id", required = false) int taskId, Model model) {
         Task task = taskService.getTaskById(taskId);
         model.addAttribute(AttributeConstants.TASK, task);
+        model.addAttribute(AttributeConstants.ASSIGNMENT, new Assignment());
         return PageConstants.ASSIGN;
     }
 
@@ -92,6 +94,7 @@ public class ProjectLeaderController {
     @RequestMapping(value = "/" + PageConstants.UPLOAD, method = RequestMethod.GET)
     public String showUploadForm(@RequestParam(value = "taskId") int taskId,
                                  @RequestParam(value = "projectId") int projectId, Model model) {
+        model.addAttribute(AttributeConstants.ATTACHMENT, new Attachment());
         model.addAttribute(AttributeConstants.TASK_ID, taskId);
         model.addAttribute(AttributeConstants.PROJECT_ID, projectId);
         return PageConstants.UPLOAD;

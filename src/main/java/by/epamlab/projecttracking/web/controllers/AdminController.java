@@ -39,7 +39,8 @@ public class AdminController {
     MemberService memberService;
 
     @RequestMapping(value = "/" + PageConstants.REGISTER, method = RequestMethod.GET)
-    public String showRegisterForm() {
+    public String showRegisterForm(Model model) {
+        model.addAttribute(AttributeConstants.EMPLOYEE, new Employee());
         return PageConstants.REGISTER;
     }
 
@@ -68,7 +69,8 @@ public class AdminController {
     }
 
     @RequestMapping(value = {"/" + PageConstants.CREATE_PROJECT}, method = RequestMethod.GET)
-    public String goToCreateProject() {
+    public String showCreateProjectForm(Model model) {
+        model.addAttribute(AttributeConstants.PROJECT, new Project());
         return "create-project";
     }
 
@@ -84,7 +86,8 @@ public class AdminController {
     }
 
     @RequestMapping(value = {"/" + PageConstants.ADD_EMPLOYEE_TO_PROJECT}, method = RequestMethod.GET)
-    public String showAddEmployeeToProjectForm() {
+    public String showAddEmployeeToProjectForm(Model model) {
+        model.addAttribute(AttributeConstants.MEMBER, new Member());
         return PageConstants.ADD_EMPLOYEE_TO_PROJECT;
     }
 

@@ -5,7 +5,6 @@ import by.epamlab.projecttracking.security.UserPosition;
 import by.epamlab.projecttracking.security.UserRoleConstants;
 import by.epamlab.projecttracking.service.interfaces.*;
 import by.epamlab.projecttracking.web.AttributeConstants;
-import by.epamlab.projecttracking.web.Constants;
 import by.epamlab.projecttracking.web.PageConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -17,12 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.w3c.dom.Attr;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.*;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
@@ -103,9 +99,10 @@ public class UserController {
 
         model.addAttribute(AttributeConstants.TASK, task);
         model.addAttribute(AttributeConstants.ASSIGNMENT, assignment);
-        model.addAttribute(AttributeConstants.ACTIVITIES, task.getActivities());
         model.addAttribute(AttributeConstants.EMPLOYEE, employee);
         model.addAttribute(AttributeConstants.USER_MEMBERS, members);
+        model.addAttribute(AttributeConstants.ACTIVITY, new Activity());
+        model.addAttribute(AttributeConstants.ACTIVITIES, task.getActivities());
 
         return PageConstants.ISSUES;
     }
@@ -152,7 +149,7 @@ public class UserController {
         int teamLeadPos = UserPosition.TEAM_LEAD.ordinal();
 
         if (newStatusCode == STATUS_DONE_CODE && (employeePosition == prManagerPos
-                                    || employeePosition == teamLeadPos)) {
+                || employeePosition == teamLeadPos)) {
             taskService.updateTaskStatus(assignment.getTask().getId(), STATUS_DONE_CODE);
             return "redirect:" + request.getSession().getAttribute(AttributeConstants.PREVIOUS_PAGE);
         }
