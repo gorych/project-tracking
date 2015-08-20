@@ -9,7 +9,7 @@
                     <sf:textarea path="comment"/>
                 </div>
                 <div class="row">
-                    <label class="required" for="duration">Duration</label>
+                    <label class="required" for="duration">Duration, min</label>
                     <sf:input path="duration"/>
                 </div>
                 <sf:input path="task.id" type="hidden" value="${task.id}"/>

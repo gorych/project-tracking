@@ -46,6 +46,9 @@
                     </c:if>
                 </div>
                 <input type="submit" value="Create"/>
+                <div class="footer">
+                    <a href="<c:url value="${previous_page}"/>">Go to previous page.</a>
+                </div>
             </sf:form>
         </div>
     </div>

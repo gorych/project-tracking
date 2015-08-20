@@ -10,7 +10,7 @@
 <div class="main">
     <div class="container">
         <div class="content">
-            <sf:form method="POST" modelAttribute="project">
+            <sf:form class="create-project" method="POST" modelAttribute="project">
                 <div class="header">
                     Create Project
                 </div>
@@ -28,6 +28,9 @@
                     </div>
                 </div>
                 <input type="submit" value="Create"/>
+                <div class="footer">
+                    <a href="<c:url value="/admin-panel"/>">Go to admin panel.</a>
+                </div>
             </sf:form>
         </div>
     </div>

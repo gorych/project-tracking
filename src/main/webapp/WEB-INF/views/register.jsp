@@ -54,6 +54,9 @@
                     </c:if>
                 </div>
                 <input type="submit" value="Sign Up"/>
+                <div class="footer">
+                    <a href="<c:url value="/admin-panel"/>">Go to admin panel.</a>
+                </div>
             </sf:form>
         </div>
     </div>

@@ -26,11 +26,11 @@
                     <div class="row">
                         <sf:label path="employee.id">Employee</sf:label>
                         <sf:select path="employee.id">
-                        <c:forEach var="employee" items="${employees}">
-                            <sf:option
-                                    value="${employee.id}">${employee.fullName}</sf:option>
-                        </c:forEach>
-                    </sf:select>
+                            <c:forEach var="employee" items="${employees}">
+                                <sf:option
+                                        value="${employee.id}">${employee.fullName}</sf:option>
+                            </c:forEach>
+                        </sf:select>
                     </div>
                     <div class="row">
                         <sf:label path="role.id">Role</sf:label>
