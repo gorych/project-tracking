@@ -746,6 +746,11 @@ form .error {
     color: #000;
 }
 
+.page-error {
+    margin: 0 auto;
+    height: 100%;
+}
+
 /*fixes*/
 
 .pickmeup {
