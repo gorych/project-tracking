@@ -4,7 +4,6 @@ public final class AttributeConstants {
 
     public static final String PREVIOUS_PAGE = "previous_page";
     public static final String USER_FULL_NAME = "user_full_name";
-    public static final String USERNAME = "username";
 
     public static final String TASK = "task";
     public static final String PROJECT = "project";
@@ -19,7 +18,6 @@ public final class AttributeConstants {
     public static final String PROJECT_ID = "project_id";
     public static final String PROJECT_MEMBERS = "members";
     public static final String USER_MEMBERS = "user_members";
-    public static final String ATTACHMENTS = "attachments";
     public static final String ACTIVITIES = "activities";
     public static final String POSITIONS = "positions";
     public static final String EMPLOYEES = "employees";
