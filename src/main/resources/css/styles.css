@@ -11,6 +11,10 @@ a {
     text-decoration: none;
 }
 
+table a {
+    text-decoration: underline;
+}
+
 h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
 }
@@ -271,11 +275,19 @@ form, .admin-panel {
     margin: 11% auto;
 }
 
-.register-form {
-    margin: 5% auto;
+.create-project {
+    margin: 7% auto;
 }
 
-.create-issue-form, .add-employee-to-project {
+.register-form {
+    margin: 2% auto;
+}
+
+.create-issue-form {
+    margin: 3% auto;
+}
+
+.add-employee-to-project {
     margin: 6% auto;
 }
 
@@ -289,6 +301,21 @@ form, .admin-panel {
     color: crimson;
     font-size: 11pt;
     text-align: left;
+}
+
+.success {
+    width: 310px;
+    min-height: 30px;
+    margin: 0 10px;
+    padding: 5px;
+    text-align: left;
+    font-size: 11pt;
+    font-weight: bold;
+    box-sizing: border-box;
+    color: #56763D;
+    background: #DFF0D8;
+    border-radius: 3px;
+    border: 1px solid #D6C9E6;
 }
 
 label {
@@ -459,6 +486,10 @@ form .error {
 
 .nav ul li a, .nav ul li a:visited, .nav ul li a:hover {
     color: #FFF;
+}
+
+.nav ul li ul a, .nav ul li ul a:visited {
+    color: #000;
 }
 
 .nav ul li:hover {
@@ -677,7 +708,7 @@ form .error {
 
 .report form .row input, .report form .row textarea {
     box-sizing: border-box;
-    min-width: 495px;
+    min-width: 470px;
 }
 
 .report form .row textarea {
