@@ -36,7 +36,7 @@ public class Task implements Serializable {
     @Column(name = "asd")
     private Date asd;
 
-
+    @Column(name = "`add`")
     private Date aed;
 
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -137,14 +137,12 @@ public class Task implements Serializable {
         return "Task{" +
                 "id=" + id +
                 ", project=" + project +
+                ", status=" + status +
                 ", description='" + description + '\'' +
                 ", psd=" + psd +
                 ", pdd=" + pdd +
                 ", asd=" + asd +
-                ", aed=" + aed +
-                ", activities=" + activities +
-                ", attachments=" + attachments +
-                ", status=" + status +
+                ", add=" + aed +
                 '}';
     }
 }
