@@ -37,7 +37,7 @@ public class Employee {
     @Column(name = "password")
     private String password;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @NotNull
     @JoinColumn(name = "position_id")
     private Position position;

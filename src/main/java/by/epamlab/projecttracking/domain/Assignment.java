@@ -14,7 +14,7 @@ public class Assignment {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mamber_id")
     private Member member;
 

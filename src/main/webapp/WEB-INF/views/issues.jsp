@@ -20,32 +20,34 @@
                         <a href="<c:url value="/assign?id=${task.id}"/>">Assign</a>
                     </div>
                 </sec:authorize>
-                <c:choose>
-                    <c:when test="${(task.status.id eq '1') || (task.status.id eq '4')}">
-                        <c:if test="${assignment.member.employee.id eq employee.id}">
+                <c:if test="${not empty assignment}">
+                    <c:choose>
+                        <c:when test="${(task.status.id eq '1') || (task.status.id eq '4')}">
+                            <c:if test="${assignment.member.employee.id eq employee.id}">
+                                <div class="issue-btn ">
+                                    <a href="<c:url value="/user/status-switcher?statusCode=2&assignmentId=${assignment.id}"/>">Start
+                                        Progress</a>
+                                </div>
+                            </c:if>
+                        </c:when>
+                        <c:when test="${task.status.id eq '2'}">
                             <div class="issue-btn ">
-                                <a href="<c:url value="/user/status-switcher?statusCode=2&assignmentId=${assignment.id}"/>">Start
-                                    Progress</a>
+                                <a href="<c:url value="/user/status-switcher?statusCode=3&assignmentId=${assignment.id}"/>">Delivery</a>
                             </div>
-                        </c:if>
-                    </c:when>
-                    <c:when test="${task.status.id eq '2'}">
-                        <div class="issue-btn ">
-                            <a href="<c:url value="/user/status-switcher?statusCode=3&assignmentId=${assignment.id}"/>">Delivery</a>
-                        </div>
-                    </c:when>
-                    <c:when test="${task.status.id eq '3'}">
-                        <div class="issue-btn ">
-                            <sec:authorize access="hasAnyRole('ROLE_PR_MANAGER', 'ROLE_TEAM_LEAD')">
-                                <a href="<c:url value="/user/status-switcher?statusCode=4&assignmentId=${assignment.id}"/>">Resolve
-                                    Issue</a>
-                            </sec:authorize>
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                        <div class="hide-block"></div>
-                    </c:otherwise>
-                </c:choose>
+                        </c:when>
+                        <c:when test="${task.status.id eq '3'}">
+                            <div class="issue-btn ">
+                                <sec:authorize access="hasAnyRole('ROLE_PR_MANAGER', 'ROLE_TEAM_LEAD')">
+                                    <a href="<c:url value="/user/status-switcher?statusCode=4&assignmentId=${assignment.id}"/>">Resolve
+                                        Issue</a>
+                                </sec:authorize>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="hide-block"></div>
+                        </c:otherwise>
+                    </c:choose>
+                </c:if>
                 <div class="issue-btn issue-right-btn ">
                     <a href="<c:url value="/user/export?id=${task.id}"/>">Export to XML</a>
                 </div>

@@ -30,7 +30,7 @@ public class Activity {
     @Column(name = "comment")
     private String comment;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id")
     private Task task;
 

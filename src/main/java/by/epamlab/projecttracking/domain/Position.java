@@ -8,14 +8,13 @@ import java.util.List;
 public class Position {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue
     private int id;
 
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "position", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "position", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Employee> employees;
 
     public int getId() {

@@ -17,7 +17,7 @@ public class Task implements Serializable {
     @GeneratedValue
     private int id;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
     @NotNull
     private Project project;
@@ -39,15 +39,15 @@ public class Task implements Serializable {
     @Column(name = "`add`")
     private Date aed;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "status_id")
+    private Status status;
+
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Activity> activities;
 
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Attachment> attachments;
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "status_id")
-    private Status status;
 
     @XmlTransient
     public int getId() {
