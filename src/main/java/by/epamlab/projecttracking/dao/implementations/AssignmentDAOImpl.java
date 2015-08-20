@@ -46,7 +46,7 @@ public class AssignmentDAOImpl implements AssignmentDAO {
     }
 
     @Override
-    public void addAssignment(Assignment assignment) {
+    public void insertAssignment(Assignment assignment) {
         sessionFactory.getCurrentSession().save(assignment);
     }
 

@@ -22,14 +22,8 @@ public class TaskDAOImpl implements TaskDAO{
         return (Task) session.get(Task.class, id);
     }
 
-    @SuppressWarnings("unchecked")
-    public List<Task> getAllTasks() {
-        return sessionFactory.getCurrentSession().createQuery("from Task")
-                .list();
-    }
-
     @Override
-    public void addTask(Task task) {
+    public void insertTask(Task task) {
         sessionFactory.getCurrentSession().save(task);
     }
 

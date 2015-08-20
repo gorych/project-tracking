@@ -71,7 +71,7 @@ public class MemberDAOImpl implements MemberDAO {
     }
 
     @Override
-    public void add(Member member) {
+    public void insertMember(Member member) {
         sessionFactory.getCurrentSession().save(member);
     }
 

@@ -31,8 +31,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Transactional
-    public void add(Employee employee) {
-        employeeDAO.add(employee);
+    public void addEmployee(Employee employee) {
+        employeeDAO.insertEmployee(employee);
     }
 
 }

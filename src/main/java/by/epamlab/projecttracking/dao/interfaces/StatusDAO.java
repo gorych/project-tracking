@@ -10,8 +10,6 @@ public interface StatusDAO {
 
     Status getStatusById(int id);
 
-    List<Status> getAllStatuses();
-
     Status getDefaultStatus();
 
 }

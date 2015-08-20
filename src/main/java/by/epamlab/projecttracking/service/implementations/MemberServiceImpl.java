@@ -62,32 +62,12 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Transactional
-    public void add(int employeeId, int projectId, int roleId) {
+    public void addMember(int employeeId, int projectId, int roleId) {
         Employee employee = employeeDAO.getEmployeeById(employeeId);
         Project project = projectDAO.getProjectById(projectId);
         Role role = roleDAO.getRoleById(roleId);
 
-        memberDAO.add(new Member(project, employee, role));
-    }
-
-    @Override
-    public String getJsonString(List<Member> members) {
-        List<Map<String, String>> jsonList = new ArrayList<Map<String, String>>();
-        for (Member member : members) {
-            Map<String, String> jsonObject = new HashMap<String, String>();
-            jsonObject.put("fullName", member.getEmployee().getFullName());
-            jsonObject.put("id", "" + member.getEmployee().getId());
-            jsonList.add(jsonObject);
-        }
-
-        String jsonString = "";
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            jsonString = mapper.writeValueAsString(jsonList);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return jsonString;
+        memberDAO.insertMember(new Member(project, employee, role));
     }
 
 }

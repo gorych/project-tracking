@@ -58,6 +58,6 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Transactional
     public void addActivity(Activity activity) {
-        activityDAO.addActivity(activity);
+        activityDAO.insertActivity(activity);
     }
 }

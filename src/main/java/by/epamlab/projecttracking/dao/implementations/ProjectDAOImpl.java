@@ -28,7 +28,7 @@ public class ProjectDAOImpl implements ProjectDAO{
     }
 
     @Override
-    public void add(Project project) {
+    public void insertProject(Project project) {
         sessionFactory.getCurrentSession().save(project);
     }
 

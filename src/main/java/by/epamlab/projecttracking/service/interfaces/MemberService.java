@@ -16,7 +16,6 @@ public interface MemberService {
 
     Member getMemberByProjectAndEmployeeId(int projectId, int employeeId);
 
-    void add(int employeeId, int projectId, int roleId);
+    void addMember(int employeeId, int projectId, int roleId);
 
-    String getJsonString(List<Member> members);
 }

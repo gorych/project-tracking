@@ -12,5 +12,5 @@ public interface EmployeeDAO {
 
     List<Employee> getAllEmployees();
 
-    void add(Employee employee);
+    void insertEmployee(Employee employee);
 }

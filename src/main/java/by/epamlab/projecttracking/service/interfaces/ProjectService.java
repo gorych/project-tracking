@@ -10,5 +10,5 @@ public interface ProjectService {
 
     List<Project> getAllProjects();
 
-    void add(Project project);
+    void addProject(Project project);
 }

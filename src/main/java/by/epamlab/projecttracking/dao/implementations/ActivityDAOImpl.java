@@ -37,7 +37,7 @@ public class ActivityDAOImpl implements ActivityDAO {
     }
 
     @Override
-    public void addActivity(Activity activity) {
+    public void insertActivity(Activity activity) {
         sessionFactory.getCurrentSession().save(activity);
     }
 

@@ -15,7 +15,5 @@ public interface AssignmentService {
 
     Assignment getAssignmentByTaskId(int taskId);
 
-    void insertAssignment(Assignment assignment);
-
     void updateAssignment(Assignment assignment);
 }

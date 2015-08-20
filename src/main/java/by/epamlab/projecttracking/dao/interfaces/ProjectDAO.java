@@ -11,5 +11,5 @@ public interface ProjectDAO {
 
     List<Project> getAllProjects();
 
-    void add(Project project);
+    void insertProject(Project project);
 }

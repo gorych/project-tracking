@@ -15,5 +15,5 @@ public interface AssignmentDAO {
 
     Assignment getAssignmentsByTaskId(int taskId);
 
-    void addAssignment(Assignment assignment);
+    void insertAssignment(Assignment assignment);
 }

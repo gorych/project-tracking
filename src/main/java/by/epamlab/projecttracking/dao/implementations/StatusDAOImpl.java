@@ -20,12 +20,6 @@ public class StatusDAOImpl implements StatusDAO {
         return (Status) session.get(Status.class, id);
     }
 
-    @SuppressWarnings("unchecked")
-    public List<Status> getAllStatuses() {
-        return sessionFactory.getCurrentSession().createQuery("from Status")
-                .list();
-    }
-
     @Override
     public Status getDefaultStatus() {
         final int STATUS_ID = 1;

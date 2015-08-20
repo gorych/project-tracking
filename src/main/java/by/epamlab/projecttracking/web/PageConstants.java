@@ -24,7 +24,6 @@ public final class PageConstants {
     public static final String PROJECTS = "projects";
     public static final String REGISTER = "register";
     public static final String CREATE_PROJECT = "create-project";
-    public static final String ADD_EMPLOYEE_TO_PROJECT = "add-employee-to-project";
     public static final String CREATE_ISSUE = "create-issue";
 
     private PageConstants() {

@@ -13,5 +13,5 @@ public interface ActivityDAO {
 
     List<Activity> getActivitiesFromIndexToIndex(int fromIndex, int toIndex);
 
-    void addActivity(Activity activity);
+    void insertActivity(Activity activity);
 }

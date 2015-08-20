@@ -19,6 +19,6 @@ public interface MemberDAO {
 
     Member getMemberByProjectAndEmployeeId(int projectId, int employeeId);
 
-    void add(Member member);
+    void insertMember(Member member);
 
 }

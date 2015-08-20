@@ -9,7 +9,5 @@ public interface TaskDAO {
 
     Task getTaskById(int id);
 
-    List<Task> getAllTasks();
-
-    void addTask(Task task);
+    void insertTask(Task task);
 }

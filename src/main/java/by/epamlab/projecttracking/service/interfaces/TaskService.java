@@ -10,7 +10,7 @@ public interface TaskService {
 
     void insertTask(Task task);
 
-    void insertTask(Assignment assignment);
+    void addTask(Assignment assignment);
 
     void updateTaskStatus(int taskId, int statusId);
 }

@@ -40,7 +40,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         return query.list();
     }
 
-    public void add(Employee employee) {
+    public void insertEmployee(Employee employee) {
         sessionFactory.getCurrentSession().save(employee);
     }
 

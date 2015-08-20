@@ -32,18 +32,18 @@ public class TaskServiceImpl implements TaskService {
     public void insertTask(Task task) {
         Status status = statusDAO.getDefaultStatus();
         task.setStatus(status);
-        taskDAO.addTask(task);
+        taskDAO.insertTask(task);
     }
 
     @Transactional
-    public void insertTask(Assignment assignment) {
+    public void addTask(Assignment assignment) {
         Status status = statusDAO.getDefaultStatus();
 
         Task task = assignment.getTask();
         task.setStatus(status);
 
-        taskDAO.addTask(task);
-        assignmentDAO.addAssignment(assignment);
+        taskDAO.insertTask(task);
+        assignmentDAO.insertAssignment(assignment);
     }
 
     @Transactional

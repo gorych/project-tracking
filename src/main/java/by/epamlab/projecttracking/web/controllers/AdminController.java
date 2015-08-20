@@ -63,7 +63,7 @@ public class AdminController {
             Position position = positionService.getPositionById(employee.getPosition().getId());
             employee.setPosition(position);
             employee.setLogin(login);
-            employeeService.add(employee);
+            employeeService.addEmployee(employee);
         }
         return "redirect:/" + PageConstants.ADMIN_PANEL;
     }
@@ -81,7 +81,7 @@ public class AdminController {
             return PageConstants.CREATE_PROJECT;
         }
 
-        projectService.add(project);
+        projectService.addProject(project);
         return "redirect:/" + PageConstants.ADMIN_PANEL;
     }
 
@@ -108,7 +108,7 @@ public class AdminController {
             return PageConstants.ADD_EMPLOYEE_TO_PROJECT;
         }
 
-        memberService.add(employeeId, projectId, roleId);
+        memberService.addMember(employeeId, projectId, roleId);
         return "redirect:/admin/" + PageConstants.ADD_EMPLOYEE_TO_PROJECT;
     }
 
