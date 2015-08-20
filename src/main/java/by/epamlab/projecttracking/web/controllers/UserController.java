@@ -134,7 +134,8 @@ public class UserController {
     @RequestMapping(value = "/" + PageConstants.STATUS_SWITCHER, method = RequestMethod.GET)
     public String statusSwitcher(@RequestParam(value = "statusCode") int newStatusCode,
                                  @RequestParam(value = "assignmentId") int assignmentId, HttpServletRequest request) {
-        final int STATUS_DONE_CODE = 4;
+        final int STATUS_IN_PROGRESS = 2;
+        final int STATUS_DONE = 4;
         Assignment assignment = assignmentService.getAssignmentById(assignmentId);
 
         int employeePosition = assignment.getMember().getEmployee().getPosition().getId();
@@ -145,13 +146,26 @@ public class UserController {
             return "redirect:" + request.getSession().getAttribute(AttributeConstants.PREVIOUS_PAGE);
         }
 
-        int prManagerPos = UserPosition.PROJECT_MANAGER.ordinal();
-        int teamLeadPos = UserPosition.TEAM_LEAD.ordinal();
+        switch (newStatusCode) {
+            case STATUS_IN_PROGRESS:
+                Date factStartDate = new Date(Calendar.getInstance().getTime().getTime());
+                assignment.getTask().setAsd(factStartDate);
+                break;
+            case STATUS_DONE:
+                int prManagerPos = UserPosition.PROJECT_MANAGER.ordinal();
+                int teamLeadPos = UserPosition.TEAM_LEAD.ordinal();
 
-        if (newStatusCode == STATUS_DONE_CODE && (employeePosition == prManagerPos
-                || employeePosition == teamLeadPos)) {
-            taskService.updateTaskStatus(assignment.getTask().getId(), STATUS_DONE_CODE);
-            return "redirect:" + request.getSession().getAttribute(AttributeConstants.PREVIOUS_PAGE);
+                if ((employeePosition == prManagerPos || employeePosition == teamLeadPos)) {
+                    Date factEndDate = new Date(Calendar.getInstance().getTime().getTime());
+                    assignment.getTask().setAed(factEndDate);
+
+                    taskService.updateTaskStatus(assignment.getTask().getId(), newStatusCode);
+                    return "redirect:" + request.getSession().getAttribute(AttributeConstants.PREVIOUS_PAGE);
+                }
+                break;
+            default:
+                //do nothing
+                break;
         }
 
         taskService.updateTaskStatus(assignment.getTask().getId(), newStatusCode);
